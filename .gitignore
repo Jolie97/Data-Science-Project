@@ -1,5 +1,6 @@
 # Virtual environment — never commit this folder
 dataenv/
+*.venv
 
 # Environment secrets — never commit your API key
 .env
