@@ -16,7 +16,11 @@ from patchright.async_api import (
     async_playwright,
 )
 
-from reddhog.clients.base import BrowserRateLimitError, _is_closed_error, _safe_close_page
+from reddhog.clients.base import (
+    BrowserRateLimitError,
+    _is_closed_error,
+    _safe_close_page,
+)
 from reddhog.config import (
     BROWSER_COOLDOWN_FALLBACK_SECONDS,
     BROWSER_FIRST_LOAD_TIMEOUT_MS,
@@ -27,7 +31,9 @@ from reddhog.utils import safe_int
 
 logger = logging.getLogger("reddit_scraper")
 
-_HEADLESS_PROFILES_PATH = Path(__file__).resolve().parent.parent / "defaults" / "headless_profiles.json"
+_HEADLESS_PROFILES_PATH = (
+    Path(__file__).resolve().parent.parent / "defaults" / "headless_profiles.json"
+)
 
 
 def _load_headless_profiles() -> list[dict[str, Any]]:
@@ -38,8 +44,11 @@ def _load_headless_profiles() -> list[dict[str, Any]]:
         if isinstance(data, list) and data:
             return data
     except Exception as e:
-        logger.warning("Could not load headless profiles from %s: %s", _HEADLESS_PROFILES_PATH, e)
+        logger.warning(
+            "Could not load headless profiles from %s: %s", _HEADLESS_PROFILES_PATH, e
+        )
     return []
+
 
 MORE_COMMENTS_SELECTORS = [
     "button[slot='more-comments-button']",
@@ -127,7 +136,11 @@ class RedditBrowserClient:
                 return
 
             self._profile_dir.mkdir(parents=True, exist_ok=True)
-            logger.debug("Browser starting: headless=%s profile=%s", self._headless, self._profile_dir)
+            logger.debug(
+                "Browser starting: headless=%s profile=%s",
+                self._headless,
+                self._profile_dir,
+            )
 
             self._playwright = await async_playwright().start()
 
@@ -188,7 +201,9 @@ class RedditBrowserClient:
                     await self._context.storage_state(path=str(state_path))
                     logger.debug("Saved storage state to %s", state_path)
                 except Exception as exc:
-                    logger.warning("Could not save storage state to %s: %s", state_path, exc)
+                    logger.warning(
+                        "Could not save storage state to %s: %s", state_path, exc
+                    )
             try:
                 await self._context.close()
             except Exception as exc:
@@ -225,7 +240,9 @@ class RedditBrowserClient:
             safe_key = re.sub(r"[^\w\-]", "_", key)[:80]
             await page.screenshot(path=str(debug_dir / f"{safe_key}_fail.png"))
             content = await page.content()
-            async with aiofiles.open(debug_dir / f"{safe_key}_fail.html", "w", encoding="utf-8") as handle:
+            async with aiofiles.open(
+                debug_dir / f"{safe_key}_fail.html", "w", encoding="utf-8"
+            ) as handle:
                 await handle.write(content)
             logger.debug("Saved fail artifacts to %s/%s_fail.*", debug_dir, safe_key)
         except Exception as e:
@@ -235,7 +252,9 @@ class RedditBrowserClient:
         """Try multiple selectors, return the first one that matches."""
         for selector in CONTENT_SELECTORS:
             try:
-                await page.wait_for_selector(selector, state="attached", timeout=timeout_ms)
+                await page.wait_for_selector(
+                    selector, state="attached", timeout=timeout_ms
+                )
                 logger.debug("Content selector matched: %s", selector)
                 return selector
             except Exception:
@@ -294,13 +313,21 @@ class RedditBrowserClient:
                 last_error = exc
                 logger.debug(
                     "Attempt %d/%d FAILED for %s: %s: %s",
-                    attempt + 1, MAX_LOAD_ATTEMPTS, url, type(exc).__name__, exc,
+                    attempt + 1,
+                    MAX_LOAD_ATTEMPTS,
+                    url,
+                    type(exc).__name__,
+                    exc,
                 )
-                await self._save_fail_artifacts(page, artifact_key, debug_dir, save_fail_artifacts)
+                await self._save_fail_artifacts(
+                    page, artifact_key, debug_dir, save_fail_artifacts
+                )
                 await _safe_close_page(page)
                 if attempt < MAX_LOAD_ATTEMPTS - 1:
                     await asyncio.sleep(attempt + 1)
-        raise RuntimeError(f"All {MAX_LOAD_ATTEMPTS} attempts failed for {url}: {last_error}")
+        raise RuntimeError(
+            f"All {MAX_LOAD_ATTEMPTS} attempts failed for {url}: {last_error}"
+        )
 
     async def get_subreddit_posts(
         self,
@@ -327,7 +354,9 @@ class RedditBrowserClient:
         except BrowserRateLimitError:
             raise
         except Exception as exc:
-            logger.debug("get_subreddit_posts failed: %s", type(exc).__name__, exc_info=exc)
+            logger.debug(
+                "get_subreddit_posts failed: %s", type(exc).__name__, exc_info=exc
+            )
             raise BrowserRateLimitError(
                 BROWSER_COOLDOWN_FALLBACK_SECONDS,
                 f"Browser listing unavailable: {exc}",
@@ -365,7 +394,12 @@ class RedditBrowserClient:
         except BrowserRateLimitError:
             raise
         except Exception as exc:
-            logger.debug("get_post_details failed for %s: %s", post_id, type(exc).__name__, exc_info=exc)
+            logger.debug(
+                "get_post_details failed for %s: %s",
+                post_id,
+                type(exc).__name__,
+                exc_info=exc,
+            )
             raise BrowserRateLimitError(
                 BROWSER_COOLDOWN_FALLBACK_SECONDS,
                 f"Browser post unavailable: {exc}",
@@ -391,10 +425,16 @@ class RedditBrowserClient:
             elements = await page.query_selector_all("shreddit-post")
             for element in elements:
                 try:
-                    raw_id = await element.get_attribute("thingid") or await element.get_attribute("id")
+                    raw_id = await element.get_attribute(
+                        "thingid"
+                    ) or await element.get_attribute("id")
                     if not raw_id:
                         continue
-                    post_id = raw_id if raw_id.startswith("t3_") else f"t3_{raw_id.replace('t3_', '')}"
+                    post_id = (
+                        raw_id
+                        if raw_id.startswith("t3_")
+                        else f"t3_{raw_id.replace('t3_', '')}"
+                    )
                     if post_id in seen_ids:
                         continue
                     seen_ids.add(post_id)
@@ -407,8 +447,13 @@ class RedditBrowserClient:
                             description="",
                             url=f"https://www.reddit.com/r/{subreddit}/comments/{clean_id}/",
                             upvotes=safe_int(await _attr(element, ["score"], "0")),
-                            comments_count=safe_int(await _attr(element, ["comment-count", "comment_count"], "0")),
-                            author=await _attr(element, ["author"], "unknown") or "unknown",
+                            comments_count=safe_int(
+                                await _attr(
+                                    element, ["comment-count", "comment_count"], "0"
+                                )
+                            ),
+                            author=await _attr(element, ["author"], "unknown")
+                            or "unknown",
                             timestamp="",
                             images=[],
                             comments=[],
@@ -425,11 +470,15 @@ class RedditBrowserClient:
             collapsed = await page.query_selector_all("shreddit-comment[collapsed]")
             for element in collapsed:
                 try:
-                    toggle = await element.query_selector("button[aria-label], button[slot='collapse-toggle']")
+                    toggle = await element.query_selector(
+                        "button[aria-label], button[slot='collapse-toggle']"
+                    )
                     if toggle and await toggle.is_visible():
                         await toggle.click()
                         continue
-                    expand = await element.query_selector("details > summary, .expand-button")
+                    expand = await element.query_selector(
+                        "details > summary, .expand-button"
+                    )
                     if expand and await expand.is_visible():
                         await expand.click()
                         continue
@@ -463,7 +512,9 @@ class RedditBrowserClient:
                     break
                 await asyncio.sleep(1.5)
 
-                newly_collapsed = await page.query_selector_all("shreddit-comment[collapsed]")
+                newly_collapsed = await page.query_selector_all(
+                    "shreddit-comment[collapsed]"
+                )
                 for element in newly_collapsed:
                     try:
                         await element.evaluate("el => el.removeAttribute('collapsed')")
@@ -471,20 +522,24 @@ class RedditBrowserClient:
                         continue
 
         try:
-            await asyncio.wait_for(_do_expand(), timeout=EXPAND_COMMENTS_TIMEOUT_SECONDS)
+            await asyncio.wait_for(
+                _do_expand(), timeout=EXPAND_COMMENTS_TIMEOUT_SECONDS
+            )
         except TimeoutError:
             logger.debug(
                 "expand_all_comments hit wall-clock timeout (%ds); some comments may be unexpanded",
                 EXPAND_COMMENTS_TIMEOUT_SECONDS,
             )
 
-
     async def _extract_post_meta(self, page: Any, post_el: Any) -> dict[str, str]:
         meta = {
             "title": await _attr(post_el, ["post-title", "title"]),
             "author": await _attr(post_el, ["author"], "unknown") or "unknown",
             "score": await _attr(post_el, ["score"], "0") or "0",
-            "comment_count": await _attr(post_el, ["comment-count", "comment_count"], "0") or "0",
+            "comment_count": await _attr(
+                post_el, ["comment-count", "comment_count"], "0"
+            )
+            or "0",
             "timestamp": "",
             "flair": "",
             "description": "",
@@ -517,7 +572,9 @@ class RedditBrowserClient:
         comment_map: dict[str, Any] = {}
         for element in elements:
             try:
-                comment_id = await element.get_attribute("thingid") or await element.get_attribute("id")
+                comment_id = await element.get_attribute(
+                    "thingid"
+                ) or await element.get_attribute("id")
             except Exception:
                 continue
             if comment_id:
@@ -532,8 +589,7 @@ class RedditBrowserClient:
                 text = (await body_el.inner_text()).strip()
                 author = await element.get_attribute("author") or "unknown"
                 score = await element.get_attribute("score") or "0"
-                hierarchy = await element.evaluate(
-                    """
+                hierarchy = await element.evaluate("""
                     (el) => {
                         let depth = 0;
                         let parentId = null;
@@ -550,10 +606,11 @@ class RedditBrowserClient:
                         }
                         return {depth, parentId};
                     }
-                    """
-                )
+                    """)
                 depth = hierarchy.get("depth", 0) if isinstance(hierarchy, dict) else 0
-                parent_id = hierarchy.get("parentId") if isinstance(hierarchy, dict) else None
+                parent_id = (
+                    hierarchy.get("parentId") if isinstance(hierarchy, dict) else None
+                )
                 if parent_id == post_id or (parent_id and parent_id not in comment_map):
                     parent_id = None
                     depth = 0
@@ -611,7 +668,12 @@ class RedditBrowserClient:
                 images.append(Image(url=clean, local_path=str(local_path)))
                 index += 1
 
-        for selector in ("gallery-carousel", "shreddit-gallery-carousel", "shreddit-gallery", "media-gallery"):
+        for selector in (
+            "gallery-carousel",
+            "shreddit-gallery-carousel",
+            "shreddit-gallery",
+            "media-gallery",
+        ):
             container = await post_el.query_selector(selector)
             if container:
                 for img in await container.query_selector_all("img"):
@@ -647,7 +709,11 @@ class RedditBrowserClient:
 
         meta = await self._extract_post_meta(page, post_el)
         comments = await self._extract_comments(page, post_id)
-        images = [] if skip_images else await self._extract_images(page, post_el, post_id, img_dir)
+        images = (
+            []
+            if skip_images
+            else await self._extract_images(page, post_el, post_id, img_dir)
+        )
 
         clean_id = post_id.replace("t3_", "")
         post = Post(

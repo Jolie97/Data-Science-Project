@@ -16,7 +16,9 @@ from reddhog.utils import utc_to_iso
 
 logger = logging.getLogger("reddit_scraper")
 
-_HEADLESS_PROFILES_PATH = Path(__file__).resolve().parent.parent / "defaults" / "headless_profiles.json"
+_HEADLESS_PROFILES_PATH = (
+    Path(__file__).resolve().parent.parent / "defaults" / "headless_profiles.json"
+)
 _FALLBACK_UA = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
     "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
@@ -30,9 +32,7 @@ def _default_headers() -> dict[str, str]:
         data = json.load(f)
     if isinstance(data, list):
         uas.extend(
-            p["user_agent"]
-            for p in data
-            if isinstance(p, dict) and p.get("user_agent")
+            p["user_agent"] for p in data if isinstance(p, dict) and p.get("user_agent")
         )
     if uas:
         ua = random.choice(uas)
@@ -118,9 +118,7 @@ class RedditJSONClient:
         if not self.is_available():
             wait_sec = self.cooldown_remaining()
             if wait_sec > 0:
-                logger.info(
-                    "JSON in cooldown (429/403): sleeping %.0fs", wait_sec
-                )
+                logger.info("JSON in cooldown (429/403): sleeping %.0fs", wait_sec)
                 await asyncio.sleep(wait_sec)
                 self.json_disabled_until = 0.0
                 logger.info("JSON re-enabled after cooldown")
@@ -153,7 +151,9 @@ class RedditJSONClient:
             crawled_at=datetime.now(UTC).isoformat().replace("+00:00", "Z"),
         )
 
-    async def get_subreddit_posts(self, subreddit: str, after: str | None = None) -> tuple[list[Post], str | None]:
+    async def get_subreddit_posts(
+        self, subreddit: str, after: str | None = None
+    ) -> tuple[list[Post], str | None]:
         endpoint = f"/r/{subreddit}/new.json?limit=100"
         if after:
             endpoint += f"&after={after}"
@@ -172,9 +172,7 @@ class RedditJSONClient:
 
     async def fetch_more_comments(self, link_id: str, children_ids: list[str]) -> list:
         fullnames = [
-            cid if cid.startswith("t1_") else "t1_" + cid
-            for cid in children_ids
-            if cid
+            cid if cid.startswith("t1_") else "t1_" + cid for cid in children_ids if cid
         ]
         if not fullnames:
             return []
@@ -188,7 +186,9 @@ class RedditJSONClient:
             except httpx.HTTPStatusError as e:
                 if e.response.status_code >= 500:
                     raise
-                logger.debug("morechildren %s: skip %d ID(s)", e.response.status_code, len(batch))
+                logger.debug(
+                    "morechildren %s: skip %d ID(s)", e.response.status_code, len(batch)
+                )
                 continue
             except (RuntimeError, Exception):
                 continue
@@ -196,7 +196,11 @@ class RedditJSONClient:
                 inner = resp.get("json") if "json" in resp else resp
                 if isinstance(inner, dict):
                     data = inner.get("data", inner)
-                    batch_things = data.get("things", []) if isinstance(data, dict) else resp.get("things", [])
+                    batch_things = (
+                        data.get("things", [])
+                        if isinstance(data, dict)
+                        else resp.get("things", [])
+                    )
                 else:
                     batch_things = resp.get("things", [])
             else:
@@ -206,7 +210,9 @@ class RedditJSONClient:
         return things
 
     @staticmethod
-    def _flatten_comments(children: list, post_id: str, depth: int = 0) -> tuple[list[Comment], list[dict]]:
+    def _flatten_comments(
+        children: list, post_id: str, depth: int = 0
+    ) -> tuple[list[Comment], list[dict]]:
         result: list[Comment] = []
         more_list: list[dict] = []
         for child in children:
@@ -228,7 +234,9 @@ class RedditJSONClient:
                 replies = d.get("replies")
                 if isinstance(replies, dict) and "data" in replies:
                     kids = replies["data"].get("children", [])
-                    sub_comments, sub_more = RedditJSONClient._flatten_comments(kids, post_id, depth + 1)
+                    sub_comments, sub_more = RedditJSONClient._flatten_comments(
+                        kids, post_id, depth + 1
+                    )
                     result.extend(sub_comments)
                     more_list.extend(sub_more)
             elif child.get("kind") == "more":
@@ -240,10 +248,12 @@ class RedditJSONClient:
                     if c
                 ]
                 if children_fullnames:
-                    more_list.append({
-                        "parent_id": data.get("parent_id"),
-                        "children": children_fullnames,
-                    })
+                    more_list.append(
+                        {
+                            "parent_id": data.get("parent_id"),
+                            "children": children_fullnames,
+                        }
+                    )
         return result, more_list
 
     @staticmethod
@@ -303,7 +313,9 @@ class RedditJSONClient:
 
     @classmethod
     def extract_image_urls(cls, post_data: dict) -> list[str]:
-        urls = cls._image_urls_from_preview(post_data) + cls._image_urls_from_gallery_and_metadata(post_data)
+        urls = cls._image_urls_from_preview(
+            post_data
+        ) + cls._image_urls_from_gallery_and_metadata(post_data)
         seen: set[str] = set()
         out: list[str] = []
         for u in urls:
@@ -315,7 +327,9 @@ class RedditJSONClient:
 
     _MORE_DEPTH_LIMIT = 4
 
-    async def get_post_details(self, subreddit: str, post_id: str) -> tuple[dict, list[Comment]]:
+    async def get_post_details(
+        self, subreddit: str, post_id: str
+    ) -> tuple[dict, list[Comment]]:
         clean_id = post_id.replace("t3_", "")
         endpoint = f"/r/{subreddit}/comments/{clean_id}.json?limit=500"
         data = await self.fetch_json(endpoint)

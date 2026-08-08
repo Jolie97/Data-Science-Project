@@ -29,12 +29,16 @@ DETECTION_TEST_URLS = [
 ]
 
 
-async def warmup(profile_dir: Path, run_detection_tests: bool = False, is_retry: bool = False) -> bool:
+async def warmup(
+    profile_dir: Path, run_detection_tests: bool = False, is_retry: bool = False
+) -> bool:
 
     await AnyioPath(profile_dir).mkdir(parents=True, exist_ok=True)
     if is_retry:
         logger.info("")
-        logger.info("  Same profile again. Complete the steps in the browser, then press ENTER here to save.")
+        logger.info(
+            "  Same profile again. Complete the steps in the browser, then press ENTER here to save."
+        )
         logger.info("  Do not close the browser with X.")
         logger.info("")
     logger.info("Profile directory: %s", profile_dir)
@@ -108,8 +112,13 @@ async def warmup(profile_dir: Path, run_detection_tests: bool = False, is_retry:
             if pages:
                 ua = await pages[0].evaluate("() => navigator.userAgent")
                 if ua and isinstance(ua, str):
-                    (profile_dir / "last_user_agent.txt").write_text(ua.strip(), encoding="utf-8")
-                    logger.info("Saved User-Agent for JSON client to %s", profile_dir / "last_user_agent.txt")
+                    (profile_dir / "last_user_agent.txt").write_text(
+                        ua.strip(), encoding="utf-8"
+                    )
+                    logger.info(
+                        "Saved User-Agent for JSON client to %s",
+                        profile_dir / "last_user_agent.txt",
+                    )
             try:
                 cookies = await context.cookies()
                 cf_cookies = [c for c in cookies if "cf" in c.get("name", "").lower()]
@@ -117,7 +126,11 @@ async def warmup(profile_dir: Path, run_detection_tests: bool = False, is_retry:
                 logger.info("")
                 logger.info("═══ Cookie summary ═══")
                 logger.info("Total cookies:   %d", len(cookies))
-                logger.info("Cloudflare:      %d  %s", len(cf_cookies), [c["name"] for c in cf_cookies])
+                logger.info(
+                    "Cloudflare:      %d  %s",
+                    len(cf_cookies),
+                    [c["name"] for c in cf_cookies],
+                )
                 logger.info("Reddit domain:   %d", len(reddit_cookies))
                 if cf_cookies:
                     logger.info("✅  Cloudflare cookies found — profile is warmed up.")
@@ -141,10 +154,12 @@ async def warmup(profile_dir: Path, run_detection_tests: bool = False, is_retry:
             t = threading.Thread(target=wait_enter_thread, daemon=True)
             t.start()
         else:
+
             async def wait_enter() -> None:
                 await asyncio.sleep(30)
                 if not done_fut.done():
                     done_fut.set_result("enter")
+
             asyncio.create_task(wait_enter())  # noqa: RUF006
 
         await done_fut
@@ -183,7 +198,12 @@ def update_headless_profiles_json(profile_dirs: list[Path]) -> None:
         path.parent.mkdir(parents=True, exist_ok=True)
         with path.open("w", encoding="utf-8") as f:
             json.dump(entries, f, indent=2)
-        logger.info("Updated %s with %d unique UA(s) from %d profile(s).", path.name, len(entries), len(profile_dirs))
+        logger.info(
+            "Updated %s with %d unique UA(s) from %d profile(s).",
+            path.name,
+            len(entries),
+            len(profile_dirs),
+        )
     except OSError as e:
         logger.warning("Could not write %s: %s", path.name, e)
 

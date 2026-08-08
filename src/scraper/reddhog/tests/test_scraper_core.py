@@ -11,7 +11,10 @@ from reddhog.scraper import core as core_mod
 
 
 def _post(post_id: str) -> Post:
-    return Post(id=post_id, url=f"https://www.reddit.com/r/test/comments/{post_id.replace('t3_', '')}/")
+    return Post(
+        id=post_id,
+        url=f"https://www.reddit.com/r/test/comments/{post_id.replace('t3_', '')}/",
+    )
 
 
 def _raise_http_status(status_code: int, url: str):
@@ -34,7 +37,9 @@ def test_collect_posts_returns_new_and_collected_total(monkeypatch):
         return listings.pop(0)
 
     monkeypatch.setattr(scraper, "_get_listing", fake_get_listing)
-    new_posts, collected_total = asyncio.run(scraper._collect_posts("test", {"t3_b"}, None))
+    new_posts, collected_total = asyncio.run(
+        scraper._collect_posts("test", {"t3_b"}, None)
+    )
 
     assert collected_total == 3
     assert [post.id for post in new_posts] == ["t3_a", "t3_c"]
@@ -80,10 +85,14 @@ def test_browser_strategy_never_calls_json_for_post_scraping(monkeypatch):
     scraper.data_dir = Path("data/test")
 
     async def fail_json(*_args, **_kwargs):
-        raise AssertionError("JSON should not be called in browser strategy post scraping")
+        raise AssertionError(
+            "JSON should not be called in browser strategy post scraping"
+        )
 
     class FakeBrowser:
-        async def get_post_details(self, subreddit: str, post_id: str, img_dir: str, **_kwargs):
+        async def get_post_details(
+            self, subreddit: str, post_id: str, img_dir: str, **_kwargs
+        ):
             _ = subreddit, img_dir
             return _post(post_id), [], []
 
@@ -156,7 +165,9 @@ def test_browser_pool_uses_rotation_quota(monkeypatch):
     monkeypatch.setattr(core_mod, "RedditBrowserClient", FakeBrowserClient)
     monkeypatch.setattr(core_mod, "BROWSER_NUM_PROFILES", 1)
     monkeypatch.setattr(
-        core_mod, "BROWSER_PROFILE_BASE", Path(tempfile.gettempdir()) / "reddhog_browser_profile"
+        core_mod,
+        "BROWSER_PROFILE_BASE",
+        Path(tempfile.gettempdir()) / "reddhog_browser_profile",
     )
 
     pool = core_mod._BrowserPool(

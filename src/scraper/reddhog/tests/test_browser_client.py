@@ -84,7 +84,9 @@ def test_start_runs_browser_warmup(monkeypatch):
     page = DummyPage()
     context = DummyContext([page])
     runtime = DummyPlaywrightRuntime(DummyChromium(DummyBrowser(context)))
-    monkeypatch.setattr(browser_mod, "async_playwright", lambda: DummyPlaywrightStarter(runtime))
+    monkeypatch.setattr(
+        browser_mod, "async_playwright", lambda: DummyPlaywrightStarter(runtime)
+    )
     client = browser_mod.RedditBrowserClient(headless=True)
     # start() requires storage_state.json to exist
     profile_dir = Path(tempfile.mkdtemp(prefix="reddhog_test_"))
@@ -124,5 +126,7 @@ def test_open_page_uses_short_first_timeout_then_normal(monkeypatch):
 
     assert result is page2
     # _wait_for_any_content tries each CONTENT_SELECTOR until one matches; first attempt uses short timeout
-    assert page1.wait_calls == [BROWSER_FIRST_LOAD_TIMEOUT_MS] * len(browser_mod.CONTENT_SELECTORS)
+    assert page1.wait_calls == [BROWSER_FIRST_LOAD_TIMEOUT_MS] * len(
+        browser_mod.CONTENT_SELECTORS
+    )
     assert page2.wait_calls == [10_000]

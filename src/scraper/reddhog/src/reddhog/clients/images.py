@@ -28,13 +28,17 @@ class ImageDownloader:
             )
         return self._client
 
-    def _set_images_cooldown(self, status_code: int, resp: httpx.Response | None = None) -> None:
+    def _set_images_cooldown(
+        self, status_code: int, resp: httpx.Response | None = None
+    ) -> None:
         now = time.monotonic()
         total, msg = build_cooldown(status_code, resp)
         self.images_disabled_until = now + total
         logger.info("Image downloads %s: cooldown %.0fs", msg, total)
 
-    async def _download_via_browser(self, url: str, local_path: str, browser_page) -> bool:
+    async def _download_via_browser(
+        self, url: str, local_path: str, browser_page
+    ) -> bool:
         try:
             response = await browser_page.request.get(url, timeout=30000)
             if response.ok:
@@ -46,7 +50,9 @@ class ImageDownloader:
             logger.debug("Browser image download failed: %s", url)
         return False
 
-    async def _download_one_attempt(self, url: str, local_path: str) -> tuple[bool, int | None]:
+    async def _download_one_attempt(
+        self, url: str, local_path: str
+    ) -> tuple[bool, int | None]:
         client = await self._get_client()
         resp = await client.get(url)
         if resp.status_code == 200:
@@ -89,13 +95,17 @@ class ImageDownloader:
                     logger.info("Image downloads re-enabled after cooldown")
                     self.images_disabled_until = 0.0
                 if now < self.images_disabled_until:
-                    return await self._try_browser_after_error(url, local_path, browser_page, 429)
+                    return await self._try_browser_after_error(
+                        url, local_path, browser_page, 429
+                    )
 
                 success, status = await self._download_one_attempt(url, local_path)
                 if success:
                     return True
                 if status in (429, 403):
-                    return await self._try_browser_after_error(url, local_path, browser_page, status)
+                    return await self._try_browser_after_error(
+                        url, local_path, browser_page, status
+                    )
                 if status is not None and 500 <= status < 600:
                     logger.debug("Image download 5xx for %s: skip (no retry)", url)
                     return False
@@ -105,6 +115,8 @@ class ImageDownloader:
                 return await self._download_via_browser(url, local_path, browser_page)
             return False
 
-    async def download_batch(self, items: list[tuple[str, str]], browser_page=None) -> list[bool]:
+    async def download_batch(
+        self, items: list[tuple[str, str]], browser_page=None
+    ) -> list[bool]:
         tasks = [self.download(url, path, browser_page) for url, path in items]
         return await asyncio.gather(*tasks, return_exceptions=False)

@@ -29,7 +29,11 @@ from reddhog.config import (
 )
 from reddhog.models import Image, Post, merge_comment_lists
 from reddhog.persistence import DataManager
-from reddhog.utils import extract_post_id_from_url, extract_subreddit_from_url, utc_to_iso
+from reddhog.utils import (
+    extract_post_id_from_url,
+    extract_subreddit_from_url,
+    utc_to_iso,
+)
 
 logger = logging.getLogger("reddit_scraper")
 
@@ -37,7 +41,14 @@ CONSECUTIVE_EXISTING_THRESHOLD = 100
 
 
 class _BrowserSlot:
-    __slots__ = ("browser", "inflight", "profile_dir", "quota_remaining", "slot_lock", "tab_sem")
+    __slots__ = (
+        "browser",
+        "inflight",
+        "profile_dir",
+        "quota_remaining",
+        "slot_lock",
+        "tab_sem",
+    )
 
     def __init__(
         self,
@@ -76,9 +87,7 @@ class _BrowserLease:
     async def __aexit__(self, exc_type, exc_val, exc_tb) -> None:
         async with self._slot.slot_lock:
             self._slot.inflight -= 1
-            need_replace = (
-                self._slot.quota_remaining == 0 and self._slot.inflight == 0
-            )
+            need_replace = self._slot.quota_remaining == 0 and self._slot.inflight == 0
             old_browser = None
             if need_replace and self._slot.browser is not None:
                 old_browser = self._slot.browser
@@ -185,7 +194,10 @@ class RedditScraper:
     def _ensure_browser_pool(self) -> None:
         if self._browser_pool is None:
             self._browser_pool = _BrowserPool(
-                self.concurrency, TABS_PER_BROWSER, BROWSER_ROTATION_QUOTA, self.headless
+                self.concurrency,
+                TABS_PER_BROWSER,
+                BROWSER_ROTATION_QUOTA,
+                self.headless,
             )
 
     @contextlib.asynccontextmanager
@@ -276,7 +288,10 @@ class RedditScraper:
     ) -> list[Image]:
         result: list[Image] = []
         img_dir = self.data_dir / "images" if self.data_dir else Path(IMG_DIR)
-        items = [(url, str(img_dir / f"{post_id}_detail_{i}.jpg")) for i, url in enumerate(image_urls)]
+        items = [
+            (url, str(img_dir / f"{post_id}_detail_{i}.jpg"))
+            for i, url in enumerate(image_urls)
+        ]
         if not items:
             return result
         await self.image_downloader.download_batch(items, browser_page)
@@ -299,12 +314,20 @@ class RedditScraper:
         while True:
             if self._json_available_for_listing():
                 try:
-                    reason = "resumed JSON after cooldown" if self._listing_backend == "browser" else None
+                    reason = (
+                        "resumed JSON after cooldown"
+                        if self._listing_backend == "browser"
+                        else None
+                    )
                     self._log_backend_switch("listing", "json", reason=reason)
                     return await self._json.get_subreddit_posts(subreddit, after)
                 except httpx.HTTPStatusError as e:
-                    status_code = e.response.status_code if e.response is not None else 0
-                    if status_code >= 500 or not self._is_retriable_json_status(status_code):
+                    status_code = (
+                        e.response.status_code if e.response is not None else 0
+                    )
+                    if status_code >= 500 or not self._is_retriable_json_status(
+                        status_code
+                    ):
                         raise
             elif self.strategy == "json":
                 self._log_strategy_notice(
@@ -314,7 +337,11 @@ class RedditScraper:
 
             if self.strategy != "json" and self._browser_available():
                 try:
-                    reason = "fallback from JSON" if self._listing_backend == "json" else None
+                    reason = (
+                        "fallback from JSON"
+                        if self._listing_backend == "json"
+                        else None
+                    )
                     self._log_backend_switch("listing", "browser", reason=reason)
                     async with self._acquire_browser_lease() as browser:
                         return await browser.get_subreddit_posts(
@@ -344,19 +371,19 @@ class RedditScraper:
         while True:
             if self._json_available():
                 try:
-                    reason = "resumed JSON after cooldown" if self._scrape_backend == "browser" else None
+                    reason = (
+                        "resumed JSON after cooldown"
+                        if self._scrape_backend == "browser"
+                        else None
+                    )
                     self._log_backend_switch("scraping", "json", reason=reason)
                     post_data, comments = await self._json.get_post_details(
                         subreddit, post_id
                     )
                     image_urls = (
-                        []
-                        if skip_images
-                        else self._json.extract_image_urls(post_data)
+                        [] if skip_images else self._json.extract_image_urls(post_data)
                     )
-                    images = await self._download_post_images(
-                        post_id, image_urls
-                    )
+                    images = await self._download_post_images(post_id, image_urls)
                     clean_id = post_id.replace("t3_", "")
                     return Post(
                         id=post_id,
@@ -370,13 +397,15 @@ class RedditScraper:
                         timestamp=utc_to_iso(post_data.get("created_utc", 0)),
                         images=images,
                         comments=comments,
-                        crawled_at=datetime.now(UTC)
-                        .isoformat()
-                        .replace("+00:00", "Z"),
+                        crawled_at=datetime.now(UTC).isoformat().replace("+00:00", "Z"),
                     )
                 except httpx.HTTPStatusError as e:
-                    status_code = e.response.status_code if e.response is not None else 0
-                    if status_code >= 500 or not self._is_retriable_json_status(status_code):
+                    status_code = (
+                        e.response.status_code if e.response is not None else 0
+                    )
+                    if status_code >= 500 or not self._is_retriable_json_status(
+                        status_code
+                    ):
                         raise
             elif self.strategy == "browser":
                 self._log_strategy_notice(
@@ -394,7 +423,9 @@ class RedditScraper:
                 await self._wait_for_post_backend_ready()
                 continue
             try:
-                reason = "fallback from JSON" if self._scrape_backend == "json" else None
+                reason = (
+                    "fallback from JSON" if self._scrape_backend == "json" else None
+                )
                 self._log_backend_switch("scraping", "browser", reason=reason)
                 async with self._acquire_browser_lease() as browser:
                     post, _, _ = await browser.get_post_details(
@@ -419,8 +450,16 @@ class RedditScraper:
         try:
             full_post = await self._get_post(subreddit, post.id)
             for field in (
-                "title", "flair", "description", "upvotes", "comments_count",
-                "author", "timestamp", "comments", "images", "crawled_at",
+                "title",
+                "flair",
+                "description",
+                "upvotes",
+                "comments_count",
+                "author",
+                "timestamp",
+                "comments",
+                "images",
+                "crawled_at",
             ):
                 setattr(post, field, getattr(full_post, field))
         except Exception as e:
@@ -469,7 +508,9 @@ class RedditScraper:
                         collected.append(post)
                         collected_ids.add(post.id)
                         pbar.update(1)
-                    consecutive_existing = consecutive_existing + 1 if post.id in existing_ids else 0
+                    consecutive_existing = (
+                        consecutive_existing + 1 if post.id in existing_ids else 0
+                    )
                     if reached_limit():
                         break
                 if reached_limit():
@@ -480,14 +521,20 @@ class RedditScraper:
                 after = next_after
 
         if stopped_no_more_pages:
-            req = f" (requested {max_posts})" if max_posts is not None and len(collected) < max_posts else ""
+            req = (
+                f" (requested {max_posts})"
+                if max_posts is not None and len(collected) < max_posts
+                else ""
+            )
             logger.info(
                 "Reddit limits listing to ~1000 posts. Collected %d%s. Run daily to get more history.",
                 len(collected),
                 req,
             )
 
-        return [post for post in collected if post.id not in existing_ids], len(collected)
+        return [post for post in collected if post.id not in existing_ids], len(
+            collected
+        )
 
     async def _process_new_posts(
         self,
@@ -540,9 +587,7 @@ class RedditScraper:
             already_existing,
             len(new_posts_to_process),
         )
-        new_posts_count = await self._process_new_posts(
-            new_posts_to_process, subreddit
-        )
+        new_posts_count = await self._process_new_posts(new_posts_to_process, subreddit)
 
         new_total = len(self.data_manager.data)
         logger.info(
@@ -605,7 +650,10 @@ class RedditScraper:
         refreshed_count = 0
         for coro in tqdm(
             asyncio.as_completed(
-                [refresh_one(post, subreddit_name) for post, subreddit_name in to_refresh]
+                [
+                    refresh_one(post, subreddit_name)
+                    for post, subreddit_name in to_refresh
+                ]
             ),
             total=len(to_refresh),
             desc="Refreshing",

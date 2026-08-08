@@ -79,6 +79,7 @@ def _configure_logging(*, settings: Settings) -> None:
     root.setLevel(log_level)
     logging.getLogger("httpx").setLevel(logging.WARNING)
 
+
 click_config.HEADER_TEXT = "[bold cyan]reddhog[/] — [dim]Resilient Reddit scraper[/]"
 click_config.OPTIONS_PANEL_TITLE = "Options"
 click_config.COMMANDS_PANEL_TITLE = "Commands"
@@ -90,7 +91,10 @@ class OrderPreservingGroup(RichGroup):
         return list(self.commands)
 
 
-@click.group(cls=OrderPreservingGroup, help="Resilient Reddit scraper. Results under ./data/<name>/ as data.json, optionally Excel/CSV.")
+@click.group(
+    cls=OrderPreservingGroup,
+    help="Resilient Reddit scraper. Results under ./data/<name>/ as data.json, optionally Excel/CSV.",
+)
 @click.pass_context
 def cli_group(ctx: click.Context) -> None:
     settings = get_settings()
@@ -143,7 +147,10 @@ def warmup_options(f):
     return f
 
 
-@cli_group.command("warmup", help="Warm up browser profiles (run once after install). Opens Chrome, loads Reddit; solve CAPTCHAs / accept cookies, then press ENTER in the terminal to save. Do not close the browser with X.")
+@cli_group.command(
+    "warmup",
+    help="Warm up browser profiles (run once after install). Opens Chrome, loads Reddit; solve CAPTCHAs / accept cookies, then press ENTER in the terminal to save. Do not close the browser with X.",
+)
 @warmup_options
 def cmd_warmup(
     profile: Path,
@@ -162,7 +169,9 @@ def cmd_warmup(
             is_retry = False
             while True:
                 if num_profiles > 1:
-                    log.info("Warming profile %d/%d: %s", i + 1, num_profiles, profile_dir)
+                    log.info(
+                        "Warming profile %d/%d: %s", i + 1, num_profiles, profile_dir
+                    )
                 saved = await warmup_fn(
                     profile_dir,
                     run_detection_tests=test_detection,
@@ -224,9 +233,13 @@ def shared_options(f):
 
 async def _run_command(scraper: RedditScraper, command: str, kwargs: dict) -> None:
     handlers = {
-        "subreddit": lambda: scraper.scrape_subreddit(kwargs["name"], max_posts=kwargs.get("limit")),
+        "subreddit": lambda: scraper.scrape_subreddit(
+            kwargs["name"], max_posts=kwargs.get("limit")
+        ),
         "url": lambda: scraper.scrape_single_post(kwargs["url"]),
-        "refresh": lambda: scraper.refresh_posts(kwargs["name"], limit=kwargs.get("limit")),
+        "refresh": lambda: scraper.refresh_posts(
+            kwargs["name"], limit=kwargs.get("limit")
+        ),
     }
     handler = handlers.get(command)
     if handler is None:
@@ -280,7 +293,9 @@ async def async_run(
         await scraper.close()
 
 
-def _parse_name_list_args(parts: tuple[str, ...], noun: str) -> tuple[list[str], int | None]:
+def _parse_name_list_args(
+    parts: tuple[str, ...], noun: str
+) -> tuple[list[str], int | None]:
     raw_parts = [p.strip() for p in parts if p and p.strip()]
     if not raw_parts:
         raise click.UsageError("Provide at least one name.")
@@ -303,8 +318,16 @@ def _parse_name_list_args(parts: tuple[str, ...], noun: str) -> tuple[list[str],
     return names, limit
 
 
-@cli_group.command("subreddit", help="Scrape new posts from one or more subreddits; results go to ./data/<name>/. Use comma-separated names. Optional trailing LIMIT caps new posts per subreddit.")
-@click.argument("names_and_limit", nargs=-1, required=True, metavar="SUBREDDIT[,SUBREDDIT...] [LIMIT]")
+@cli_group.command(
+    "subreddit",
+    help="Scrape new posts from one or more subreddits; results go to ./data/<name>/. Use comma-separated names. Optional trailing LIMIT caps new posts per subreddit.",
+)
+@click.argument(
+    "names_and_limit",
+    nargs=-1,
+    required=True,
+    metavar="SUBREDDIT[,SUBREDDIT...] [LIMIT]",
+)
 @shared_options
 def cmd_subreddit(
     names_and_limit: tuple[str, ...],
@@ -339,7 +362,9 @@ def cmd_url(
 ) -> None:
     u = (url or "").strip()
     if not u.startswith(("http://", "https://")):
-        raise click.BadParameter("URL must start with http:// or https://", param_hint="url")
+        raise click.BadParameter(
+            "URL must start with http:// or https://", param_hint="url"
+        )
     _run_async(
         async_run,
         strategy,
@@ -351,8 +376,13 @@ def cmd_url(
     )
 
 
-@cli_group.command("refresh", help="Update one or more datasets in ./data/<name>/: re-fetch upvotes, comment counts, new comments. Use comma-separated names. Optional trailing LIMIT refreshes only the newest N posts per dataset.")
-@click.argument("names_and_limit", nargs=-1, required=True, metavar="NAME[,NAME...] [LIMIT]")
+@cli_group.command(
+    "refresh",
+    help="Update one or more datasets in ./data/<name>/: re-fetch upvotes, comment counts, new comments. Use comma-separated names. Optional trailing LIMIT refreshes only the newest N posts per dataset.",
+)
+@click.argument(
+    "names_and_limit", nargs=-1, required=True, metavar="NAME[,NAME...] [LIMIT]"
+)
 @shared_options
 def cmd_refresh(
     names_and_limit: tuple[str, ...],
