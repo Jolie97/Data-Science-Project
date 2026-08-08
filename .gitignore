@@ -17,4 +17,8 @@ comparison_output.csv
 .DS_Store
 Thumbs.db
 
-images
+# Data Folder
+data
+
+# Database
+*.db
