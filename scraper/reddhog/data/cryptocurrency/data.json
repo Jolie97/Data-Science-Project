@@ -1,0 +1,493 @@
+[
+  {
+    "id": "t3_1vf1e0p",
+    "title": "Why are the mods so idiotic here",
+    "flair": "",
+    "description": "Every good post notification is removed by these mods.\nWhat’s happening.\nWhat’s the problem.\n……………………. …………………….",
+    "url": "https://www.reddit.com/r/CryptoCurrency/comments/1vf1e0p/",
+    "upvotes": 0,
+    "comments_count": 1,
+    "author": "BisonKey1826",
+    "timestamp": "2026-08-04T05:37:04.312Z",
+    "images": [],
+    "comments": [],
+    "crawled_at": "2026-08-04T05:50:45.446755Z"
+  },
+  {
+    "id": "t3_1vf0xxe",
+    "title": "Traumatizing NFT quietly received on TON wallet.",
+    "flair": "",
+    "description": "I havent used my TON wallet in a while (transactions havent been made), and I decided to mint some telegram gifts and etc. I check my wallet address on Tonviewer like I always do, and I notice an extremely unsettling NFT in my collectibles. It was so unbelievably bad that my whole body went through a feeling I never felt before. The creepy part is that there was no transaction in the history for that NFT. I found a burn address, so I sent the NFT there and burned it. The website I was using to look at the burn address showed that It was receiving other NFTs from other wallets aswell, however on the website the NFTs were blurred. So me being curious to see if its the same one I received, I copied the contract address of the NFT and searched it up on Tonviewer, and it was a picture 10x worse than the one I received. I never looked up to the ceiling so fast in my life before. I can confidently say that I am traumatized. I never knew receiving spam like this was possible. I won't describe the picture in the NFT because of how unpleasant it was, but it was human related.\n\nTL;DR\n\nMy TON wallet received a horrifying human related picture NFT quietly, without even showing up as a transaction in my wallet.\n\nWhat can I do to avoid this? Is my only option creating a new wallet? But even then I feel like that won't avoid it.",
+    "url": "https://www.reddit.com/r/CryptoCurrency/comments/1vf0xxe/",
+    "upvotes": 4,
+    "comments_count": 6,
+    "author": "Broad-Newspaper4396",
+    "timestamp": "2026-08-04T05:12:45.937Z",
+    "images": [],
+    "comments": [
+      {
+        "id": "t1_p1lewm2",
+        "author": "stanixx007",
+        "score": "1",
+        "text": "welcome to crypto world, where people can send anything and there is no control in place. people can also poison wallets by sending stolen assets in small quantities to other peoples wallets",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1lgxhi",
+        "author": "Top_Performance_732",
+        "score": "1",
+        "text": "well maybe you wont be such a pussy next time",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1lha6z",
+        "author": "WagwanMoist",
+        "score": "1",
+        "text": "I mean for all we know it could have been CP or some really intense gore. But maybe that's your kink.",
+        "depth": 1,
+        "parent_id": "t1_p1lgxhi"
+      },
+      {
+        "id": "t1_p1lfe71",
+        "author": "KrunchyKushKing",
+        "score": "1",
+        "text": "Damn now I want to know what the NFT looked like.",
+        "depth": 0,
+        "parent_id": null
+      }
+    ],
+    "crawled_at": "2026-08-04T05:50:51.480642Z"
+  },
+  {
+    "id": "t3_1vevbxr",
+    "title": "Question on Bitcoin related transaction",
+    "flair": "",
+    "description": "Was doing a sale online with someone for a video game related thing, ended up recieving $1,397 in Bitcoin. It was in my Exodus wallet saying “Recieving…”, so I told the guy I’d wait for the transaction to confirm before giving him what he paid for.\n\nHe started pressuring me to send the stuff anyway, saying that crypto transactions are permanent, that hes in a rush, etc. I still insisted on waiting so he eventually ended up blocking me.\n\nThen the Bitcoin immediately disappeared from my wallet. Nothing even showed up in my transaction history. The only proof i have of ever recieving it is an Exodus notification and I screenshot I took. I have the txid and it says “invalid” but Im just confused as to how this works, since theres no way to cancel an Exodus transaction or anything like that as far as I know.",
+    "url": "https://www.reddit.com/r/CryptoCurrency/comments/1vevbxr/",
+    "upvotes": 22,
+    "comments_count": 10,
+    "author": "PastRevolution8087",
+    "timestamp": "2026-08-04T00:44:58.403Z",
+    "images": [],
+    "comments": [
+      {
+        "id": "t1_p1kfr97",
+        "author": "Zestyclose_Acadia_40",
+        "score": "3",
+        "text": "You choose the payment rate (sats/byte) when you send a TX. If you set a super low amount it'll never process and get invalidated.",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1kknq5",
+        "author": "PastRevolution8087",
+        "score": "1",
+        "text": "They have to use some sort of software or something for that though right? Because I dont know how you would do that manually. Plus they were instantly able to drop the bitcoin from my wallet after blocking me, so i assume they have control over it",
+        "depth": 1,
+        "parent_id": "t1_p1kfr97"
+      },
+      {
+        "id": "t1_p1kw904",
+        "author": "Blockchainauditor",
+        "score": "3",
+        "text": "If a Bitcoin transaction isn't confirmed, there are ways to reverse a transaction in progress, such as Replace by Fee (RBF).",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1laa9x",
+        "author": "No-Masterpiece2246",
+        "score": "1",
+        "text": "Probaby RBF, or even a double spend. If he posts txid we can investigate.",
+        "depth": 1,
+        "parent_id": "t1_p1kw904"
+      },
+      {
+        "id": "t1_p1kh17n",
+        "author": "0-Give-a-fucks",
+        "score": "1",
+        "text": "It was a scam from the beginning. Scammers have many ways to salt wallets with fake crypto in order to deceive you. And remember, just because something is received in your wallet, you need to be very careful what you interact with. A drainer contract will take everything in your wallet.\nIf you’re not using a hot wallet/cold wallet strategy, and u do 1-1 private tx, you’re gonna get fucked, eventually. I don’t now how they spoofed a BTC contract, but these are sophisticated scammers. Good job on not giving into the pressure campaign! That’s their number one social weapon of choice.\nUnless you can successfully move a crypto to a cold wallet with a documented full transaction path from whatever chain you’re on, it’s a scam and you haven’t been paid. Learn how to use the blockchain navigators to track any tx.",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1kkujs",
+        "author": "PastRevolution8087",
+        "score": "2",
+        "text": "yeah but im sure it wasnt actually fake crypto. it was real bitcoin, though it never confirmed and disappeared soon after the scammers blocked me",
+        "depth": 1,
+        "parent_id": "t1_p1kh17n"
+      },
+      {
+        "id": "t1_p1la6h1",
+        "author": "Witty_Ad3624",
+        "score": "1",
+        "text": "its not fake crypto, it was a double spend",
+        "depth": 1,
+        "parent_id": "t1_p1kh17n"
+      },
+      {
+        "id": "t1_p1l2ccj",
+        "author": "Historical_Quail_463",
+        "score": "1",
+        "text": "Good instincts bro, you almost got hit with a double spend scam.\n\n​He likely used RBF (Replace-By-Fee) or broadcasted a transaction with 1 sat/vB that was never going to confirm, only to replace it and send the funds back to his own wallet once he realized you wouldn't give him the item.\n\n​Unconfirmed transactions in the mempool are not permanent. Until a transaction hits 1+ block confirmations, it can be cancelled or replaced by the sender.\n\nDodged a literal 1.4k bullet there.",
+        "depth": 0,
+        "parent_id": null
+      }
+    ],
+    "crawled_at": "2026-08-04T05:50:52.969220Z"
+  },
+  {
+    "id": "t3_1vevaef",
+    "title": "Help me for swapping",
+    "flair": "",
+    "description": "I have been trying to swap this coin for the past 5 hours and it’s been no help, can someone explain what’s going on",
+    "url": "https://www.reddit.com/r/CryptoCurrency/comments/1vevaef/",
+    "upvotes": 20,
+    "comments_count": 5,
+    "author": "Epic_is_so_epic-epic",
+    "timestamp": "2026-08-04T00:43:04.432Z",
+    "images": [
+      {
+        "url": "https://cf.preview.redd.it/help-me-for-swapping-v0-302udx5p89hh1.jpeg",
+        "local_path": "data/cryptocurrency/images/t3_1vevaef_detail_0.jpg"
+      },
+      {
+        "url": "https://i.redd.it/302udx5p89hh1.jpeg",
+        "local_path": "data/cryptocurrency/images/t3_1vevaef_detail_1.jpg"
+      }
+    ],
+    "comments": [
+      {
+        "id": "t1_p1k5u7i",
+        "author": "Citadel_Employee",
+        "score": "4",
+        "text": "What’s the coins address?\n\nBut in the meantime I would say:\n\nLow liquidity, not enough buyers.\n\nPotential scam contract that prevents swapping.",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1kjyk2",
+        "author": "Epic_is_so_epic-epic",
+        "score": "1",
+        "text": "I mean this coin has been around for a couple of years 0x2c72d25530191ebd244eb6325e1892480b0e6e28",
+        "depth": 1,
+        "parent_id": "t1_p1k5u7i"
+      },
+      {
+        "id": "t1_p1ko2l1",
+        "author": "Citadel_Employee",
+        "score": "1",
+        "text": "Seems like the only liquidity is in the USDT0 pair.\n\nAlso the earliest deployed contract I could find was November 16 2025, so less than a year old.",
+        "depth": 2,
+        "parent_id": "t1_p1kjyk2"
+      }
+    ],
+    "crawled_at": "2026-08-04T05:50:53.224721Z"
+  },
+  {
+    "id": "t3_1veys9x",
+    "title": "Lost $36k in Crypto Scam on Fake Ledger Site",
+    "flair": "",
+    "description": "Well didn't think I would be posting something like this but here I am. I've been a holder of BTC/ETH for years, got a Ledger Wallet a while ago and it's been sitting in my drawer. I decided I wanted to transfer some out so I got my Nano X out, entered my pin, and connected to my phone. Before I could transfer I had to do a mandatory firmware update, and had to connect to my desktop. It's been a while and recently got a new laptop so I forgot it was a dedicated app.\n\nWithout really thinking I google Ledger Live and clicked on the first link, it looked like the real site and it said I needed to update my firmware which I did. I then clicked on the next step and forgot the only crypto rule. It was a screen to enter my 24 word phrase and I did.\n\nIt took a me a few minutes to notice my mess up and saw my funds gone. Was pretty stunned and upset with myself. Filed with the IC3 but realize there is a 0% chance of getting it back but figured I share here for awareness even if it was completely obvious and also don't know what else to do. Still processing this\n\nhttps://etherscan.io/tx/0x5ea336c13ab5880b4beaea0a0c8e70ad54504556fa83b5bf0667e120b006d722\n\nhttps://blockstream.info/tx/49e4c41520d1eab9ba908b9cfa215d0c0c5bd15077bcb60c3a16a40130766a2f",
+    "url": "https://www.reddit.com/r/CryptoCurrency/comments/1veys9x/",
+    "upvotes": 36,
+    "comments_count": 48,
+    "author": "kooper1990",
+    "timestamp": "2026-08-04T03:21:41.362Z",
+    "images": [],
+    "comments": [
+      {
+        "id": "t1_p1kzqh7",
+        "author": "Jpotter145",
+        "score": "5",
+        "text": "No. Ledger doesn't work that way. If it had a \"manditory\" firmware update it would also have the direct download to install (no link) - but, it doesn't even offer a firmware update unless you go look for one (in the app). You can always use the wallet without updating the firmware.\n\nJust trying to make up more FUD huh?",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1l162a",
+        "author": "kooper1990",
+        "score": "2",
+        "text": "I was on the mobile app, started a transfer out but on the last step it said it required an update to complete the transaction. I havent used it in a while, I even had to condition the battery since there was an error",
+        "depth": 1,
+        "parent_id": "t1_p1kzqh7"
+      },
+      {
+        "id": "t1_p1l8xrg",
+        "author": "mathewwalker714",
+        "score": "2",
+        "text": "What does conditioning a battery do and how do you do it?",
+        "depth": 2,
+        "parent_id": "t1_p1l162a"
+      },
+      {
+        "id": "t1_p1l30wu",
+        "author": "McD-Szechuan",
+        "score": "13",
+        "text": "Fuck google.\n\nSorry you’re hurting man keep in touch with your friends and family. You’re not stupid. It was a terrible mistake. Don’t be too hard on yourself, and thanks for sharing your experience",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1l3j96",
+        "author": "kooper1990",
+        "score": "4",
+        "text": "Thanks, appreciate you",
+        "depth": 1,
+        "parent_id": "t1_p1l30wu"
+      },
+      {
+        "id": "t1_p1l6tip",
+        "author": "FunCalligrapher3979",
+        "score": "20",
+        "text": "The future of finance",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1l7p59",
+        "author": "Leynnox",
+        "score": "4",
+        "text": "No worries google also as some sponsored links from scammers looking after your fiat too.",
+        "depth": 1,
+        "parent_id": "t1_p1l6tip"
+      },
+      {
+        "id": "t1_p1left9",
+        "author": "UpbeatFix7299",
+        "score": "1",
+        "text": "Gotta play yahtzee inside a Faraday Cage with casino dice, engrave portions of your seed phrase on multiple pieces of titanium, and bury them in separate places. Otherwise all your apes at risk.\n\nObviously this is something normal people will do. Mass crypto adoption imminent.",
+        "depth": 1,
+        "parent_id": "t1_p1l6tip"
+      },
+      {
+        "id": "t1_p1l4gkz",
+        "author": "JohnMcafee4coffee",
+        "score": "10",
+        "text": "Never enter your 24 words.",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1kznwk",
+        "author": "DizzyHoliday",
+        "score": "4",
+        "text": "Sorry for your loss :-(",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1l40vx",
+        "author": "VendettaKarma",
+        "score": "4",
+        "text": "Sucks man it’s just what crypto has become unfortunately",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1l524a",
+        "author": "MrSnugs",
+        "score": "4",
+        "text": "I still can’t believe Google allows that link to show up and scam people. It’s shocking they’d allow it given it’s clearly a scam. Sorry for your loss",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1l002g",
+        "author": "Leynnox",
+        "score": "13",
+        "text": "You should ask google to refund you, since that's their fault for promoting scams, in a perfect world that would work. Sorry for your loss, and fuck google",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1l19aj",
+        "author": "druffino69",
+        "score": "2",
+        "text": "Yes I do not trust anything Google and they don't give a shit either keep letters it happen ..quantum financial institute and covenant x platform",
+        "depth": 1,
+        "parent_id": "t1_p1l002g"
+      },
+      {
+        "id": "t1_p1lana1",
+        "author": "PlutoPlaneta",
+        "score": "1",
+        "text": "lots to criticize about Google but generally that would be bad idea. if site owner is responsible for indexed links you cant really have search engines",
+        "depth": 1,
+        "parent_id": "t1_p1l002g"
+      },
+      {
+        "id": "t1_p1lbxyl",
+        "author": "Leynnox",
+        "score": "1",
+        "text": "It's not just indexation, it's sponsored links, scammers pay google for being in top results, and google doesn't verify anything, that's the issue",
+        "depth": 2,
+        "parent_id": "t1_p1lana1"
+      },
+      {
+        "id": "t1_p1ldc24",
+        "author": "BicycleOfLife",
+        "score": "1",
+        "text": "I honestly think this should be law. They are profiting off scamming people indirectly.",
+        "depth": 1,
+        "parent_id": "t1_p1l002g"
+      },
+      {
+        "id": "t1_p1l7h33",
+        "author": "Maleficent-Boot-674",
+        "score": "3",
+        "text": "Anddddd it’s gone - Sorry bother",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1lb66x",
+        "author": "Specialist_Ant116",
+        "score": "1",
+        "text": "I think most people that get scammed, get scammed due to a lack of awareness, so just like accidents happen, you fk up once and it's enough for these damn indians to catch you off guard. Happens to the best of us, man, don't be too harsh on yourself. 30k is a lot of money for most of us, but...it's just numbers on a screen or straight up paper at the end of the day.\n\nDon't do anything stupid and don't blame yourself, just pay a bit more attention, and even then, you won't dodge 100% of the shit coming your way 😂. There are many, many other things more important in life. Start a new hobby to get your mind off the topic. Wish you all the best!",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1l9bxn",
+        "author": "FriskyHamTitz",
+        "score": "2",
+        "text": "Why would you enter your seed isn't the purpose of a hardware wallet to have an air gap?",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1l7707",
+        "author": "Omnomnomnivor3",
+        "score": "1",
+        "text": "sht man sorry for your loss",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1lajjn",
+        "author": "ryanmemperor",
+        "score": "1",
+        "text": "Haven't plugged my Nano in since 2019.\n\nI don't even know if I have a micro usb for it.",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1lbm6j",
+        "author": "ll123ize",
+        "score": "1",
+        "text": "ya'll need to report to google",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1lch68",
+        "author": "razvanciuy",
+        "score": "1",
+        "text": "Duckduckgo instead of google for starters",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1ldb9b",
+        "author": "dugadugaboost",
+        "score": "1",
+        "text": "This affects most known hot/cold wallets. If you turn off your adblock or use a browser that doesn't have it and google XYZ wallet/firmware update it will take you to a fake website and you don't even need to have your hot/cold wallets plugged in/connected because the entire site is fake with fake loading progress bars. The real thing though is the 12/24 passphrase they want which I assume gets sent to a server/email address.\n\nSometimes when I'm bored I visit one of these websites and put funny words on the 12/24 passphrase they're after. I even put dummy email addresses to see if they write out to it, some do with fake letters saying the usual \"You need to update your firmware, please provide the 24 passphrase\".",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1ledo6",
+        "author": "DonTheHolder",
+        "score": "1",
+        "text": "All of them have firmware from the internet.\n\nGet a ETF such as IBIT or GBTC or CEX such as Coinbase. Let the experts guard your cryptocurrency and trades\n\nLet the security experts protect your assets. Not to mention being wrench tortured, dying without a heirloom to pass on or the most important thing a simple beneficiary list with no charge such as a will or trust.\n\nDon't you keep seeing the same thing? Low end security devices that hold your wallets, low end, or solo owned exchanges with not backing or solvency?\n\nWake up. Get good. Stop getting rekt. It's embarrassing 😳.",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1lel9m",
+        "author": "KodineDreamin",
+        "score": "1",
+        "text": "Google has sponsored scam ads at the top of the search results and Youtube has AI-generated live videos of Elon Musk giving away fake Bitcoin.\n\nThere should be a class-action lawsuit given that this has been going on for over a decade now and they still haven't been able to detect the same cryptocurrency scams.\n\nAlmost makes you think they're the ones scamming people all along.\n\nYou did a good service by reporting it and telling the community. It's very unfortunate for the loss - I too have lost money due to scams/exploits in crypto. Best to take the learning lesson and go out to make more money. I wish you the best OP.",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1lelbm",
+        "author": "DeaderthanZed",
+        "score": "1",
+        "text": "This is why I hated when people reflexively commented “just get a hardware wallet” whenever anyone had a question about wallets or security back in the day.\n\nInstead the general advice should have been “take an hour to read about how public/private keypair cryptography works.”",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1kzmtp",
+        "author": "Brilliant_Detective",
+        "score": "1",
+        "text": "Well, thats just stupid",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1l0lmx",
+        "author": "fadeawayjumper1",
+        "score": "1",
+        "text": "Is this bait",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1l8lde",
+        "author": "jjmtireman",
+        "score": "1",
+        "text": "You entered your seed phrase how can you be so $+upid",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1l9csl",
+        "author": "ArcticSwimx",
+        "score": "0",
+        "text": "How stupid do you have to be to type your seeed in randomly? Insane post..",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1lbm81",
+        "author": "Specialist_Ant116",
+        "score": "1",
+        "text": "Come on, bro, the guy probably bought long ago and forgot about it. Point is, he's telling others to be careful with Google links. It s already happend so asking these type of questions doesn't help anybody, right?",
+        "depth": 1,
+        "parent_id": "t1_p1l9csl"
+      },
+      {
+        "id": "t1_p1lgl2l",
+        "author": "ArcticSwimx",
+        "score": "1",
+        "text": "Its gross negligence",
+        "depth": 2,
+        "parent_id": "t1_p1lbm81"
+      },
+      {
+        "id": "t1_p1le16d",
+        "author": "077",
+        "score": "1",
+        "text": "Dude actually entered his mnemonic on a website coded by a 3rd worlder. My god...",
+        "depth": 0,
+        "parent_id": null
+      },
+      {
+        "id": "t1_p1lehrz",
+        "author": "gtwooh",
+        "score": "1",
+        "text": "And this is why I use sparrow instead of ledger live",
+        "depth": 0,
+        "parent_id": null
+      }
+    ],
+    "crawled_at": "2026-08-04T05:50:57.700197Z"
+  }
+]
