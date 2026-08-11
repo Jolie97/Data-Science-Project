@@ -10,7 +10,7 @@ pd.set_option("display.max_rows", 50)
 
 # --- 2. CONNECT AND QUERY ---
 # Connect to the database we just built
-conn = sqlite3.connect("../data/processed/reddit_data.db")
+conn = sqlite3.connect("../data/processed/cryptocurrency-110826.db")
 
 query1 = """
 SELECT 
