@@ -33,6 +33,10 @@ This project uses a custom ETL (Extract, Transform, Load) pipeline to collect Re
 
    _(Note: This automatically installs the local scraper module and all required data science libraries)._
 
+   ```bash
+   nbstripout --install
+   ```
+
 2. **Install the Browser Fallback:**
 
    ```bash
