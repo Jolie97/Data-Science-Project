@@ -1,5 +1,6 @@
 # Virtual environment — never commit this folder
 dataenv/
+*.venv
 
 # Environment secrets — never commit your API key
 .env
@@ -15,3 +16,9 @@ comparison_output.csv
 # OS clutter
 .DS_Store
 Thumbs.db
+
+# Data Folder
+data
+
+# Database
+*.db
