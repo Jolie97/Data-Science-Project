@@ -6,7 +6,6 @@ openpyxl==3.1.5
 ipykernel==7.3.0
 jinja2==3.1.6
 ipython
-nbstripout
 
 # --- Scraper ---
 # This tells pip to install the reddhog folder locally using a relative path, 
