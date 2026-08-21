@@ -22,7 +22,7 @@ PAGE_SIZE = 100
 DAYS_BACK = 30
 CHUNK_DAYS = 3
 
-REFRESH_INTERVAL_SECONDS = 5 * 60  # re-analyze every 5 minutes
+REFRESH_INTERVAL_SECONDS = 5 * 60  # Re-analyze every 5 minutes
 NEUTRAL_THRESHOLD = 0.6
 
 # --------------------------------------------------------------------------
@@ -40,12 +40,12 @@ _state = {
 }
 
 # --------------------------------------------------------------------------
-# Model
+# Model Loading
 # --------------------------------------------------------------------------
 
 log.info("Loading sentiment model...")
 model = pipeline("sentiment-analysis")
-log.info("Model loaded.")
+log.info("Model loaded successfully.")
 
 SCORE_MAP = {"POSITIVE": "Bullish", "NEGATIVE": "Bearish"}
 
@@ -78,7 +78,6 @@ def fetch_news():
         data = response.json()
 
         if data.get("status") != "ok":
-            # Gracefully handle the NewsAPI free tier 100-article limit
             if data.get("code") == "maximumResultsReached":
                 break
             raise RuntimeError(f"NewsAPI error: {data.get('code')} - {data.get('message')}")
@@ -125,7 +124,6 @@ def analyze():
             _state["counts"] = counts
             _state["total_articles"] = len(news_list)
             _state["sample_headlines"] = headlines[:8]
-            # Use timezone-aware UTC datetime formatted cleanly to ISO 8601
             _state["updated_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
             _state["status"] = "ok"
             _state["error_message"] = None
@@ -146,10 +144,14 @@ def background_loop():
 
 
 # --------------------------------------------------------------------------
-# Flask app
+# Flask Application & Production Threading
 # --------------------------------------------------------------------------
 
 app = Flask(__name__)
+
+# Start background thread automatically when app initializes under Gunicorn/Render
+bg_thread = threading.Thread(target=background_loop, daemon=True)
+bg_thread.start()
 
 
 @app.route("/")
@@ -171,5 +173,5 @@ def refresh_now():
 
 
 if __name__ == "__main__":
-    threading.Thread(target=background_loop, daemon=True).start()
-    app.run(debug=True, port=5000, use_reloader=False)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
