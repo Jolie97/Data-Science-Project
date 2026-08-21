@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Market Sentiment Dashboard</title>
+    <title>Market Sentiment Distribution</title>
     <!-- Chart.js Library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -64,13 +64,13 @@
 
     <div class="container">
         <h2>Market Sentiment Distribution</h2>
-        <div id="statusText">Fetching dynamic news data from API...</div>
+        <div id="statusText">Loading pre-calculated backend results...</div>
 
         <div class="chart-container">
             <canvas id="marketSentimentChart"></canvas>
         </div>
 
-        <button class="btn-fetch" onclick="fetchSentimentData()">Refresh Live Data</button>
+        <button class="btn-fetch" onclick="fetchSentimentData()">Refresh Dashboard Data</button>
     </div>
 
     <script>
@@ -78,23 +78,22 @@
 
         function fetchSentimentData() {
             const statusEl = document.getElementById('statusText');
-            statusEl.innerText = "Fetching and calculating live market sentiment...";
 
             fetch('/api/news-sentiment')
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error("Failed to retrieve sentiment data");
+                        throw new Error("Failed to load backend JSON output.");
                     }
                     return response.json();
                 })
                 .then(data => {
                     const counts = data.counts;
-                    statusEl.innerText = `Successfully analyzed ${data.total_fetched} total articles.`;
+                    statusEl.innerText = `Successfully loaded ${data.total_fetched} total analyzed articles.`;
                     renderChart(counts);
                 })
                 .catch(err => {
                     console.error("Error fetching sentiment:", err);
-                    statusEl.innerText = "Error fetching news sentiment data. Check server logs.";
+                    statusEl.innerText = "Error loading results.json from server.";
                 });
         }
 
@@ -117,9 +116,9 @@
                             sentimentCounts.Neutral || 0
                         ],
                         backgroundColor: [
-                            '#28a745',  // Green (Bullish)
-                            '#dc3545',  // Red (Bearish)
-                            '#6c757d'   // Gray (Neutral)
+                            'green',  // Matches backend Matplotlib color
+                            'red',    // Matches backend Matplotlib color
+                            'gray'    // Matches backend Matplotlib color
                         ],
                         borderWidth: 1
                     }]
@@ -154,7 +153,7 @@
             });
         }
 
-        // Fetch metrics automatically when page finishes loading
+        // Fetch metrics automatically when the page loads
         document.addEventListener('DOMContentLoaded', fetchSentimentData);
     </script>
 </body>
