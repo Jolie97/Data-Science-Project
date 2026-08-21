@@ -1,0 +1,20 @@
+# --- Web Server & API ---
+flask
+gunicorn
+requests
+
+# --- Machine Learning & Sentiment NLP ---
+torch
+transformers
+
+# --- Data Processing & Excel Support ---
+pandas
+openpyxl
+
+# --- Interactive Notebooks & Formatting ---
+ipykernel
+jinja2
+ipython
+
+# --- Local Package Install ---
+-e ./src/scraper/reddhog

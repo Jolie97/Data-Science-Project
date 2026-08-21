@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Market Sentiment — Live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0a0e14;
+    --panel: #11161f;
+    --panel-border: #1e2530;
+    --text: #e6ecf2;
+    --muted: #6b7688;
+    --bullish: #3ddc97;
+    --bearish: #ff5c6c;
+    --neutral: #8a94a6;
+    --accent: #f2b84b;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* ---- Ticker tape (signature element) ---- */
+  .ticker-wrap {
+    background: var(--panel);
+    border-bottom: 1px solid var(--panel-border);
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 10px 0;
+  }
+  .ticker {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll-left 45s linear infinite;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .ticker span {
+    margin-right: 48px;
+  }
+  .ticker span::before {
+    content: "▸";
+    color: var(--accent);
+    margin-right: 8px;
+  }
+  @keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ticker { animation: none; padding-left: 24px; }
+  }
+
+  header {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 36px 24px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  h1 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  h1 .sub {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    margin-top: 4px;
+  }
+
+  .status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .pulse {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--bullish);
+    box-shadow: 0 0 0 0 rgba(61, 220, 151, 0.6);
+    animation: pulse 2s infinite;
+  }
+  .pulse.error { background: var(--bearish); animation: none; }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(61, 220, 151, 0.55); }
+    70% { box-shadow: 0 0 0 8px rgba(61, 220, 151, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(61, 220, 151, 0); }
+  }
+
+  button#refresh-btn {
+    background: transparent;
+    border: 1px solid var(--panel-border);
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  button#refresh-btn:hover { border-color: var(--accent); color: var(--accent); }
+  button#refresh-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  button#refresh-btn:disabled { opacity: 0.5; cursor: default; }
+
+  main {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 720px) {
+    main { grid-template-columns: 1fr; }
+  }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .panel h2 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 16px;
+    font-weight: 600;
+  }
+
+  .stat-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--panel-border);
+  }
+  .stat-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .stat-label { font-size: 14px; color: var(--text); }
+  .stat-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .stat-row.bullish .stat-value { color: var(--bullish); }
+  .stat-row.bearish .stat-value { color: var(--bearish); }
+  .stat-row.neutral .stat-value { color: var(--neutral); }
+
+  .total-line {
+    margin-top: 4px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  #empty-state {
+    text-align: center;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    padding: 40px 0;
+  }
+
+  .error-banner {
+    display: none;
+    background: rgba(255, 92, 108, 0.08);
+    border: 1px solid rgba(255, 92, 108, 0.3);
+    color: var(--bearish);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin: 0 24px 20px;
+    max-width: 1032px;
+    margin-inline: auto;
+  }
+</style>
+</head>
+<body>
+
+  <div class="ticker-wrap">
+    <div class="ticker" id="ticker">
+      <span>Waiting for the first analysis pass…</span>
+    </div>
+  </div>
+
+  <header>
+    <h1>
+      Market Sentiment
+      <span class="sub">FINANCE NEWS · LIVE MODEL INFERENCE</span>
+    </h1>
+    <div class="status">
+      <span class="pulse" id="pulse"></span>
+      <span id="status-text">connecting…</span>
+      <button id="refresh-btn">Refresh now</button>
+    </div>
+  </header>
+
+  <div class="error-banner" id="error-banner"></div>
+
+  <main>
+    <div class="panel">
+      <h2>Sentiment distribution</h2>
+      <canvas id="chart" height="220"></canvas>
+    </div>
+
+    <div class="panel">
+      <h2>Breakdown</h2>
+      <div class="stat-grid" id="stat-grid">
+        <div class="stat-row bullish">
+          <span class="stat-label">Bullish</span>
+          <span class="stat-value" id="count-bullish">—</span>
+        </div>
+        <div class="stat-row bearish">
+          <span class="stat-label">Bearish</span>
+          <span class="stat-value" id="count-bearish">—</span>
+        </div>
+        <div class="stat-row neutral">
+          <span class="stat-label">Neutral</span>
+          <span class="stat-value" id="count-neutral">—</span>
+        </div>
+      </div>
+      <div class="total-line" id="total-line">— articles analyzed</div>
+    </div>
+  </main>
+
+<script>
+const POLL_MS = 4000;
+const els = {
+  pulse: document.getElementById('pulse'),
+  statusText: document.getElementById('status-text'),
+  ticker: document.getElementById('ticker'),
+  errorBanner: document.getElementById('error-banner'),
+  countBullish: document.getElementById('count-bullish'),
+  countBearish: document.getElementById('count-bearish'),
+  countNeutral: document.getElementById('count-neutral'),
+  totalLine: document.getElementById('total-line'),
+  refreshBtn: document.getElementById('refresh-btn'),
+};
+
+const ctx = document.getElementById('chart');
+const chart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Bullish', 'Bearish', 'Neutral'],
+    datasets: [{
+      data: [0, 0, 0],
+      backgroundColor: ['#3ddc97', '#ff5c6c', '#8a94a6'],
+      borderRadius: 6,
+      maxBarThickness: 64,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { ticks: { color: '#6b7688', font: { family: 'IBM Plex Mono' } }, grid: { display: false } },
+      y: { beginAtZero: true, ticks: { color: '#6b7688', precision: 0 }, grid: { color: '#1e2530' } }
+    }
+  }
+});
+
+function timeAgo(isoString) {
+  if (!isoString) return 'never';
+  const diffSec = Math.max(0, Math.floor((Date.now() - new Date(isoString + (isoString.endsWith('Z') ? '' : 'Z'))) / 1000));
+  if (diffSec < 60) return `${diffSec}s ago`;
+  if (diffSec < 3600) return `${Math.floor(diffSec / 60)}m ago`;
+  return `${Math.floor(diffSec / 3600)}h ago`;
+}
+
+function render(data) {
+  if (data.status === 'error') {
+    els.pulse.classList.add('error');
+    els.statusText.textContent = 'error';
+    els.errorBanner.style.display = 'block';
+    els.errorBanner.textContent = data.error_message || 'Something went wrong fetching or analyzing news.';
+    return;
+  }
+
+  els.pulse.classList.remove('error');
+  els.errorBanner.style.display = 'none';
+
+  if (data.status === 'starting') {
+    els.statusText.textContent = 'running first analysis…';
+    return;
+  }
+
+  els.statusText.textContent = `updated ${timeAgo(data.updated_at)}`;
+
+  const c = data.counts || { Bullish: 0, Bearish: 0, Neutral: 0 };
+  chart.data.datasets[0].data = [c.Bullish, c.Bearish, c.Neutral];
+  chart.update();
+
+  els.countBullish.textContent = c.Bullish;
+  els.countBearish.textContent = c.Bearish;
+  els.countNeutral.textContent = c.Neutral;
+  els.totalLine.textContent = `${data.total_articles} articles analyzed`;
+
+  if (data.sample_headlines && data.sample_headlines.length) {
+    els.ticker.innerHTML = data.sample_headlines
+      .map(h => `<span>${h.replace(/</g, '&lt;')}</span>`)
+      .join('');
+  }
+}
+
+async function poll() {
+  try {
+    const res = await fetch('/api/sentiment');
+    const data = await res.json();
+    render(data);
+  } catch (err) {
+    els.pulse.classList.add('error');
+    els.statusText.textContent = 'connection lost';
+  }
+}
+
+els.refreshBtn.addEventListener('click', async () => {
+  els.refreshBtn.disabled = true;
+  els.statusText.textContent = 'refreshing…';
+  try {
+    const res = await fetch('/api/refresh', { method: 'POST' });
+    const data = await res.json();
+    render(data);
+  } finally {
+    els.refreshBtn.disabled = false;
+  }
+});
+
+poll();
+setInterval(poll, POLL_MS);
+</script>
+
+</body>
+</html>
