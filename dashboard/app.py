@@ -1,59 +1,46 @@
-import os
 import json
-import logging
-from flask import Flask, render_template, jsonify
-
-# Configure Logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+import os
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
-def load_results_data():
-    """Reads pre-computed sentiment data directly from results.json."""
-    # Check current directory and parent directory for results.json
-    possible_paths = [
-        os.path.join(os.path.dirname(__file__), 'results.json'),
-        os.path.join(os.path.dirname(__file__), '..', 'results.json'),
-        'results.json'
-    ]
-    
-    file_path = None
-    for path in possible_paths:
-        if os.path.exists(path):
-            file_path = path
-            break
+# Locate project directory structure dynamically
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # path to dashboard/
+PROTOTYPE_DIR = os.path.join(
+    BASE_DIR, "..", "notebooks", "Prototype"
+)  # path to notebooks/Prototype/
 
-    if file_path:
+
+def load_json(filename):
+    """Safely load JSON data from the notebooks/Prototype directory."""
+    file_path = os.path.join(PROTOTYPE_DIR, filename)
+    if os.path.exists(file_path):
         try:
-            with open(file_path, 'r') as f:
-                counts = json.load(f)
-                logger.info(f"Successfully loaded results from {file_path}")
-                return counts
+            with open(file_path, "r") as f:
+                return json.load(f)
         except Exception as e:
-            logger.error(f"Error reading {file_path}: {e}")
+            print(f"Error loading {file_path}: {e}")
+            return None
+    return None
 
-    # Fallback default values if results.json is missing or unreadable
-    logger.warning("results.json not found. Returning default fallback structure.")
-    return {"Bullish": 0, "Bearish": 0, "Neutral": 0}
 
-@app.route('/')
-def home():
-    """Renders the dashboard web interface."""
-    return render_template('index.html')
+@app.route("/")
+def index():
+    # Load data from the specified path
+    file1_data = load_json("results_file1.json")
+    file2_data = load_json("results_file2.json")
 
-@app.route('/api/news-sentiment', methods=['GET'])
-def get_news_sentiment():
-    """API endpoint serving pre-calculated JSON output to the UI."""
-    counts = load_results_data()
-    total = sum(counts.values())
-    
-    return jsonify({
-        "counts": counts,
-        "total_fetched": total
-    })
+    # Fallback values if files are missing or unreadable
+    if file1_data is None:
+        file1_data = {"Bullish": 0, "Bearish": 0, "Neutral": 0}
 
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 10000))
-    logger.info(f"Starting server on port {port}...")
-    app.run(host='0.0.0.0', port=port)
+    if file2_data is None:
+        file2_data = {"POSITIVE": 0, "NEGATIVE": 0}
+
+    return render_template(
+        "index.html", file1_data=file1_data, file2_data=file2_data
+    )
+
+
+if __name__ == "__main__":
+    app.run(debug=True)

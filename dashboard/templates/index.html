@@ -3,158 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Market Sentiment Distribution</title>
-    <!-- Chart.js Library -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Financial Sentiment Dashboard</title>
     <style>
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
             margin: 0;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding: 40px 20px;
+            color: #333;
         }
-
         .container {
-            background-color: #ffffff;
-            border-radius: 8px;
-            padding: 25px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            width: 100%;
-            max-width: 650px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1 {
             text-align: center;
+            margin-bottom: 30px;
         }
-
-        h2 {
-            margin-bottom: 5px;
-            color: #222;
+        .card-grid {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
-
-        #statusText {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 20px;
+        .card {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            width: 380px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-
-        .chart-container {
-            position: relative;
-            height: 320px;
-            width: 100%;
+        .card h2 {
+            font-size: 1.2rem;
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
         }
-
-        .btn-fetch {
-            margin-top: 20px;
-            padding: 10px 18px;
-            background-color: #007bff;
-            color: white;
-            border: none;
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f9f9f9;
+        }
+        .metric-label {
+            font-weight: bold;
+        }
+        .badge {
+            padding: 4px 8px;
             border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
+            font-weight: bold;
         }
-
-        .btn-fetch:hover {
-            background-color: #0056b3;
-        }
+        .bullish, .positive { background-color: #e6f4ea; color: #137333; }
+        .bearish, .negative { background-color: #fce8e6; color: #c5221f; }
+        .neutral { background-color: #f1f3f4; color: #5f6368; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h2>Market Sentiment Distribution</h2>
-        <div id="statusText">Loading pre-calculated backend results...</div>
+<div class="container">
+    <h1>Market Sentiment Dashboard</h1>
 
-        <div class="chart-container">
-            <canvas id="marketSentimentChart"></canvas>
+    <div class="card-grid">
+        <!-- Prototype 1 Results -->
+        <div class="card">
+            <h2>Prototype 1 (Batch + Mapping)</h2>
+            <div class="metric-row">
+                <span class="metric-label">Bullish</span>
+                <span class="badge bullish">{{ file1_data.get('Bullish', 0) }}</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Bearish</span>
+                <span class="badge bearish">{{ file1_data.get('Bearish', 0) }}</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Neutral</span>
+                <span class="badge neutral">{{ file1_data.get('Neutral', 0) }}</span>
+            </div>
         </div>
 
-        <button class="btn-fetch" onclick="fetchSentimentData()">Refresh Dashboard Data</button>
+        <!-- Prototype 2 Results -->
+        <div class="card">
+            <h2>Prototype 2 (Raw Labels)</h2>
+            <div class="metric-row">
+                <span class="metric-label">Positive</span>
+                <span class="badge positive">{{ file2_data.get('POSITIVE', 0) }}</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Negative</span>
+                <span class="badge negative">{{ file2_data.get('NEGATIVE', 0) }}</span>
+            </div>
+        </div>
     </div>
+</div>
 
-    <script>
-        let chartInstance = null;
-
-        function fetchSentimentData() {
-            const statusEl = document.getElementById('statusText');
-
-            fetch('/api/news-sentiment')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error("Failed to load backend JSON output.");
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    const counts = data.counts;
-                    statusEl.innerText = `Successfully loaded ${data.total_fetched} total analyzed articles.`;
-                    renderChart(counts);
-                })
-                .catch(err => {
-                    console.error("Error fetching sentiment:", err);
-                    statusEl.innerText = "Error loading results.json from server.";
-                });
-        }
-
-        function renderChart(sentimentCounts) {
-            const ctx = document.getElementById('marketSentimentChart').getContext('2d');
-
-            if (chartInstance) {
-                chartInstance.destroy();
-            }
-
-            chartInstance = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Bullish', 'Bearish', 'Neutral'],
-                    datasets: [{
-                        label: 'Number of Articles',
-                        data: [
-                            sentimentCounts.Bullish || 0,
-                            sentimentCounts.Bearish || 0,
-                            sentimentCounts.Neutral || 0
-                        ],
-                        backgroundColor: [
-                            'green',  // Matches backend Matplotlib color
-                            'red',    // Matches backend Matplotlib color
-                            'gray'    // Matches backend Matplotlib color
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        title: {
-                            display: true,
-                            text: 'Market Sentiment'
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Number of Articles'
-                            },
-                            ticks: { precision: 0 }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Sentiment'
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-        // Fetch metrics automatically when the page loads
-        document.addEventListener('DOMContentLoaded', fetchSentimentData);
-    </script>
 </body>
 </html>
