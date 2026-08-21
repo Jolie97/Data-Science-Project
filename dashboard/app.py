@@ -1,177 +1,72 @@
 import os
-import threading
-import time
 import logging
-from datetime import datetime, timezone, timedelta
+from flask import Flask, render_template, request, jsonify
+import pandas as pd
+import nltk
+from nltk.sentiment import SentimentIntensityAnalyzer
 
-import requests
-from flask import Flask, jsonify, render_template
-from transformers import pipeline
+# Configure Logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
-log = logging.getLogger(__name__)
-
-# --------------------------------------------------------------------------
-# Config
-# --------------------------------------------------------------------------
-
-NEWSAPI_KEY = "b2a0d07341544104b699c5576a1bf7fd"
-NEWS_QUERY = "finance AND (stock market OR investment)"
-NEWS_LANGUAGE = "en"
-PAGE_SIZE = 100
-DAYS_BACK = 30
-CHUNK_DAYS = 3
-
-REFRESH_INTERVAL_SECONDS = 5 * 60  # Re-analyze every 5 minutes
-NEUTRAL_THRESHOLD = 0.6
-
-# --------------------------------------------------------------------------
-# Shared state
-# --------------------------------------------------------------------------
-
-_lock = threading.Lock()
-_state = {
-    "counts": {"Bullish": 0, "Bearish": 0, "Neutral": 0},
-    "total_articles": 0,
-    "sample_headlines": [],
-    "updated_at": None,
-    "status": "starting",   # starting | ok | error
-    "error_message": None,
-}
-
-# --------------------------------------------------------------------------
-# Model Loading
-# --------------------------------------------------------------------------
-
-log.info("Loading sentiment model...")
-model = pipeline("sentiment-analysis")
-log.info("Model loaded successfully.")
-
-SCORE_MAP = {"POSITIVE": "Bullish", "NEGATIVE": "Bearish"}
-
-
-def fetch_news():
-    """Fetch recent finance news from NewsAPI, handling developer tier limits gracefully."""
-    if not NEWSAPI_KEY:
-        raise RuntimeError("NEWSAPI_KEY environment variable is not set.")
-
-    url = "https://newsapi.org/v2/everything"
-    end_date = datetime.now(timezone.utc)
-    start_date = end_date - timedelta(days=DAYS_BACK)
-    delta = timedelta(days=CHUNK_DAYS)
-
-    all_articles = []
-    current_start = start_date
-
-    while current_start < end_date:
-        current_end = min(current_start + delta, end_date)
-        params = {
-            "q": NEWS_QUERY,
-            "language": NEWS_LANGUAGE,
-            "pageSize": PAGE_SIZE,
-            "page": 1,
-            "from": current_start.strftime("%Y-%m-%d"),
-            "to": current_end.strftime("%Y-%m-%d"),
-            "apiKey": NEWSAPI_KEY,
-        }
-        response = requests.get(url, params=params, timeout=15)
-        data = response.json()
-
-        if data.get("status") != "ok":
-            if data.get("code") == "maximumResultsReached":
-                break
-            raise RuntimeError(f"NewsAPI error: {data.get('code')} - {data.get('message')}")
-
-        articles = data.get("articles", [])
-        if articles:
-            all_articles.extend(articles)
-            if len(all_articles) >= 100:
-                break
-
-        current_start += delta
-
-    return all_articles[:100]
-
-
-def analyze():
-    """Fetch news, run sentiment analysis, and update the shared state."""
-    try:
-        articles = fetch_news()
-
-        news_list = []
-        headlines = []
-        for article in articles:
-            title = article.get("title") or ""
-            description = article.get("description") or ""
-            text = f"{title} {description}".strip()
-            if text:
-                news_list.append(text)
-                headlines.append(title)
-
-        if not news_list:
-            raise RuntimeError("No articles with usable text were fetched.")
-
-        results = model(news_list, truncation=True, max_length=512)
-
-        counts = {"Bullish": 0, "Bearish": 0, "Neutral": 0}
-        for r in results:
-            if r["score"] < NEUTRAL_THRESHOLD:
-                counts["Neutral"] += 1
-            else:
-                counts[SCORE_MAP[r["label"]]] += 1
-
-        with _lock:
-            _state["counts"] = counts
-            _state["total_articles"] = len(news_list)
-            _state["sample_headlines"] = headlines[:8]
-            _state["updated_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-            _state["status"] = "ok"
-            _state["error_message"] = None
-
-        log.info("Analysis complete: %s (%d articles)", counts, len(news_list))
-
-    except Exception as exc:
-        log.exception("Analysis failed")
-        with _lock:
-            _state["status"] = "error"
-            _state["error_message"] = str(exc)
-
-
-def background_loop():
-    while True:
-        analyze()
-        time.sleep(REFRESH_INTERVAL_SECONDS)
-
-
-# --------------------------------------------------------------------------
-# Flask Application & Production Threading
-# --------------------------------------------------------------------------
-
+# Initialize Flask App
 app = Flask(__name__)
 
-# Start background thread automatically when app initializes under Gunicorn/Render
-bg_thread = threading.Thread(target=background_loop, daemon=True)
-bg_thread.start()
+# Download lightweight VADER lexicon for sentiment analysis
+logger.info("Initializing VADER Sentiment Analyzer...")
+nltk.download('vader_lexicon', quiet=True)
+sia = SentimentIntensityAnalyzer()
 
+def analyze_text_sentiment(text: str) -> dict:
+    """
+    Computes sentiment scores using VADER.
+    Returns compound score along with discrete label.
+    """
+    if not text:
+        return {"compound": 0.0, "label": "NEUTRAL"}
+    
+    scores = sia.polarity_scores(text)
+    compound = scores['compound']
+    
+    if compound >= 0.05:
+        label = "POSITIVE"
+    elif compound <= -0.05:
+        label = "NEGATIVE"
+    else:
+        label = "NEUTRAL"
+        
+    return {
+        "compound": compound,
+        "pos": scores['pos'],
+        "neu": scores['neu'],
+        "neg": scores['neg'],
+        "label": label
+    }
 
-@app.route("/")
-def index():
-    return render_template("index.html")
+@app.route('/')
+def home():
+    """Renders the main dashboard UI."""
+    return render_template('index.html')  # Ensures compatibility with existing UI template
 
+@app.route('/api/sentiment', methods=['POST'])
+def sentiment_endpoint():
+    """API endpoint for single text sentiment evaluation."""
+    data = request.get_json(silent=True) or {}
+    text = data.get('text', '')
+    result = analyze_text_sentiment(text)
+    return jsonify(result)
 
-@app.route("/api/sentiment")
-def get_sentiment():
-    with _lock:
-        return jsonify(dict(_state))
+@app.route('/api/batch-sentiment', methods=['POST'])
+def batch_sentiment_endpoint():
+    """API endpoint for processing lists or uploaded CSV data for charts."""
+    data = request.get_json(silent=True) or {}
+    texts = data.get('texts', [])
+    
+    results = [analyze_text_sentiment(t) for t in texts]
+    return jsonify({"results": results})
 
-
-@app.route("/api/refresh", methods=["POST"])
-def refresh_now():
-    analyze()
-    with _lock:
-        return jsonify(dict(_state))
-
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+if __name__ == '__main__':
+    # Bind to Render's dynamic PORT environment variable (default to 10000 locally)
+    port = int(os.environ.get('PORT', 10000))
+    logger.info(f"Starting server on host 0.0.0.0 and port {port}...")
+    app.run(host='0.0.0.0', port=port)
