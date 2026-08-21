@@ -1,0 +1,14 @@
+# Web Framework & Server
+flask>=3.0.0
+gunicorn>=21.0.0
+
+# Data & Visualization
+pandas>=2.0.0
+openpyxl>=3.1.0
+
+# Lightweight Sentiment Analysis (Replaces Torch/Transformers)
+nltk>=3.8.1
+
+# Utilities
+python-dotenv>=1.0.0
+requests>=2.31.0
