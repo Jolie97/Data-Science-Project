@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Sentiment Dashboard</title>
+    <title>Market Sentiment Dashboard</title>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,7 +15,7 @@
             color: #333;
         }
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
         }
         h1 {
@@ -30,7 +32,7 @@
             background: #ffffff;
             border-radius: 8px;
             padding: 20px;
-            width: 380px;
+            width: 420px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         .card h2 {
@@ -38,24 +40,13 @@
             margin-top: 0;
             border-bottom: 2px solid #eee;
             padding-bottom: 10px;
+            text-align: center;
         }
-        .metric-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #f9f9f9;
+        .chart-container {
+            position: relative;
+            height: 260px;
+            width: 100%;
         }
-        .metric-label {
-            font-weight: bold;
-        }
-        .badge {
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-        .bullish, .positive { background-color: #e6f4ea; color: #137333; }
-        .bearish, .negative { background-color: #fce8e6; color: #c5221f; }
-        .neutral { background-color: #f1f3f4; color: #5f6368; }
     </style>
 </head>
 <body>
@@ -63,38 +54,83 @@
 <div class="container">
     <h1>Market Sentiment Dashboard</h1>
 
+    <!-- Hidden element storing Jinja variables safely -->
+    <div id="chart-data" 
+         data-p1-bullish="{{ file1_data.get('Bullish', 0) }}"
+         data-p1-bearish="{{ file1_data.get('Bearish', 0) }}"
+         data-p1-neutral="{{ file1_data.get('Neutral', 0) }}"
+         data-p2-positive="{{ file2_data.get('POSITIVE', 0) }}"
+         data-p2-negative="{{ file2_data.get('NEGATIVE', 0) }}">
+    </div>
+
     <div class="card-grid">
-        <!-- Prototype 1 Results -->
+        <!-- Prototype 1 Chart -->
         <div class="card">
             <h2>Prototype 1 (Batch + Mapping)</h2>
-            <div class="metric-row">
-                <span class="metric-label">Bullish</span>
-                <span class="badge bullish">{{ file1_data.get('Bullish', 0) }}</span>
-            </div>
-            <div class="metric-row">
-                <span class="metric-label">Bearish</span>
-                <span class="badge bearish">{{ file1_data.get('Bearish', 0) }}</span>
-            </div>
-            <div class="metric-row">
-                <span class="metric-label">Neutral</span>
-                <span class="badge neutral">{{ file1_data.get('Neutral', 0) }}</span>
+            <div class="chart-container">
+                <canvas id="chartPrototype1"></canvas>
             </div>
         </div>
 
-        <!-- Prototype 2 Results -->
+        <!-- Prototype 2 Chart -->
         <div class="card">
             <h2>Prototype 2 (Raw Labels)</h2>
-            <div class="metric-row">
-                <span class="metric-label">Positive</span>
-                <span class="badge positive">{{ file2_data.get('POSITIVE', 0) }}</span>
-            </div>
-            <div class="metric-row">
-                <span class="metric-label">Negative</span>
-                <span class="badge negative">{{ file2_data.get('NEGATIVE', 0) }}</span>
+            <div class="chart-container">
+                <canvas id="chartPrototype2"></canvas>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    // Extract numbers safely from dataset attributes
+    const dataEl = document.getElementById('chart-data').dataset;
+
+    // --- Prototype 1 Bar Chart ---
+    new Chart(document.getElementById('chartPrototype1'), {
+        type: 'bar',
+        data: {
+            labels: ['Bullish', 'Bearish', 'Neutral'],
+            datasets: [{
+                label: 'Count',
+                data: [
+                    Number(dataEl.p1Bullish),
+                    Number(dataEl.p1Bearish),
+                    Number(dataEl.p1Neutral)
+                ],
+                backgroundColor: ['#4caf50', '#f44336', '#9e9e9e']
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true } }
+        }
+    });
+
+    // --- Prototype 2 Bar Chart ---
+    new Chart(document.getElementById('chartPrototype2'), {
+        type: 'bar',
+        data: {
+            labels: ['POSITIVE', 'NEGATIVE'],
+            datasets: [{
+                label: 'Count',
+                data: [
+                    Number(dataEl.p2Positive),
+                    Number(dataEl.p2Negative)
+                ],
+                backgroundColor: ['#4caf50', '#f44336']
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true } }
+        }
+    });
+</script>
 
 </body>
 </html>
