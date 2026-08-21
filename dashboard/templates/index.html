@@ -1,318 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Market Sentiment — Live</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<style>
-  :root {
-    --bg: #0a0e14;
-    --panel: #11161f;
-    --panel-border: #1e2530;
-    --text: #e6ecf2;
-    --muted: #6b7688;
-    --bullish: #3ddc97;
-    --bearish: #ff5c6c;
-    --neutral: #8a94a6;
-    --accent: #f2b84b;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Sentiment Dashboard</title>
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-  * { box-sizing: border-box; }
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 650px;
+            text-align: center;
+        }
 
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    min-height: 100vh;
-  }
+        h2 {
+            margin-bottom: 5px;
+            color: #222;
+        }
 
-  .ticker-wrap {
-    background: var(--panel);
-    border-bottom: 1px solid var(--panel-border);
-    overflow: hidden;
-    white-space: nowrap;
-    padding: 10px 0;
-  }
-  .ticker {
-    display: inline-block;
-    padding-left: 100%;
-    animation: scroll-left 45s linear infinite;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 13px;
-    color: var(--muted);
-  }
-  .ticker span { margin-right: 48px; }
-  .ticker span::before { content: "▸"; color: var(--accent); margin-right: 8px; }
-  @keyframes scroll-left {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-  }
+        #statusText {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
 
-  header {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 36px 24px 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  h1 { font-size: 22px; font-weight: 700; margin: 0; }
-  h1 .sub {
-    display: block;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    font-weight: 400;
-    color: var(--muted);
-    margin-top: 4px;
-  }
+        .chart-container {
+            position: relative;
+            height: 320px;
+            width: 100%;
+        }
 
-  .status {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    color: var(--muted);
-  }
-  .pulse {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--bullish);
-    box-shadow: 0 0 0 0 rgba(61, 220, 151, 0.6);
-    animation: pulse 2s infinite;
-  }
-  .pulse.error { background: var(--bearish); animation: none; }
-  @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(61, 220, 151, 0.55); }
-    70% { box-shadow: 0 0 0 8px rgba(61, 220, 151, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(61, 220, 151, 0); }
-  }
+        .btn-fetch {
+            margin-top: 20px;
+            padding: 10px 18px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
 
-  button#refresh-btn {
-    background: transparent;
-    border: 1px solid var(--panel-border);
-    color: var(--text);
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    padding: 6px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  button#refresh-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-  main {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 24px;
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 20px;
-  }
-
-  .panel {
-    background: var(--panel);
-    border: 1px solid var(--panel-border);
-    border-radius: 10px;
-    padding: 20px;
-  }
-  .panel h2 {
-    font-size: 12px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin: 0 0 16px;
-    font-weight: 600;
-  }
-
-  .stat-grid { display: flex; flex-direction: column; gap: 14px; }
-  .stat-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding-bottom: 14px;
-    border-bottom: 1px solid var(--panel-border);
-  }
-  .stat-row:last-child { border-bottom: none; padding-bottom: 0; }
-  .stat-value { font-family: 'IBM Plex Mono', monospace; font-size: 22px; font-weight: 600; }
-  .stat-row.bullish .stat-value { color: var(--bullish); }
-  .stat-row.bearish .stat-value { color: var(--bearish); }
-  .stat-row.neutral .stat-value { color: var(--neutral); }
-
-  .total-line { margin-top: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--muted); }
-  .error-banner {
-    display: none;
-    background: rgba(255, 92, 108, 0.08);
-    border: 1px solid rgba(255, 92, 108, 0.3);
-    color: var(--bearish);
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    padding: 10px 14px;
-    border-radius: 6px;
-    max-width: 1032px;
-    margin: 0 auto 20px;
-  }
-</style>
+        .btn-fetch:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="ticker-wrap">
-    <div class="ticker" id="ticker">
-      <span>Waiting for the first analysis pass…</span>
-    </div>
-  </div>
+    <div class="container">
+        <h2>Market Sentiment Distribution</h2>
+        <div id="statusText">Fetching dynamic news data from API...</div>
 
-  <header>
-    <h1>
-      Market Sentiment
-      <span class="sub">FINANCE NEWS · LIVE MODEL INFERENCE</span>
-    </h1>
-    <div class="status">
-      <span class="pulse" id="pulse"></span>
-      <span id="status-text">connecting…</span>
-      <button id="refresh-btn">Refresh now</button>
-    </div>
-  </header>
-
-  <div class="error-banner" id="error-banner"></div>
-
-  <main>
-    <div class="panel">
-      <h2>Sentiment distribution</h2>
-      <canvas id="chart" height="220"></canvas>
-    </div>
-
-    <div class="panel">
-      <h2>Breakdown</h2>
-      <div class="stat-grid">
-        <div class="stat-row bullish">
-          <span class="stat-label">Bullish</span>
-          <span class="stat-value" id="count-bullish">—</span>
+        <div class="chart-container">
+            <canvas id="marketSentimentChart"></canvas>
         </div>
-        <div class="stat-row bearish">
-          <span class="stat-label">Bearish</span>
-          <span class="stat-value" id="count-bearish">—</span>
-        </div>
-        <div class="stat-row neutral">
-          <span class="stat-label">Neutral</span>
-          <span class="stat-value" id="count-neutral">—</span>
-        </div>
-      </div>
-      <div class="total-line" id="total-line">— articles analyzed</div>
+
+        <button class="btn-fetch" onclick="fetchSentimentData()">Refresh Live Data</button>
     </div>
-  </main>
 
-<script>
-const els = {
-  pulse: document.getElementById('pulse'),
-  statusText: document.getElementById('status-text'),
-  ticker: document.getElementById('ticker'),
-  errorBanner: document.getElementById('error-banner'),
-  countBullish: document.getElementById('count-bullish'),
-  countBearish: document.getElementById('count-bearish'),
-  countNeutral: document.getElementById('count-neutral'),
-  totalLine: document.getElementById('total-line'),
-  refreshBtn: document.getElementById('refresh-btn'),
-};
+    <script>
+        let chartInstance = null;
 
-let chart = null;
+        function fetchSentimentData() {
+            const statusEl = document.getElementById('statusText');
+            statusEl.innerText = "Fetching and calculating live market sentiment...";
 
-function initChart() {
-  const ctx = document.getElementById('chart');
-  if (typeof Chart !== 'undefined' && ctx) {
-    chart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Bullish', 'Bearish', 'Neutral'],
-        datasets: [{
-          data: [0, 0, 0],
-          backgroundColor: ['#3ddc97', '#ff5c6c', '#8a94a6'],
-          borderRadius: 6,
-          maxBarThickness: 64,
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { ticks: { color: '#6b7688', font: { family: 'IBM Plex Mono' } }, grid: { display: false } },
-          y: { beginAtZero: true, ticks: { color: '#6b7688', precision: 0 }, grid: { color: '#1e2530' } }
+            fetch('/api/news-sentiment')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to retrieve sentiment data");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const counts = data.counts;
+                    statusEl.innerText = `Successfully analyzed ${data.total_fetched} total articles.`;
+                    renderChart(counts);
+                })
+                .catch(err => {
+                    console.error("Error fetching sentiment:", err);
+                    statusEl.innerText = "Error fetching news sentiment data. Check server logs.";
+                });
         }
-      }
-    });
-  }
-}
 
-function render(data) {
-  if (data.status === 'error') {
-    els.pulse.classList.add('error');
-    els.statusText.textContent = 'error';
-    els.errorBanner.style.display = 'block';
-    els.errorBanner.textContent = data.error_message || 'Error running sentiment analysis.';
-    return;
-  }
+        function renderChart(sentimentCounts) {
+            const ctx = document.getElementById('marketSentimentChart').getContext('2d');
 
-  els.pulse.classList.remove('error');
-  els.errorBanner.style.display = 'none';
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
 
-  if (data.status === 'starting') {
-    els.statusText.textContent = 'running first analysis…';
-    return;
-  }
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Bullish', 'Bearish', 'Neutral'],
+                    datasets: [{
+                        label: 'Number of Articles',
+                        data: [
+                            sentimentCounts.Bullish || 0,
+                            sentimentCounts.Bearish || 0,
+                            sentimentCounts.Neutral || 0
+                        ],
+                        backgroundColor: [
+                            '#28a745',  // Green (Bullish)
+                            '#dc3545',  // Red (Bearish)
+                            '#6c757d'   // Gray (Neutral)
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: 'Market Sentiment'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Articles'
+                            },
+                            ticks: { precision: 0 }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Sentiment'
+                            }
+                        }
+                    }
+                }
+            });
+        }
 
-  els.statusText.textContent = 'connected';
-
-  const c = data.counts || { Bullish: 0, Bearish: 0, Neutral: 0 };
-  
-  if (chart) {
-    chart.data.datasets[0].data = [c.Bullish, c.Bearish, c.Neutral];
-    chart.update();
-  }
-
-  els.countBullish.textContent = c.Bullish;
-  els.countBearish.textContent = c.Bearish;
-  els.countNeutral.textContent = c.Neutral;
-  els.totalLine.textContent = `${data.total_articles || 0} articles analyzed`;
-
-  if (data.sample_headlines && data.sample_headlines.length) {
-    els.ticker.innerHTML = data.sample_headlines
-      .map(h => `<span>${h.replace(/</g, '&lt;')}</span>`)
-      .join('');
-  }
-}
-
-async function poll() {
-  try {
-    const res = await fetch('/api/sentiment');
-    const data = await res.json();
-    render(data);
-  } catch (err) {
-    els.pulse.classList.add('error');
-    els.statusText.textContent = 'connection lost';
-  }
-}
-
-els.refreshBtn.addEventListener('click', async () => {
-  els.refreshBtn.disabled = true;
-  els.statusText.textContent = 'refreshing…';
-  try {
-    const res = await fetch('/api/refresh', { method: 'POST' });
-    const data = await res.json();
-    render(data);
-  } finally {
-    els.refreshBtn.disabled = false;
-  }
-});
-
-initChart();
-poll();
-setInterval(poll, 4000);
-</script>
-
+        // Fetch metrics automatically when page finishes loading
+        document.addEventListener('DOMContentLoaded', fetchSentimentData);
+    </script>
 </body>
 </html>
