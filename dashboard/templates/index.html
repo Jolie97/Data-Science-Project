@@ -1,136 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Market Sentiment Dashboard</title>
-    <!-- Chart.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f9;
-            margin: 0;
-            padding: 40px 20px;
-            color: #333;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .card-grid {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .card {
-            background: #ffffff;
-            border-radius: 8px;
-            padding: 20px;
-            width: 420px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .card h2 {
-            font-size: 1.2rem;
-            margin-top: 0;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-            text-align: center;
-        }
-        .chart-container {
-            position: relative;
-            height: 260px;
-            width: 100%;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080f1b">
+  <meta name="description" content="CryptoTruth presents sentiment classifications from the project's processed cryptocurrency discussion data.">
+  <title>CryptoTruth · Sentiment Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Keep the original charting dependency and both existing chart IDs. -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080f1b;
+      --surface: #111c2c;
+      --surface-2: #162437;
+      --surface-3: #1b2a3e;
+      --line: rgba(173, 195, 218, .13);
+      --text: #f0f6fd;
+      --muted: #97a9bd;
+      --subtle: #71869e;
+      --green: #52e0aa;
+      --green-dark: #144b3d;
+      --red: #ff778b;
+      --red-dark: #523040;
+      --neutral: #9baec7;
+      --blue: #78a8ff;
+      --shadow: 0 18px 60px rgba(0, 0, 0, .18);
+      --radius: 22px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 22px; }
+    body { margin: 0; min-width: 320px; background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    :focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
+    ::selection { background: var(--green); color: var(--bg); }
+    .icon { width: 19px; height: 19px; display: inline-block; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .mono, .eyebrow, .kpi-label, .chip, .section-index, .table-label, .source-tag { font-family: 'DM Mono', ui-monospace, monospace; }
+    .app-shell { min-height: 100vh; display: grid; grid-template-columns: 248px minmax(0, 1fr); }
+    .sidebar { padding: 29px 18px 23px; background: #0c1625; border-right: 1px solid var(--line); display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh; z-index: 10; }
+    .brand { display: flex; gap: 12px; align-items: center; padding: 6px 9px 32px; }
+    .brand-mark { width: 42px; height: 42px; border: 1px solid rgba(82,224,170,.45); border-radius: 13px; display: grid; place-items: center; color: #091a19; background: linear-gradient(145deg, #7af5bf, #39b98e); box-shadow: 0 0 25px rgba(82,224,170,.1); font-size: 26px; font-weight: 800; letter-spacing: -2px; }
+    .brand-name { font-weight: 800; letter-spacing: -.045em; font-size: 19px; }
+    .brand-sub { margin-top: 2px; font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: .14em; text-transform: uppercase; }
+    .nav-caption { color: var(--subtle); padding: 0 16px; margin: 15px 0 12px; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; }
+    .nav-links { display: grid; gap: 5px; }
+    .nav-link { border: 1px solid transparent; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; gap: 11px; font-weight: 600; font-size: 12px; color: var(--muted); transition: background .2s, color .2s, border-color .2s; }
+    .nav-link:hover, .nav-link:focus-visible { background: var(--surface-2); color: var(--text); }
+    .nav-link.active { background: rgba(82,224,170,.095); border-color: rgba(82,224,170,.18); color: var(--green); }
+    .nav-link .icon { width: 17px; height: 17px; }
+    .side-note { margin-top: auto; background: linear-gradient(145deg, rgba(82,224,170,.1), rgba(120,168,255,.025)); padding: 16px; border-radius: 16px; border: 1px solid rgba(82,224,170,.15); }
+    .side-note-heading { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; }
+    .live-dot { display: inline-block; width: 7px; height: 7px; background: var(--green); border-radius: 50%; box-shadow: 0 0 0 4px rgba(82,224,170,.11); flex: 0 0 auto; }
+    .side-note p { color: var(--muted); font-size: 11px; line-height: 1.7; margin: 9px 0 0; }
+    .side-footer { font: 10px 'DM Mono', monospace; color: var(--subtle); padding: 18px 8px 0; }
+    .main { min-width: 0; max-width: 1730px; width: 100%; margin: 0 auto; padding: 28px clamp(20px, 3vw, 48px) 42px; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; min-height: 42px; gap: 16px; margin-bottom: 24px; }
+    .breadcrumbs { display: flex; align-items: center; gap: 10px; color: var(--subtle); font-size: 12px; font-weight: 600; }
+    .breadcrumbs strong { color: var(--text); font-weight: 700; }
+    .topbar-status { display: flex; align-items: center; gap: 9px; border: 1px solid var(--line); padding: 9px 12px; border-radius: 999px; font-size: 11px; color: var(--muted); white-space: nowrap; }
+    .topbar-status .live-dot { width: 6px; height: 6px; }
+    .mobile-brand, .menu-button { display: none; }
+    .hero { border: 1px solid rgba(125,167,208,.17); border-radius: 25px; padding: clamp(24px, 3.1vw, 43px); min-height: 216px; display: flex; justify-content: space-between; align-items: center; overflow: hidden; position: relative; background: radial-gradient(ellipse at 82% 18%, rgba(42,163,127,.18), transparent 42%), linear-gradient(112deg, #152b35 0%, #102435 55%, #10203a 100%); box-shadow: var(--shadow); }
+    .hero::before { position: absolute; content: ''; width: 380px; height: 380px; right: -74px; top: -149px; border: 1px solid rgba(109,226,177,.13); border-radius: 50%; box-shadow: 0 0 0 42px rgba(109,226,177,.025), 0 0 0 85px rgba(109,226,177,.02); pointer-events: none; }
+    .hero::after { position: absolute; content: ''; width: 132px; height: 132px; border: 1px solid rgba(109,226,177,.18); transform: rotate(45deg); border-radius: 26px; right: 110px; bottom: -86px; pointer-events: none; }
+    .hero-content { position: relative; z-index: 1; max-width: 710px; }
+    .eyebrow { text-transform: uppercase; letter-spacing: .16em; font-size: 10px; color: var(--green); font-weight: 500; }
+    h1 { letter-spacing: -.055em; font-size: clamp(28px, 3.2vw, 45px); line-height: 1.12; margin: 16px 0 14px; font-weight: 800; }
+    h1 em { color: var(--green); font-style: normal; }
+    .hero p { max-width: 580px; font-size: 13px; color: #bbcedb; line-height: 1.8; margin: 0; }
+    .hero-stamp { flex: 0 0 100px; width: 100px; height: 100px; border-radius: 30px; border: 1px solid rgba(82,224,170,.25); color: rgba(120,243,189,.7); background: rgba(9,27,31,.35); display: grid; place-items: center; position: relative; z-index: 1; }
+    .hero-stamp .icon { width: 49px; height: 49px; stroke-width: 1.2; }
+    .section-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; margin: 32px 0 17px; }
+    .section-index { color: var(--green); font-size: 11px; margin-right: 9px; }
+    .section-header h2 { font-size: 20px; letter-spacing: -.04em; margin: 0; font-weight: 800; }
+    .section-header p { margin: 7px 0 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+    .chip { font-size: 10px; color: var(--muted); text-transform: uppercase; white-space: nowrap; letter-spacing: .07em; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 9px 11px; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .kpi-card { min-width: 0; position: relative; background: linear-gradient(160deg, var(--surface), #101b2a); border: 1px solid var(--line); border-radius: 19px; padding: 21px 20px 19px; transition: border-color .2s, transform .2s, box-shadow .2s; }
+    .kpi-card:hover { transform: translateY(-3px); border-color: rgba(82,224,170,.35); box-shadow: var(--shadow); }
+    .kpi-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .kpi-label { text-transform: uppercase; color: var(--muted); font-size: 10px; letter-spacing: .06em; line-height: 1.5; }
+    .kpi-icon { display: grid; place-items: center; width: 33px; height: 33px; border-radius: 10px; color: var(--green); background: rgba(82,224,170,.09); }
+    .kpi-icon .icon { width: 17px; height: 17px; }
+    .kpi-card.red .kpi-icon { color: var(--red); background: rgba(255,119,139,.09); }
+    .kpi-card.blue .kpi-icon { color: var(--blue); background: rgba(120,168,255,.09); }
+    .kpi-value { font-size: clamp(28px, 2.9vw, 41px); font-weight: 800; letter-spacing: -.06em; margin: 10px 0 5px; font-variant-numeric: tabular-nums; }
+    .kpi-card.green .kpi-value { color: var(--green); }
+    .kpi-card.red .kpi-value { color: var(--red); }
+    .kpi-foot { font-size: 11px; color: var(--subtle); line-height: 1.6; }
+    .cards-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 17px; }
+    .panel { min-width: 0; background: linear-gradient(150deg, rgba(20,34,52,.98), rgba(14,25,40,.98)); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 12px 38px rgba(0,0,0,.08); padding: clamp(19px, 2.1vw, 27px); }
+    .panel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .panel-kicker { color: var(--green); font: 10px 'DM Mono', monospace; letter-spacing: .09em; text-transform: uppercase; margin: 0 0 9px; }
+    .panel h3 { font-size: 17px; margin: 0; letter-spacing: -.035em; font-weight: 800; }
+    .panel-sub { font-size: 11px; color: var(--muted); line-height: 1.7; margin: 8px 0 0; }
+    .panel-icon { color: var(--muted); width: 35px; height: 35px; border: 1px solid var(--line); display: grid; place-items: center; border-radius: 10px; }
+    .panel-icon .icon { width: 17px; height: 17px; }
+    .panel-separator { height: 1px; background: var(--line); margin: 18px 0 17px; }
+    .chart-area { position: relative; height: 275px; width: 100%; }
+    .chart-area canvas { max-width: 100%; }
+    .chart-unavailable { display: none; position: absolute; inset: 0; border: 1px dashed var(--line); border-radius: 12px; align-items: center; justify-content: center; text-align: center; padding: 25px; color: var(--muted); font-size: 12px; }
+    .panel-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 13px; color: var(--subtle); font: 10px 'DM Mono', monospace; }
+    .source-tag { color: var(--muted); border: 1px solid var(--line); background: #0e1a2a; padding: 6px 8px; border-radius: 7px; font-size: 10px; }
+    .legend { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 16px; }
+    .legend span { display: flex; align-items: center; gap: 7px; font-size: 11px; color: var(--muted); }
+    .legend i { width: 8px; height: 8px; border-radius: 2px; display: inline-block; }
+    .legend .green { background: var(--green); } .legend .red { background: var(--red); } .legend .neutral { background: var(--neutral); }
+    .breakdown-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 17px; }
+    .stat-row + .stat-row { margin-top: 20px; }
+    .stat-row-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; font-size: 12px; margin-bottom: 9px; }
+    .stat-name { color: #dce7f3; font-weight: 600; }
+    .stat-figures { display: flex; gap: 13px; color: var(--muted); font: 11px 'DM Mono', monospace; font-variant-numeric: tabular-nums; }
+    .stat-figures strong { color: var(--text); font-weight: 500; }
+    .track { height: 8px; border-radius: 99px; background: #233448; overflow: hidden; }
+    .fill { display: block; width: 0; height: 100%; border-radius: inherit; transition: width .75s cubic-bezier(.2,.75,.2,1); }
+    .fill.green { background: var(--green); } .fill.red { background: var(--red); } .fill.neutral { background: var(--neutral); }
+    .panel-note { color: var(--subtle); font-size: 11px; line-height: 1.7; border-top: 1px solid var(--line); margin: 22px 0 0; padding-top: 15px; }
+    .notice { display: flex; align-items: flex-start; gap: 13px; border: 1px solid rgba(120,168,255,.18); border-radius: 15px; background: rgba(120,168,255,.05); padding: 17px 18px; color: var(--muted); font-size: 12px; line-height: 1.75; }
+    .notice .icon { color: var(--blue); margin-top: 1px; }
+    .notice strong { color: var(--text); }
+    .notice p { margin: 0; }
+    .footer { border-top: 1px solid var(--line); padding-top: 19px; margin-top: 31px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--subtle); font-size: 10px; }
+    @media (max-width: 1200px) { .app-shell { grid-template-columns: 205px minmax(0,1fr); } .sidebar { padding-inline: 11px; } .main { padding-inline: 22px; } .kpi-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+    @media (max-width: 850px) { .app-shell { display: block; } .sidebar { position: static; height: auto; padding: 13px 18px; border-right: 0; border-bottom: 1px solid var(--line); } .brand { padding: 0; } .brand-mark { width: 35px; height: 35px; border-radius: 10px; font-size: 22px; } .brand-name { font-size: 16px; } .side-note, .side-footer, .nav-caption { display: none; } .nav-links { display: flex; overflow-x: auto; gap: 8px; margin-top: 14px; padding-bottom: 2px; scrollbar-width: thin; } .nav-link { white-space: nowrap; padding: 9px 12px; font-size: 11px; } .nav-link .icon { width: 15px; height: 15px; } .main { padding: 19px 18px 35px; } .topbar { margin-bottom: 16px; } .hero-stamp { width: 78px; height: 78px; flex-basis: 78px; border-radius: 23px; } .hero-stamp .icon { width: 37px; height: 37px; } }
+    @media (max-width: 670px) { .cards-grid, .breakdown-grid { grid-template-columns: 1fr; } .hero { min-height: 0; } .hero-stamp { display: none; } .section-header { align-items: flex-start; } .topbar-status { font-size: 10px; } .chart-area { height: 250px; } }
+    @media (max-width: 430px) { .kpi-grid { gap: 10px; } .kpi-card { padding: 15px 12px; border-radius: 15px; } .kpi-label { font-size: 9px; } .kpi-value { font-size: 26px; } .kpi-foot { font-size: 10px; } .kpi-icon { width: 28px; height: 28px; } .chip { display: none; } .hero { padding: 23px; } .hero p { font-size: 12px; } .stat-figures { gap: 7px; font-size: 10px; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }
+  </style>
 </head>
 <body>
+  <!-- Original data binding: both JSON objects still arrive through Flask/Jinja. -->
+  <div id="chart-data" hidden
+       data-p1-bullish="{{ file1_data.get('Bullish', 0) }}"
+       data-p1-bearish="{{ file1_data.get('Bearish', 0) }}"
+       data-p1-neutral="{{ file1_data.get('Neutral', 0) }}"
+       data-p2-positive="{{ file2_data.get('POSITIVE', 0) }}"
+       data-p2-negative="{{ file2_data.get('NEGATIVE', 0) }}"></div>
 
-<div class="container">
-    <h1>Market Sentiment Dashboard</h1>
+  <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18M7 16l4-5 4 3 5-7"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5ZM3 12l9 5 9-5M3 16l9 5 9-5"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-activity" viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 21v-2a6 6 0 0 1 12 0v2M17 5a3 3 0 0 1 0 6M17 15a5 5 0 0 1 4 5v1"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 11v5M12 8h.01"/></symbol>
+  </svg>
 
-    <!-- Hidden element storing Jinja variables safely -->
-    <div id="chart-data" 
-         data-p1-bullish="{{ file1_data.get('Bullish', 0) }}"
-         data-p1-bearish="{{ file1_data.get('Bearish', 0) }}"
-         data-p1-neutral="{{ file1_data.get('Neutral', 0) }}"
-         data-p2-positive="{{ file2_data.get('POSITIVE', 0) }}"
-         data-p2-negative="{{ file2_data.get('NEGATIVE', 0) }}">
-    </div>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Dashboard navigation">
+      <a class="brand" href="#overview" aria-label="CryptoTruth overview">
+        <span class="brand-mark">C</span>
+        <span><span class="brand-name">CryptoTruth</span><span class="brand-sub" style="display:block">Insights platform</span></span>
+      </a>
+      <div class="nav-caption mono">Workspace</div>
+      <nav class="nav-links" aria-label="Sections">
+        <a class="nav-link active" href="#overview" aria-current="page"><svg class="icon"><use href="#i-grid"/></svg>Overview</a>
+        <a class="nav-link" href="#analysis"><svg class="icon"><use href="#i-chart"/></svg>Sentiment analysis</a>
+        <a class="nav-link" href="#breakdown"><svg class="icon"><use href="#i-layers"/></svg>Label breakdown</a>
+        <a class="nav-link" href="#data-notes"><svg class="icon"><use href="#i-shield"/></svg>Data notes</a>
+      </nav>
+      <div class="side-note"><div class="side-note-heading"><span class="live-dot"></span>Snapshot-based analytics</div><p>Data is read from your existing prototype JSON exports when this page loads. This is not a live market feed.</p></div>
+      <div class="side-footer">CRYPTOTRUTH / DASHBOARD</div>
+    </aside>
 
-    <div class="card-grid">
-        <!-- Prototype 1 Chart -->
-        <div class="card">
-            <h2>Prototype 1 (Batch + Mapping)</h2>
-            <div class="chart-container">
-                <canvas id="chartPrototype1"></canvas>
-            </div>
+    <main class="main" id="overview">
+      <header class="topbar"><div class="breadcrumbs"><span>Workspace</span><span aria-hidden="true">/</span><strong>Overview</strong></div><div class="topbar-status"><span class="live-dot" aria-hidden="true"></span>Project data · JSON snapshot</div></header>
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-content"><div class="eyebrow">Crypto intelligence / sentiment overview</div><h1 id="page-title">Know what the crowd is <em>actually saying.</em></h1><p>Explore sentiment classification results from CryptoTruth's existing processed data. Two model outputs, one clear and transparent view.</p></div>
+        <div class="hero-stamp" aria-hidden="true"><svg class="icon"><use href="#i-shield"/></svg></div>
+      </section>
+
+      <section aria-labelledby="snapshot-title"><div class="section-header"><div><h2 id="snapshot-title"><span class="section-index">01 /</span>Snapshot overview</h2><p>Direct counts from the two existing JSON exports. Totals are calculated within each output separately.</p></div><span class="chip">Data-linked · No estimates</span></div>
+        <div class="kpi-grid">
+          <article class="kpi-card blue"><div class="kpi-top"><span class="kpi-label">Mapped classifications</span><span class="kpi-icon"><svg class="icon"><use href="#i-layers"/></svg></span></div><div class="kpi-value" id="p1-total">—</div><div class="kpi-foot">Total · Prototype 1</div></article>
+          <article class="kpi-card green"><div class="kpi-top"><span class="kpi-label">Bullish labels</span><span class="kpi-icon"><svg class="icon"><use href="#i-activity"/></svg></span></div><div class="kpi-value" id="p1-bullish">—</div><div class="kpi-foot" id="p1-bullish-foot">Share of mapped output</div></article>
+          <article class="kpi-card blue"><div class="kpi-top"><span class="kpi-label">Raw classifications</span><span class="kpi-icon"><svg class="icon"><use href="#i-users"/></svg></span></div><div class="kpi-value" id="p2-total">—</div><div class="kpi-foot">Total · Prototype 2</div></article>
+          <article class="kpi-card green"><div class="kpi-top"><span class="kpi-label">Positive labels</span><span class="kpi-icon"><svg class="icon"><use href="#i-arrow"/></svg></span></div><div class="kpi-value" id="p2-positive">—</div><div class="kpi-foot" id="p2-positive-foot">Share of raw output</div></article>
         </div>
+      </section>
 
-        <!-- Prototype 2 Chart -->
-        <div class="card">
-            <h2>Prototype 2 (Raw Labels)</h2>
-            <div class="chart-container">
-                <canvas id="chartPrototype2"></canvas>
-            </div>
+      <section id="analysis" aria-labelledby="analysis-title"><div class="section-header"><div><h2 id="analysis-title"><span class="section-index">02 /</span>Sentiment analysis</h2><p>Both original bar charts, restyled for the updated dashboard.</p></div><span class="chip">Count by label</span></div>
+        <div class="cards-grid">
+          <article class="panel"><div class="panel-head"><div><p class="panel-kicker">Prototype 01 / Batch + mapping</p><h3>Mapped sentiment</h3><p class="panel-sub">Distribution of Bullish, Bearish and Neutral classifications.</p></div><span class="panel-icon" aria-hidden="true"><svg class="icon"><use href="#i-chart"/></svg></span></div><div class="panel-separator"></div><div class="chart-area"><canvas id="chartPrototype1" role="img" aria-label="Bar chart of Bullish, Bearish and Neutral classification counts"></canvas><div class="chart-unavailable" id="fallback-1">Chart unavailable. Counts are still shown in the label breakdown below.</div></div><div class="legend" aria-hidden="true"><span><i class="green"></i>Bullish</span><span><i class="red"></i>Bearish</span><span><i class="neutral"></i>Neutral</span></div><div class="panel-meta"><span>Source: results_file1.json</span><span class="source-tag">3 labels</span></div></article>
+          <article class="panel"><div class="panel-head"><div><p class="panel-kicker">Prototype 02 / Raw labels</p><h3>Raw sentiment</h3><p class="panel-sub">Distribution of POSITIVE and NEGATIVE classifications.</p></div><span class="panel-icon" aria-hidden="true"><svg class="icon"><use href="#i-chart"/></svg></span></div><div class="panel-separator"></div><div class="chart-area"><canvas id="chartPrototype2" role="img" aria-label="Bar chart of POSITIVE and NEGATIVE classification counts"></canvas><div class="chart-unavailable" id="fallback-2">Chart unavailable. Counts are still shown in the label breakdown below.</div></div><div class="legend" aria-hidden="true"><span><i class="green"></i>POSITIVE</span><span><i class="red"></i>NEGATIVE</span></div><div class="panel-meta"><span>Source: results_file2.json</span><span class="source-tag">2 labels</span></div></article>
         </div>
-    </div>
-</div>
+      </section>
 
-<script>
-    // Extract numbers safely from dataset attributes
+      <section id="breakdown" aria-labelledby="breakdown-title"><div class="section-header"><div><h2 id="breakdown-title"><span class="section-index">03 /</span>Label breakdown</h2><p>The same source counts in a scannable, accessible alternative to the charts.</p></div><span class="chip">Within-output share</span></div>
+        <div class="breakdown-grid">
+          <article class="panel"><div class="panel-head"><div><p class="panel-kicker">Source / results_file1.json</p><h3>Batch + mapping</h3></div><span class="source-tag" id="p1-total-small">— classified</span></div><div class="panel-separator"></div>
+            <div class="stat-row"><div class="stat-row-head"><span class="stat-name">Bullish</span><span class="stat-figures"><strong id="row-bullish">—</strong><span id="pct-bullish">—</span></span></div><div class="track"><span class="fill green" id="bar-bullish"></span></div></div>
+            <div class="stat-row"><div class="stat-row-head"><span class="stat-name">Bearish</span><span class="stat-figures"><strong id="row-bearish">—</strong><span id="pct-bearish">—</span></span></div><div class="track"><span class="fill red" id="bar-bearish"></span></div></div>
+            <div class="stat-row"><div class="stat-row-head"><span class="stat-name">Neutral</span><span class="stat-figures"><strong id="row-neutral">—</strong><span id="pct-neutral">—</span></span></div><div class="track"><span class="fill neutral" id="bar-neutral"></span></div></div>
+            <p class="panel-note">Percentages use only the three categories in Prototype 1.</p>
+          </article>
+          <article class="panel"><div class="panel-head"><div><p class="panel-kicker">Source / results_file2.json</p><h3>Raw labels</h3></div><span class="source-tag" id="p2-total-small">— classified</span></div><div class="panel-separator"></div>
+            <div class="stat-row"><div class="stat-row-head"><span class="stat-name">POSITIVE</span><span class="stat-figures"><strong id="row-positive">—</strong><span id="pct-positive">—</span></span></div><div class="track"><span class="fill green" id="bar-positive"></span></div></div>
+            <div class="stat-row"><div class="stat-row-head"><span class="stat-name">NEGATIVE</span><span class="stat-figures"><strong id="row-negative">—</strong><span id="pct-negative">—</span></span></div><div class="track"><span class="fill red" id="bar-negative"></span></div></div>
+            <p class="panel-note">Percentages use only the two categories in Prototype 2. Results are not merged with Prototype 1.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="data-notes" aria-labelledby="notes-title"><div class="section-header"><div><h2 id="notes-title"><span class="section-index">04 /</span>Data & methodology</h2><p>What this version of the interface currently displays.</p></div></div><div class="notice"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg><p><strong>Transparent by design.</strong> Both charts and all figures come from your existing <span class="mono">results_file1.json</span> and <span class="mono">results_file2.json</span> via the original Flask loader. If a file is missing or unreadable, the existing backend supplies zero-valued fallbacks. A zero alone therefore cannot confirm that an export is present. The time-series, claim verdicts, community scores, leaderboard and verification bot in the visual references need their own real data/backend integration; this redesign does not fabricate them. This dashboard is analysis, not investment advice.</p></div></section>
+      <footer class="footer"><span>© CryptoTruth · Cryptocurrency discussion analysis</span><span class="mono">Flask + Chart.js · Historical / batch data</span></footer>
+    </main>
+  </div>
+
+  <script>
+    'use strict';
+    // Preserve the original five Jinja-supplied data values and chart identifiers.
     const dataEl = document.getElementById('chart-data').dataset;
+    const p1 = [Number(dataEl.p1Bullish), Number(dataEl.p1Bearish), Number(dataEl.p1Neutral)];
+    const p2 = [Number(dataEl.p2Positive), Number(dataEl.p2Negative)];
+    const total1 = p1.reduce((sum, count) => sum + count, 0);
+    const total2 = p2.reduce((sum, count) => sum + count, 0);
+    const format = value => new Intl.NumberFormat('en-AU').format(value);
+    const percent = (value, total) => total > 0 ? `${(value / total * 100).toFixed(1)}%` : '—';
+    const setText = (id, text) => { document.getElementById(id).textContent = text; };
 
-    // --- Prototype 1 Bar Chart ---
-    new Chart(document.getElementById('chartPrototype1'), {
-        type: 'bar',
-        data: {
-            labels: ['Bullish', 'Bearish', 'Neutral'],
-            datasets: [{
-                label: 'Count',
-                data: [
-                    Number(dataEl.p1Bullish),
-                    Number(dataEl.p1Bearish),
-                    Number(dataEl.p1Neutral)
-                ],
-                backgroundColor: ['#4caf50', '#f44336', '#9e9e9e']
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: { y: { beginAtZero: true } }
-        }
+    setText('p1-total', format(total1));
+    setText('p1-bullish', format(p1[0]));
+    setText('p1-bullish-foot', `${percent(p1[0], total1)} of mapped output`);
+    setText('p2-total', format(total2));
+    setText('p2-positive', format(p2[0]));
+    setText('p2-positive-foot', `${percent(p2[0], total2)} of raw output`);
+    setText('p1-total-small', `${format(total1)} classified`);
+    setText('p2-total-small', `${format(total2)} classified`);
+
+    [
+      ['bullish', p1[0], total1], ['bearish', p1[1], total1], ['neutral', p1[2], total1],
+      ['positive', p2[0], total2], ['negative', p2[1], total2]
+    ].forEach(([name, count, total]) => {
+      setText(`row-${name}`, format(count));
+      setText(`pct-${name}`, percent(count, total));
+      document.getElementById(`bar-${name}`).style.width = total > 0 ? `${count / total * 100}%` : '0%';
     });
 
-    // --- Prototype 2 Bar Chart ---
-    new Chart(document.getElementById('chartPrototype2'), {
-        type: 'bar',
-        data: {
-            labels: ['POSITIVE', 'NEGATIVE'],
-            datasets: [{
-                label: 'Count',
-                data: [
-                    Number(dataEl.p2Positive),
-                    Number(dataEl.p2Negative)
-                ],
-                backgroundColor: ['#4caf50', '#f44336']
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: { y: { beginAtZero: true } }
-        }
-    });
-</script>
+    if (typeof Chart !== 'undefined') {
+      Chart.defaults.font.family = "'Plus Jakarta Sans', system-ui, sans-serif";
+      Chart.defaults.color = '#97a9bd';
+      const colors = ['#52e0aa', '#ff778b', '#9baec7'];
+      function drawChart(canvasId, labels, values) {
+        const canvas = document.getElementById(canvasId);
+        return new Chart(canvas, {
+          type: 'bar',
+          data: { labels, datasets: [{ label: 'Count', data: values, backgroundColor: colors.slice(0, values.length), hoverBackgroundColor: colors.slice(0, values.length), borderRadius: 7, borderSkipped: false, maxBarThickness: 58, categoryPercentage: .66, barPercentage: .82 }] },
+          options: {
+            responsive: true, maintainAspectRatio: false, animation: { duration: 650 },
+            interaction: { intersect: false, mode: 'index' },
+            plugins: {
+              legend: { display: false },
+              tooltip: { displayColors: false, backgroundColor: '#21344a', titleColor: '#f0f6fd', bodyColor: '#f0f6fd', padding: 11, cornerRadius: 9, callbacks: { label: context => ` ${format(context.parsed.y)} classifications` } }
+            },
+            scales: {
+              x: { border: { display: false }, grid: { display: false }, ticks: { color: '#afc0d3', font: { size: 11, weight: '600' } } },
+              y: { beginAtZero: true, border: { display: false, dash: [4, 5] }, grid: { color: 'rgba(173,195,218,.10)', drawTicks: false }, ticks: { color: '#71869e', precision: 0, padding: 10, callback: value => format(value) } }
+            }
+          }
+        });
+      }
+      drawChart('chartPrototype1', ['Bullish', 'Bearish', 'Neutral'], p1);
+      drawChart('chartPrototype2', ['POSITIVE', 'NEGATIVE'], p2);
+    } else {
+      document.querySelectorAll('.chart-area canvas').forEach(canvas => { canvas.hidden = true; });
+      document.querySelectorAll('.chart-unavailable').forEach(message => { message.style.display = 'flex'; });
+    }
 
+    // Navigation is a presentation-only enhancement; no additional backend routes.
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => link.addEventListener('click', () => {
+      navLinks.forEach(item => { item.classList.remove('active'); item.removeAttribute('aria-current'); });
+      link.classList.add('active'); link.setAttribute('aria-current', 'page');
+    }));
+  </script>
 </body>
 </html>
