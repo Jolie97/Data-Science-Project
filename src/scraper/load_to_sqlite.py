@@ -13,7 +13,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 # Define paths relative to the script
 PROJECT_ROOT = SCRIPT_DIR.parent.parent
 DB_DIR = PROJECT_ROOT / "data" / "processed"
-DB_PATH = DB_DIR / "reddit_data.db"
+DB_PATH = DB_DIR / "reddit-data-180826.db"
 SCHEMA_PATH = SCRIPT_DIR / "schema.sql"
 REDDHOG_DATA_DIR = SCRIPT_DIR / "reddhog" / "data"
 

@@ -1,24 +1,28 @@
-# Virtual environment — never commit this folder
-dataenv/
-*.venv
+# Database
+*.db
+.db
 
-# Environment secrets — never commit your API key
+# Virtual environments
+dataenv/
+.venv/
+*.venv/
+
+# Secrets
 .env
 
 # Python cache
 __pycache__/
-*.pyc
-*.pyo
+*.py[cod]
 
-# Output files 
+# Generated output
 comparison_output.csv
 
-# OS clutter
+# OS files
 .DS_Store
 Thumbs.db
 
-# Data Folder
-data
-
-# Database
+# Data and local databases
+data/
 *.db
+*.sqlite
+*.sqlite3

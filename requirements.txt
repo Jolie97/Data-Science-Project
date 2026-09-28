@@ -1,20 +1,17 @@
-# --- Web Server & API ---
-flask
-gunicorn
-requests
-
-# --- Machine Learning & Sentiment NLP ---
-torch
+# --- Data Science & NLP Dependencies---
+pandas==3.0.5
+openpyxl==3.1.5
+nltk
 transformers
+torch
+scipy
 
-# --- Data Processing & Excel Support ---
-pandas
-openpyxl
-
-# --- Interactive Notebooks & Formatting ---
-ipykernel
-jinja2
+# --- Jupyter Notebook & Formatting ---
+ipykernel==7.3.0
+jinja2==3.1.6
 ipython
 
-# --- Local Package Install ---
+# --- Scraper ---
+# This tells pip to install the reddhog folder locally using a relative path, 
+# so it works on everyone's computer regardless of their username or OS.
 -e ./src/scraper/reddhog
