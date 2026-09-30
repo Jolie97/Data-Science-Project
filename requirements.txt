@@ -5,6 +5,7 @@ nltk
 transformers
 torch
 scipy
+spacy
 
 # --- Jupyter Notebook & Formatting ---
 ipykernel==7.3.0
