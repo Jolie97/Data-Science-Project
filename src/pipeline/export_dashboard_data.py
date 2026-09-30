@@ -96,8 +96,8 @@ def main():
             elif verdict["veracity"] == "REFUTED":
                 refuted_count += 1
 
-    # Map SUPPORTED -> POSITIVE, REFUTED -> NEGATIVE to match index.html
-    file2_payload = {"POSITIVE": supported_count, "NEGATIVE": refuted_count}
+    # Map SUPPORTED -> SUPPORTED, REFUTED -> REFUTED to match index.html
+    file2_payload = {"SUPPORTED": supported_count, "REFUTED": refuted_count}
 
     file2_out = PROTOTYPE_DIR / "results_file2.json"
     with open(file2_out, "w", encoding="utf-8") as f:
