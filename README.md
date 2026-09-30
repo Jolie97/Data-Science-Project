@@ -60,3 +60,12 @@ reddhog refresh cryptocurrency
 # 4. Upsert the raw JSON into the SQLite database
 python src/scraper/load_to_sqlite.py
 ```
+
+## Extracted subreddits
+
+1. r/CryptoCurrency (334K/3.6K weekly visitors/contributions)
+2. r/CryptoMarkets (53K/1.3K weekly visitors/contributions)
+3. r/Bitcoin (441K/10K weekly visitors/contributions)
+4. r/Superstonk (250K/21K weekly visitors/contributions)
+5. r/btc (58K/1.3K weekly visitors/contributions)
+6. r/CryptoExchange (118K/383 weekly visitors/contributions)
