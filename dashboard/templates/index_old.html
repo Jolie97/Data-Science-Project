@@ -6,15 +6,16 @@
     <meta name="theme-color" content="#080f1b" />
     <meta
       name="description"
-      content="CryptoTruth presents sentiment analysis and claim verification results from cryptocurrency discussion data."
+      content="CryptoTruth presents sentiment classifications from the project's processed cryptocurrency discussion data."
     />
-    <title>CryptoTruth · Sentiment &amp; Claim Dashboard</title>
+    <title>CryptoTruth · Sentiment Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <!-- Keep the original charting dependency and both existing chart IDs. -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
     <style>
       :root {
@@ -107,7 +108,6 @@
         top: 0;
         height: 100vh;
         z-index: 10;
-        overflow-y: auto;
       }
       .brand {
         display: flex;
@@ -264,6 +264,10 @@
       .topbar-status .live-dot {
         width: 6px;
         height: 6px;
+      }
+      .mobile-brand,
+      .menu-button {
+        display: none;
       }
       .hero {
         border: 1px solid rgba(125, 167, 208, 0.17);
@@ -519,7 +523,6 @@
         display: grid;
         place-items: center;
         border-radius: 10px;
-        flex: 0 0 auto;
       }
       .panel-icon .icon {
         width: 17px;
@@ -653,9 +656,6 @@
       .fill.neutral {
         background: var(--neutral);
       }
-      .fill.blue {
-        background: var(--blue);
-      }
       .panel-note {
         color: var(--subtle);
         font-size: 11px;
@@ -697,124 +697,6 @@
         color: var(--subtle);
         font-size: 10px;
       }
-      /* Tables (subreddits, topics, scoring, divergence) */
-      .table-wrap {
-        overflow-x: auto;
-      }
-      .data-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 12px;
-        text-align: left;
-      }
-      .data-table th {
-        padding: 11px 12px;
-        color: var(--subtle);
-        font:
-          10px "DM Mono",
-          monospace;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        border-bottom: 1px solid var(--line);
-        white-space: nowrap;
-      }
-      .data-table td {
-        padding: 13px 12px;
-        border-bottom: 1px solid rgba(173, 195, 218, 0.07);
-        color: var(--muted);
-        font-variant-numeric: tabular-nums;
-      }
-      .data-table td:first-child {
-        color: var(--text);
-        font-weight: 600;
-      }
-      .data-table tr:hover td {
-        background: rgba(82, 224, 170, 0.03);
-      }
-      .num-pos {
-        color: var(--green) !important;
-      }
-      .num-neg {
-        color: var(--red) !important;
-      }
-      /* Claims + proof */
-      .claim-list {
-        display: grid;
-        gap: 14px;
-      }
-      .claim-card {
-        background: var(--surface);
-        border: 1px solid var(--line);
-        border-radius: 16px;
-        padding: 19px 20px;
-      }
-      .claim-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-bottom: 11px;
-      }
-      .badge {
-        font:
-          700 10px "DM Mono",
-          monospace;
-        padding: 4px 9px;
-        border-radius: 6px;
-        text-transform: uppercase;
-      }
-      .badge.supported {
-        background: rgba(82, 224, 170, 0.12);
-        color: var(--green);
-        border: 1px solid rgba(82, 224, 170, 0.3);
-      }
-      .badge.refuted {
-        background: rgba(255, 119, 139, 0.12);
-        color: var(--red);
-        border: 1px solid rgba(255, 119, 139, 0.3);
-      }
-      .claim-meta {
-        font:
-          10px "DM Mono",
-          monospace;
-        color: var(--subtle);
-      }
-      .claim-text {
-        font-size: 13px;
-        font-weight: 600;
-        line-height: 1.65;
-        margin: 0 0 12px;
-      }
-      .evidence-box {
-        background: #0c1625;
-        border-left: 3px solid var(--blue);
-        border-radius: 4px 10px 10px 4px;
-        padding: 11px 14px;
-        font-size: 11px;
-        color: var(--muted);
-        line-height: 1.7;
-      }
-      .evidence-src {
-        display: block;
-        font:
-          9px "DM Mono",
-          monospace;
-        color: var(--blue);
-        text-transform: uppercase;
-        margin-bottom: 5px;
-      }
-      .evidence-src a {
-        text-decoration: underline;
-      }
-      .empty-state {
-        border: 1px dashed var(--line);
-        border-radius: 14px;
-        padding: 22px;
-        text-align: center;
-        color: var(--subtle);
-        font-size: 12px;
-      }
       @media (max-width: 1200px) {
         .app-shell {
           grid-template-columns: 205px minmax(0, 1fr);
@@ -839,7 +721,6 @@
           padding: 13px 18px;
           border-right: 0;
           border-bottom: 1px solid var(--line);
-          overflow: visible;
         }
         .brand {
           padding: 0;
@@ -960,21 +841,16 @@
     </style>
   </head>
   <body>
-    <!-- Original data binding: results_file1.json / results_file2.json via Flask/Jinja. POSITIVE = Supported, NEGATIVE = Refuted. -->
+    <!-- Original data binding: both JSON objects still arrive through Flask/Jinja. -->
     <div
       id="chart-data"
       hidden
       data-p1-bullish="{{ file1_data.get('Bullish', 0) }}"
       data-p1-bearish="{{ file1_data.get('Bearish', 0) }}"
       data-p1-neutral="{{ file1_data.get('Neutral', 0) }}"
-      data-p2-supported="{{ file2_data.get('SUPPORTED', 0) }}"
-      data-p2-refuted="{{ file2_data.get('REFUTED', 0) }}"
+      data-p2-positive="{{ file2_data.get('SUPPORTED', 0) }}"
+      data-p2-negative="{{ file2_data.get('REFUTED', 0) }}"
     ></div>
-
-    <!-- New data binding: dashboard_data.json passed from Flask as dashboard_data (empty object if missing). -->
-    <script id="dashboard-data" type="application/json">
-      {{ (dashboard_data or {})|tojson }}
-    </script>
 
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -1009,9 +885,6 @@
       <symbol id="i-arrow" viewBox="0 0 24 24">
         <path d="M5 12h14m-6-6 6 6-6 6" />
       </symbol>
-      <symbol id="i-check" viewBox="0 0 24 24">
-        <path d="m20 6-11 11-5-5" />
-      </symbol>
       <symbol id="i-info" viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="10" />
         <path d="M12 11v5M12 8h.01" />
@@ -1035,31 +908,14 @@
             ><svg class="icon"><use href="#i-grid" /></svg>Overview</a
           >
           <a class="nav-link" href="#analysis"
-            ><svg class="icon"><use href="#i-chart" /></svg>Sentiment &amp;
-            claims</a
+            ><svg class="icon"><use href="#i-chart" /></svg>Sentiment
+            analysis</a
           >
           <a class="nav-link" href="#breakdown"
             ><svg class="icon"><use href="#i-layers" /></svg>Label breakdown</a
           >
-          <a class="nav-link" href="#subreddits"
-            ><svg class="icon"><use href="#i-users" /></svg>Subreddits</a
-          >
-          <a class="nav-link" href="#topics"
-            ><svg class="icon"><use href="#i-activity" /></svg>Top topics</a
-          >
-          <a class="nav-link" href="#divergence"
-            ><svg class="icon"><use href="#i-arrow" /></svg>Post vs. comments</a
-          >
-          <a class="nav-link" href="#claims"
-            ><svg class="icon"><use href="#i-check" /></svg>Claims &amp;
-            proof</a
-          >
-          <a class="nav-link" href="#scoring"
-            ><svg class="icon"><use href="#i-shield" /></svg>Subreddit
-            scoring</a
-          >
           <a class="nav-link" href="#data-notes"
-            ><svg class="icon"><use href="#i-info" /></svg>Data notes</a
+            ><svg class="icon"><use href="#i-shield" /></svg>Data notes</a
           >
         </nav>
         <div class="side-note">
@@ -1067,8 +923,8 @@
             <span class="live-dot"></span>Snapshot-based analytics
           </div>
           <p>
-            Data is read from exported JSON files when this page loads. This is
-            not a live market feed.
+            Data is read from your existing prototype JSON exports when this
+            page loads. This is not a live market feed.
           </p>
         </div>
         <div class="side-footer">CRYPTOTRUTH / DASHBOARD</div>
@@ -1087,16 +943,14 @@
         </header>
         <section class="hero" aria-labelledby="page-title">
           <div class="hero-content">
-            <div class="eyebrow">
-              Crypto intelligence / sentiment &amp; claim verification
-            </div>
+            <div class="eyebrow">Crypto intelligence / sentiment overview</div>
             <h1 id="page-title">
               Know what the crowd is <em>actually saying.</em>
             </h1>
             <p>
-              Explore sentiment analysis and claim verification results from
-              CryptoTruth's processed Reddit data, across subreddits, topics and
-              comment threads.
+              Explore sentiment classification results from CryptoTruth's
+              existing processed data. Two model outputs, one clear and
+              transparent view.
             </p>
           </div>
           <div class="hero-stamp" aria-hidden="true">
@@ -1104,15 +958,15 @@
           </div>
         </section>
 
-        <section id="snapshot" aria-labelledby="snapshot-title">
+        <section aria-labelledby="snapshot-title">
           <div class="section-header">
             <div>
               <h2 id="snapshot-title">
                 <span class="section-index">01 /</span>Snapshot overview
               </h2>
               <p>
-                Direct counts from the sentiment and claim verification exports.
-                Totals are calculated within each output separately.
+                Direct counts from the two existing JSON exports. Totals are
+                calculated within each output separately.
               </p>
             </div>
             <span class="chip">Data-linked · No estimates</span>
@@ -1120,60 +974,59 @@
           <div class="kpi-grid">
             <article class="kpi-card blue">
               <div class="kpi-top">
-                <span class="kpi-label">Posts analysed</span
+                <span class="kpi-label">Mapped classifications</span
                 ><span class="kpi-icon"
                   ><svg class="icon"><use href="#i-layers" /></svg
                 ></span>
               </div>
-              <div class="kpi-value" id="p1-total">0</div>
-              <div class="kpi-foot">Total · Sentiment analysis</div>
+              <div class="kpi-value" id="p1-total">—</div>
+              <div class="kpi-foot">Total · Prototype 1</div>
             </article>
             <article class="kpi-card green">
               <div class="kpi-top">
-                <span class="kpi-label">Bullish posts</span
+                <span class="kpi-label">Bullish labels</span
                 ><span class="kpi-icon"
                   ><svg class="icon"><use href="#i-activity" /></svg
                 ></span>
               </div>
-              <div class="kpi-value" id="p1-bullish">0</div>
+              <div class="kpi-value" id="p1-bullish">—</div>
               <div class="kpi-foot" id="p1-bullish-foot">
-                Share of analysed posts
+                Share of mapped output
               </div>
             </article>
             <article class="kpi-card blue">
               <div class="kpi-top">
-                <span class="kpi-label">Claims verified</span
+                <span class="kpi-label">Raw classifications</span
                 ><span class="kpi-icon"
-                  ><svg class="icon"><use href="#i-shield" /></svg
+                  ><svg class="icon"><use href="#i-users" /></svg
                 ></span>
               </div>
-              <div class="kpi-value" id="p2-total">0</div>
-              <div class="kpi-foot">Total · Claim verification</div>
+              <div class="kpi-value" id="p2-total">—</div>
+              <div class="kpi-foot">Total · Prototype 2</div>
             </article>
             <article class="kpi-card green">
               <div class="kpi-top">
-                <span class="kpi-label">Supported claims</span
+                <span class="kpi-label">Positive labels</span
                 ><span class="kpi-icon"
-                  ><svg class="icon"><use href="#i-check" /></svg
+                  ><svg class="icon"><use href="#i-arrow" /></svg
                 ></span>
               </div>
-              <div class="kpi-value" id="p2-positive">0</div>
+              <div class="kpi-value" id="p2-positive">—</div>
               <div class="kpi-foot" id="p2-positive-foot">
-                Share of verified claims
+                Share of raw output
               </div>
             </article>
           </div>
         </section>
+
         <section id="analysis" aria-labelledby="analysis-title">
           <div class="section-header">
             <div>
               <h2 id="analysis-title">
-                <span class="section-index">02 /</span>Sentiment analysis &amp;
-                claim verification
+                <span class="section-index">02 /</span>Sentiment analysis
               </h2>
               <p>
-                Sentiment label counts alongside supported and refuted claim
-                counts.
+                Both original bar charts, restyled for the updated dashboard.
               </p>
             </div>
             <span class="chip">Count by label</span>
@@ -1182,8 +1035,8 @@
             <article class="panel">
               <div class="panel-head">
                 <div>
-                  <p class="panel-kicker">Sentiment analysis / VADER</p>
-                  <h3>Post sentiment</h3>
+                  <p class="panel-kicker">Prototype 01 / Batch + mapping</p>
+                  <h3>Mapped sentiment</h3>
                   <p class="panel-sub">
                     Distribution of Bullish, Bearish and Neutral
                     classifications.
@@ -1218,16 +1071,14 @@
             <article class="panel">
               <div class="panel-head">
                 <div>
-                  <p class="panel-kicker">
-                    Claim verification / NLI + evidence retrieval
-                  </p>
-                  <h3>Claim verdicts</h3>
+                  <p class="panel-kicker">Prototype 02 / Raw labels</p>
+                  <h3>Raw sentiment</h3>
                   <p class="panel-sub">
-                    Distribution of Supported and Refuted claims.
+                    Distribution of POSITIVE and NEGATIVE classifications.
                   </p>
                 </div>
                 <span class="panel-icon" aria-hidden="true"
-                  ><svg class="icon"><use href="#i-shield" /></svg
+                  ><svg class="icon"><use href="#i-chart" /></svg
                 ></span>
               </div>
               <div class="panel-separator"></div>
@@ -1235,7 +1086,7 @@
                 <canvas
                   id="chartPrototype2"
                   role="img"
-                  aria-label="Bar chart of Supported and Refuted claim counts"
+                  aria-label="Bar chart of POSITIVE and NEGATIVE classification counts"
                 ></canvas>
                 <div class="chart-unavailable" id="fallback-2">
                   Chart unavailable. Counts are still shown in the label
@@ -1243,8 +1094,8 @@
                 </div>
               </div>
               <div class="legend" aria-hidden="true">
-                <span><i class="green"></i>Supported</span
-                ><span><i class="red"></i>Refuted</span>
+                <span><i class="green"></i>POSITIVE</span
+                ><span><i class="red"></i>NEGATIVE</span>
               </div>
               <div class="panel-meta">
                 <span>Source: results_file2.json</span
@@ -1253,6 +1104,7 @@
             </article>
           </div>
         </section>
+
         <section id="breakdown" aria-labelledby="breakdown-title">
           <div class="section-header">
             <div>
@@ -1271,17 +1123,17 @@
               <div class="panel-head">
                 <div>
                   <p class="panel-kicker">Source / results_file1.json</p>
-                  <h3>Sentiment analysis</h3>
+                  <h3>Batch + mapping</h3>
                 </div>
-                <span class="source-tag" id="p1-total-small">0 classified</span>
+                <span class="source-tag" id="p1-total-small">— classified</span>
               </div>
               <div class="panel-separator"></div>
               <div class="stat-row">
                 <div class="stat-row-head">
                   <span class="stat-name">Bullish</span
                   ><span class="stat-figures"
-                    ><strong id="row-bullish">0</strong
-                    ><span id="pct-bullish">0%</span></span
+                    ><strong id="row-bullish">—</strong
+                    ><span id="pct-bullish">—</span></span
                   >
                 </div>
                 <div class="track">
@@ -1292,8 +1144,8 @@
                 <div class="stat-row-head">
                   <span class="stat-name">Bearish</span
                   ><span class="stat-figures"
-                    ><strong id="row-bearish">0</strong
-                    ><span id="pct-bearish">0%</span></span
+                    ><strong id="row-bearish">—</strong
+                    ><span id="pct-bearish">—</span></span
                   >
                 </div>
                 <div class="track">
@@ -1304,8 +1156,8 @@
                 <div class="stat-row-head">
                   <span class="stat-name">Neutral</span
                   ><span class="stat-figures"
-                    ><strong id="row-neutral">0</strong
-                    ><span id="pct-neutral">0%</span></span
+                    ><strong id="row-neutral">—</strong
+                    ><span id="pct-neutral">—</span></span
                   >
                 </div>
                 <div class="track">
@@ -1313,24 +1165,24 @@
                 </div>
               </div>
               <p class="panel-note">
-                Percentages use only the three sentiment categories.
+                Percentages use only the three categories in Prototype 1.
               </p>
             </article>
             <article class="panel">
               <div class="panel-head">
                 <div>
                   <p class="panel-kicker">Source / results_file2.json</p>
-                  <h3>Claim verification</h3>
+                  <h3>Raw labels</h3>
                 </div>
-                <span class="source-tag" id="p2-total-small">0 classified</span>
+                <span class="source-tag" id="p2-total-small">— classified</span>
               </div>
               <div class="panel-separator"></div>
               <div class="stat-row">
                 <div class="stat-row-head">
-                  <span class="stat-name">Supported</span
+                  <span class="stat-name">POSITIVE</span
                   ><span class="stat-figures"
-                    ><strong id="row-positive">0</strong
-                    ><span id="pct-positive">0%</span></span
+                    ><strong id="row-positive">—</strong
+                    ><span id="pct-positive">—</span></span
                   >
                 </div>
                 <div class="track">
@@ -1339,10 +1191,10 @@
               </div>
               <div class="stat-row">
                 <div class="stat-row-head">
-                  <span class="stat-name">Refuted</span
+                  <span class="stat-name">NEGATIVE</span
                   ><span class="stat-figures"
-                    ><strong id="row-negative">0</strong
-                    ><span id="pct-negative">0%</span></span
+                    ><strong id="row-negative">—</strong
+                    ><span id="pct-negative">—</span></span
                   >
                 </div>
                 <div class="track">
@@ -1350,300 +1202,18 @@
                 </div>
               </div>
               <p class="panel-note">
-                Percentages use only Supported and Refuted claims. Results are
-                not merged with the sentiment counts.
+                Percentages use only the two categories in Prototype 2. Results
+                are not merged with Prototype 1.
               </p>
             </article>
           </div>
         </section>
-        <section id="subreddits" aria-labelledby="subreddits-title">
-          <div class="section-header">
-            <div>
-              <h2 id="subreddits-title">
-                <span class="section-index">04 /</span>Sentiment across
-                subreddits
-              </h2>
-              <p>
-                Sentiment label counts and average compound score for each
-                scraped subreddit.
-              </p>
-            </div>
-            <span class="chip">Source: dashboard_data.json</span>
-          </div>
-          <div class="cards-grid">
-            <article class="panel">
-              <div class="panel-head">
-                <div>
-                  <p class="panel-kicker">Field / subreddit_sentiment</p>
-                  <h3>Sentiment mix by subreddit</h3>
-                </div>
-              </div>
-              <div class="panel-separator"></div>
-              <div class="chart-area">
-                <canvas
-                  id="chartSubreddits"
-                  role="img"
-                  aria-label="Stacked bar chart of sentiment labels for each subreddit"
-                ></canvas>
-                <div class="chart-unavailable" id="fallback-3">
-                  No subreddit data available.
-                </div>
-              </div>
-              <div class="legend" aria-hidden="true">
-                <span><i class="green"></i>Bullish</span
-                ><span><i class="red"></i>Bearish</span
-                ><span><i class="neutral"></i>Neutral</span>
-              </div>
-            </article>
-            <article class="panel">
-              <div class="panel-head">
-                <div>
-                  <p class="panel-kicker">Table</p>
-                  <h3>Subreddit detail</h3>
-                </div>
-              </div>
-              <div class="panel-separator"></div>
-              <div class="table-wrap">
-                <table class="data-table">
-                  <thead>
-                    <tr>
-                      <th>Subreddit</th>
-                      <th>Posts</th>
-                      <th>Bullish</th>
-                      <th>Bearish</th>
-                      <th>Neutral</th>
-                      <th>Avg score</th>
-                    </tr>
-                  </thead>
-                  <tbody id="subreddit-rows">
-                    <tr>
-                      <td>No data yet</td>
-                      <td>0</td>
-                      <td>0</td>
-                      <td>0</td>
-                      <td>0</td>
-                      <td>0</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </article>
-          </div>
-        </section>
-        <section id="topics" aria-labelledby="topics-title">
-          <div class="section-header">
-            <div>
-              <h2 id="topics-title">
-                <span class="section-index">05 /</span>Top topics &amp; assets
-              </h2>
-              <p>
-                Most-mentioned cryptocurrencies and topics, with sentiment and
-                claim outcomes for posts that mention them.
-              </p>
-            </div>
-            <span class="chip">Source: dashboard_data.json</span>
-          </div>
-          <article class="panel">
-            <div class="panel-head">
-              <div>
-                <p class="panel-kicker">Field / top_topics</p>
-                <h3>Top topic analysis</h3>
-              </div>
-            </div>
-            <div class="panel-separator"></div>
-            <div class="table-wrap">
-              <table class="data-table">
-                <thead>
-                  <tr>
-                    <th>Topic</th>
-                    <th>Mentions</th>
-                    <th>Bullish</th>
-                    <th>Bearish</th>
-                    <th>Neutral</th>
-                    <th>Supported</th>
-                    <th>Refuted</th>
-                  </tr>
-                </thead>
-                <tbody id="topic-rows">
-                  <tr>
-                    <td>No data yet</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </article>
-        </section>
-        <section id="divergence" aria-labelledby="divergence-title">
-          <div class="section-header">
-            <div>
-              <h2 id="divergence-title">
-                <span class="section-index">06 /</span>Post vs. comment
-                sentiment
-              </h2>
-              <p>
-                Difference between a post’s sentiment score and the aggregated
-                sentiment of the comments beneath it.
-              </p>
-            </div>
-            <span class="chip">Source: dashboard_data.json</span>
-          </div>
-          <div class="kpi-grid">
-            <article class="kpi-card blue">
-              <div class="kpi-top">
-                <span class="kpi-label">Posts compared</span
-                ><span class="kpi-icon"
-                  ><svg class="icon"><use href="#i-layers" /></svg
-                ></span>
-              </div>
-              <div class="kpi-value" id="div-compared">0</div>
-              <div class="kpi-foot">Posts with scored comments</div>
-            </article>
-            <article class="kpi-card green">
-              <div class="kpi-top">
-                <span class="kpi-label">Aligned posts</span
-                ><span class="kpi-icon"
-                  ><svg class="icon"><use href="#i-check" /></svg
-                ></span>
-              </div>
-              <div class="kpi-value" id="div-aligned">0</div>
-              <div class="kpi-foot">Post and comments agree</div>
-            </article>
-            <article class="kpi-card red">
-              <div class="kpi-top">
-                <span class="kpi-label">Diverging posts</span
-                ><span class="kpi-icon"
-                  ><svg class="icon"><use href="#i-users" /></svg
-                ></span>
-              </div>
-              <div class="kpi-value" id="div-diverging">0</div>
-              <div class="kpi-foot">Post and comments disagree</div>
-            </article>
-            <article class="kpi-card blue">
-              <div class="kpi-top">
-                <span class="kpi-label">Avg divergence</span
-                ><span class="kpi-icon"
-                  ><svg class="icon"><use href="#i-activity" /></svg
-                ></span>
-              </div>
-              <div class="kpi-value" id="div-avg">0</div>
-              <div class="kpi-foot">Mean absolute difference</div>
-            </article>
-          </div>
-          <article class="panel" style="margin-top: 17px">
-            <div class="panel-head">
-              <div>
-                <p class="panel-kicker">Field / divergence.examples</p>
-                <h3>Largest divergences</h3>
-                <p class="panel-sub">
-                  Divergence = post score − aggregated comment score.
-                </p>
-              </div>
-            </div>
-            <div class="panel-separator"></div>
-            <div class="table-wrap">
-              <table class="data-table">
-                <thead>
-                  <tr>
-                    <th>Post</th>
-                    <th>Subreddit</th>
-                    <th>Post score</th>
-                    <th>Comment score</th>
-                    <th>Divergence</th>
-                  </tr>
-                </thead>
-                <tbody id="divergence-rows">
-                  <tr>
-                    <td>No data yet</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </article>
-        </section>
-        <section id="claims" aria-labelledby="claims-title">
-          <div class="section-header">
-            <div>
-              <h2 id="claims-title">
-                <span class="section-index">07 /</span>Highly supported claims
-                &amp; proof
-              </h2>
-              <p>
-                Extracted claims with the highest support confidence and the
-                evidence they were checked against.
-              </p>
-            </div>
-            <span class="chip">Source: dashboard_data.json</span>
-          </div>
-          <div class="claim-list" id="claim-list">
-            <div class="empty-state">0 claims available</div>
-          </div>
-        </section>
-        <section id="scoring" aria-labelledby="scoring-title">
-          <div class="section-header">
-            <div>
-              <h2 id="scoring-title">
-                <span class="section-index">08 /</span>Subreddit scoring
-              </h2>
-              <p>
-                Placeholder for the composite score combining sentiment and
-                claim verification.
-              </p>
-            </div>
-            <span class="chip">Score in development</span>
-          </div>
-          <article class="panel">
-            <div class="panel-head">
-              <div>
-                <p class="panel-kicker">Field / subreddit_scores</p>
-                <h3>Subreddit scores</h3>
-              </div>
-            </div>
-            <div class="panel-separator"></div>
-            <div class="table-wrap">
-              <table class="data-table">
-                <thead>
-                  <tr>
-                    <th>Subreddit</th>
-                    <th>Posts</th>
-                    <th>Claims</th>
-                    <th>Sentiment</th>
-                    <th>Verification</th>
-                    <th>Composite</th>
-                  </tr>
-                </thead>
-                <tbody id="score-rows">
-                  <tr>
-                    <td>No data yet</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <p class="panel-note">
-              Composite score methodology is to be defined once sentiment and
-              verification outputs are finalised.
-            </p>
-          </article>
-        </section>
+
         <section id="data-notes" aria-labelledby="notes-title">
           <div class="section-header">
             <div>
               <h2 id="notes-title">
-                <span class="section-index">09 /</span>Data &amp; methodology
+                <span class="section-index">04 /</span>Data & methodology
               </h2>
               <p>What this version of the interface currently displays.</p>
             </div>
@@ -1651,18 +1221,20 @@
           <div class="notice">
             <svg class="icon" aria-hidden="true"><use href="#i-info" /></svg>
             <p>
-              <strong>Transparent by design.</strong> Sections 01–03 come from
+              <strong>Transparent by design.</strong> Both charts and all
+              figures come from your existing
               <span class="mono">results_file1.json</span> and
-              <span class="mono">results_file2.json</span>. Sections 04–08 come
-              from <span class="mono">dashboard_data.json</span>. Any missing
-              value is shown as 0, so a zero alone cannot confirm that an export
-              is present. Claim verdicts are model outputs checked against
-              retrieved articles, not guarantees of truth. This dashboard is
-              analysis, not investment advice.
+              <span class="mono">results_file2.json</span> via the original
+              Flask loader. If a file is missing or unreadable, the existing
+              backend supplies zero-valued fallbacks. A zero alone therefore
+              cannot confirm that an export is present. The time-series, claim
+              verdicts, community scores, leaderboard and verification bot in
+              the visual references need their own real data/backend
+              integration; this redesign does not fabricate them. This dashboard
+              is analysis, not investment advice.
             </p>
           </div>
         </section>
-
         <footer class="footer">
           <span>© CryptoTruth · Cryptocurrency discussion analysis</span
           ><span class="mono">Flask + Chart.js · Historical / batch data</span>
@@ -1672,43 +1244,32 @@
 
     <script>
       "use strict";
-      // Existing Jinja-supplied values (POSITIVE = Supported, NEGATIVE = Refuted).
+      // Preserve the original five Jinja-supplied data values and chart identifiers.
       const dataEl = document.getElementById("chart-data").dataset;
       const p1 = [
-        Number(dataEl.p1Bullish) || 0,
-        Number(dataEl.p1Bearish) || 0,
-        Number(dataEl.p1Neutral) || 0
+        Number(dataEl.p1Bullish),
+        Number(dataEl.p1Bearish),
+        Number(dataEl.p1Neutral)
       ];
-      const p2 = [
-        Number(dataEl.p2Positive) || 0,
-        Number(dataEl.p2Negative) || 0
-      ];
-      const total1 = p1.reduce((s, c) => s + c, 0);
-      const total2 = p2.reduce((s, c) => s + c, 0);
-      const format = (v) => new Intl.NumberFormat("en-AU").format(v);
-      const percent = (v, t) =>
-        t > 0 ? `${((v / t) * 100).toFixed(1)}%` : "0%";
+      const p2 = [Number(dataEl.p2Positive), Number(dataEl.p2Negative)];
+      const total1 = p1.reduce((sum, count) => sum + count, 0);
+      const total2 = p2.reduce((sum, count) => sum + count, 0);
+      const format = (value) => new Intl.NumberFormat("en-AU").format(value);
+      const percent = (value, total) =>
+        total > 0 ? `${((value / total) * 100).toFixed(1)}%` : "—";
       const setText = (id, text) => {
-        const e = document.getElementById(id);
-        if (e) e.textContent = text;
+        document.getElementById(id).textContent = text;
       };
-      const num = (v, d = 0) => {
-        const n = Number(v);
-        return Number.isFinite(n) ? n : d;
-      };
-      const fixed = (v, d = 2) => num(v).toFixed(d);
 
       setText("p1-total", format(total1));
       setText("p1-bullish", format(p1[0]));
-      setText("p1-bullish-foot", `${percent(p1[0], total1)} of analysed posts`);
+      setText("p1-bullish-foot", `${percent(p1[0], total1)} of mapped output`);
       setText("p2-total", format(total2));
       setText("p2-positive", format(p2[0]));
-      setText(
-        "p2-positive-foot",
-        `${percent(p2[0], total2)} of verified claims`
-      );
+      setText("p2-positive-foot", `${percent(p2[0], total2)} of raw output`);
       setText("p1-total-small", `${format(total1)} classified`);
       setText("p2-total-small", `${format(total2)} classified`);
+
       [
         ["bullish", p1[0], total1],
         ["bearish", p1[1], total1],
@@ -1722,174 +1283,14 @@
           total > 0 ? `${(count / total) * 100}%` : "0%";
       });
 
-      // dashboard_data.json (all fields optional; missing values fall back to 0 / empty).
-      const D =
-        JSON.parse(
-          document.getElementById("dashboard-data").textContent || "{}"
-        ) || {};
-      const list = (v) => (Array.isArray(v) ? v : []);
-      const subreddits = list(D.subreddit_sentiment);
-      const topics = list(D.top_topics);
-      const claims = list(D.featured_claims);
-      const scores = list(D.subreddit_scores);
-      const div = D.divergence || {};
-      const divExamples = list(div.examples);
-
-      // Safe DOM helpers (textContent only).
-      function cell(text, cls) {
-        const td = document.createElement("td");
-        td.textContent = text;
-        if (cls) td.className = cls;
-        return td;
-      }
-      function fillRows(id, rows, builder, cols) {
-        const body = document.getElementById(id);
-        if (!body) return;
-        body.replaceChildren();
-        if (!rows.length) {
-          const tr = document.createElement("tr");
-          tr.append(cell("No data yet"));
-          for (let i = 1; i < cols; i++) tr.append(cell("0"));
-          body.append(tr);
-          return;
-        }
-        rows.forEach((r) => {
-          const tr = document.createElement("tr");
-          builder(r).forEach((c) => tr.append(c));
-          body.append(tr);
-        });
-      }
-      const signClass = (v) =>
-        num(v) > 0 ? "num-pos" : num(v) < 0 ? "num-neg" : "";
-
-      // 04 Subreddit sentiment
-      fillRows(
-        "subreddit-rows",
-        subreddits,
-        (r) => [
-          cell(r.subreddit || "unknown"),
-          cell(format(num(r.posts))),
-          cell(format(num(r.bullish))),
-          cell(format(num(r.bearish))),
-          cell(format(num(r.neutral))),
-          cell(fixed(r.avg_compound), signClass(r.avg_compound))
-        ],
-        6
-      );
-      // 05 Topics
-      fillRows(
-        "topic-rows",
-        topics,
-        (r) => [
-          cell(r.topic || "unknown"),
-          cell(format(num(r.mentions))),
-          cell(format(num(r.bullish))),
-          cell(format(num(r.bearish))),
-          cell(format(num(r.neutral))),
-          cell(format(num(r.supported))),
-          cell(format(num(r.refuted)))
-        ],
-        7
-      );
-      // 06 Divergence
-      setText("div-compared", format(num(div.posts_compared)));
-      setText("div-aligned", format(num(div.aligned)));
-      setText("div-diverging", format(num(div.diverging)));
-      setText("div-avg", fixed(div.avg_abs_divergence));
-      fillRows(
-        "divergence-rows",
-        divExamples,
-        (r) => [
-          cell(r.title || r.post_id || "untitled"),
-          cell(r.subreddit || "unknown"),
-          cell(fixed(r.post_sentiment), signClass(r.post_sentiment)),
-          cell(fixed(r.comment_sentiment), signClass(r.comment_sentiment)),
-          cell(fixed(r.divergence), signClass(r.divergence))
-        ],
-        5
-      );
-      // 08 Scores
-      fillRows(
-        "score-rows",
-        scores,
-        (r) => [
-          cell(r.subreddit || "unknown"),
-          cell(format(num(r.posts))),
-          cell(format(num(r.claims))),
-          cell(fixed(r.sentiment_score)),
-          cell(fixed(r.verification_score)),
-          cell(fixed(r.composite_score))
-        ],
-        6
-      );
-
-      // 07 Claims and proof
-      const claimList = document.getElementById("claim-list");
-      if (claims.length) {
-        claimList.replaceChildren();
-        claims.forEach((c) => {
-          const verdict = String(c.veracity || "SUPPORTED").toUpperCase();
-          const card = document.createElement("article");
-          card.className = "claim-card";
-          const head = document.createElement("div");
-          head.className = "claim-header";
-          const badge = document.createElement("span");
-          badge.className = `badge ${verdict === "REFUTED" ? "refuted" : "supported"}`;
-          badge.textContent = `${verdict} · ${fixed(num(c.confidence) * (num(c.confidence) <= 1 ? 100 : 1), 1)}% confidence`;
-          const meta = document.createElement("span");
-          meta.className = "claim-meta";
-          meta.textContent = `${c.subreddit || "unknown"} · post ${c.post_id || "0"}`;
-          head.append(badge, meta);
-          const text = document.createElement("p");
-          text.className = "claim-text";
-          text.textContent = c.claim_text || "";
-          const box = document.createElement("div");
-          box.className = "evidence-box";
-          const src = document.createElement("span");
-          src.className = "evidence-src";
-          const label = `Evidence · ${c.evidence_source || "unknown source"}${c.evidence_published_at ? " · " + c.evidence_published_at : ""}`;
-          if (
-            typeof c.evidence_url === "string" &&
-            /^https?:\/\//i.test(c.evidence_url)
-          ) {
-            const a = document.createElement("a");
-            a.href = c.evidence_url;
-            a.target = "_blank";
-            a.rel = "noopener noreferrer";
-            a.textContent = label;
-            src.append(a);
-          } else {
-            src.textContent = label;
-          }
-          box.append(src, document.createTextNode(c.evidence_snippet || ""));
-          card.append(head, text, box);
-          claimList.append(card);
-        });
-      }
-
       if (typeof Chart !== "undefined") {
         Chart.defaults.font.family =
           "'Plus Jakarta Sans', system-ui, sans-serif";
         Chart.defaults.color = "#97a9bd";
         const colors = ["#52e0aa", "#ff778b", "#9baec7"];
-        const scaleX = {
-          border: { display: false },
-          grid: { display: false },
-          ticks: { color: "#afc0d3", font: { size: 11, weight: "600" } }
-        };
-        const scaleY = {
-          beginAtZero: true,
-          border: { display: false },
-          grid: { color: "rgba(173,195,218,.10)", drawTicks: false },
-          ticks: {
-            color: "#71869e",
-            precision: 0,
-            padding: 10,
-            callback: (v) => format(v)
-          }
-        };
         function drawChart(canvasId, labels, values) {
-          return new Chart(document.getElementById(canvasId), {
+          const canvas = document.getElementById(canvasId);
+          return new Chart(canvas, {
             type: "bar",
             data: {
               labels,
@@ -1921,67 +1322,51 @@
                   bodyColor: "#f0f6fd",
                   padding: 11,
                   cornerRadius: 9,
-                  callbacks: { label: (c) => ` ${format(c.parsed.y)}` }
+                  callbacks: {
+                    label: (context) =>
+                      ` ${format(context.parsed.y)} classifications`
+                  }
                 }
               },
-              scales: { x: scaleX, y: scaleY }
+              scales: {
+                x: {
+                  border: { display: false },
+                  grid: { display: false },
+                  ticks: { color: "#afc0d3", font: { size: 11, weight: "600" } }
+                },
+                y: {
+                  beginAtZero: true,
+                  border: { display: false, dash: [4, 5] },
+                  grid: { color: "rgba(173,195,218,.10)", drawTicks: false },
+                  ticks: {
+                    color: "#71869e",
+                    precision: 0,
+                    padding: 10,
+                    callback: (value) => format(value)
+                  }
+                }
+              }
             }
           });
         }
         drawChart("chartPrototype1", ["Bullish", "Bearish", "Neutral"], p1);
-        drawChart("chartPrototype2", ["Supported", "Refuted"], p2);
-        if (subreddits.length) {
-          new Chart(document.getElementById("chartSubreddits"), {
-            type: "bar",
-            data: {
-              labels: subreddits.map((r) => r.subreddit || "unknown"),
-              datasets: [
-                {
-                  label: "Bullish",
-                  data: subreddits.map((r) => num(r.bullish)),
-                  backgroundColor: colors[0]
-                },
-                {
-                  label: "Bearish",
-                  data: subreddits.map((r) => num(r.bearish)),
-                  backgroundColor: colors[1]
-                },
-                {
-                  label: "Neutral",
-                  data: subreddits.map((r) => num(r.neutral)),
-                  backgroundColor: colors[2]
-                }
-              ]
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: { legend: { display: false } },
-              scales: {
-                x: { ...scaleX, stacked: true },
-                y: { ...scaleY, stacked: true }
-              }
-            }
-          });
-        } else {
-          document.getElementById("chartSubreddits").hidden = true;
-          document.getElementById("fallback-3").style.display = "flex";
-        }
+        drawChart("chartPrototype2", ["POSITIVE", "NEGATIVE"], p2);
       } else {
-        document.querySelectorAll(".chart-area canvas").forEach((c) => {
-          c.hidden = true;
+        document.querySelectorAll(".chart-area canvas").forEach((canvas) => {
+          canvas.hidden = true;
         });
-        document.querySelectorAll(".chart-unavailable").forEach((m) => {
-          m.style.display = "flex";
+        document.querySelectorAll(".chart-unavailable").forEach((message) => {
+          message.style.display = "flex";
         });
       }
 
+      // Navigation is a presentation-only enhancement; no additional backend routes.
       const navLinks = document.querySelectorAll(".nav-link");
       navLinks.forEach((link) =>
         link.addEventListener("click", () => {
-          navLinks.forEach((i) => {
-            i.classList.remove("active");
-            i.removeAttribute("aria-current");
+          navLinks.forEach((item) => {
+            item.classList.remove("active");
+            item.removeAttribute("aria-current");
           });
           link.classList.add("active");
           link.setAttribute("aria-current", "page");
