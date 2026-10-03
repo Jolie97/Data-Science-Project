@@ -381,34 +381,9 @@ BIG_RE = re.compile(
 UP_RE = re.compile( r"\b(" r"increase|" r"gain|" r"rise|" r"jump|" r"surge|" r"rally|" r"climb" r")\b", re.IGNORECASE, )
 DOWN_RE = re.compile( r"\b(" r"decrease|" r"drop|" r"decline|" r"fall|" r"loss|" r"crash|" r"plunge|" r"slide" r")\b", re.IGNORECASE, )
 DAILY_RE = re.compile( r"\b(" r"daily|" r"single[- ]day|" r"one[- ]day|" r"day" r")\b", re.IGNORECASE, )
-CHANGE_RE = re.compile(
-    r"\b("
-    r"increase[sd]?|"
-    r"decrease[sd]?|"
-    r"gain(?:s|ed)?|"
-    r"loss(?:es)?|"
-    r"lost|"
-    r"change[sd]?|"
-    r"average|"
-    r"mean|"
-    r"median|"
-    r"range|"
-    r"volatility|"
-    r"difference|"
-    r"spread|"
-    r"swing|"
-    r"up|"
-    r"down|"
-    r"rose|"
-    r"fell|"
-    r"dropped|"
-    r"jumped|"
-    r"climbed|"
-    r"surged|"
-    r"gained"
-    r")\b",
-    re.IGNORECASE,
-)
+CHANGE_RE = re.compile(r"\b(increase[sd]?|decrease[sd]?|gain(?:s|ed)?|loss(?:es)?|lost|change[sd]?|average|mean|median|"
+    r"range|volatility|difference|spread|swing|(?:up|down|rose|fell|dropped|jumped|climbed|surged|gained) by)\b",
+    re.IGNORECASE,)
 MIN_RE = re.compile( r"\b(lowest|minimum|min|low|bottom)\b", re.IGNORECASE, )
 MAX_RE = re.compile( r"\b(highest|maximum|max|high|peak)\b", re.IGNORECASE, )
 # ---------------------------------------------------------------------------

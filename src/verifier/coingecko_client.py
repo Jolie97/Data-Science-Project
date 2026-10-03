@@ -30,16 +30,23 @@ REDDIT_DATA_PATH = "reddit_posts.csv"  # <-- change to actual filename
 def _get(endpoint: str, params: dict = None) -> dict:
     """Make a GET request to the CoinGecko API and return parsed JSON."""
     url = f"{BASE_URL}/{endpoint}"
-    response = requests.get(url, headers=HEADERS, params=params, timeout=10)
+
+    response = requests.get(
+        url,
+        headers=HEADERS,
+        params=params,
+        timeout=10,
+    )
 
     if response.status_code == 429:
-        print("Rate limit hit — waiting 60 seconds...")
-        time.sleep(60)
-        response = requests.get(url, headers=HEADERS, params=params, timeout=10)
+        print("CoinGecko rate limit reached.")
+        raise requests.HTTPError(
+            "CoinGecko rate limit reached. Please try again shortly.",
+            response=response,
+        )
 
     response.raise_for_status()
     return response.json()
-
 
 # ---------------------------------------------------------------------------
 # CoinGecko data fetchers
