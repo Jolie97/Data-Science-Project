@@ -165,11 +165,13 @@ def index():
     file1_data = load_json("results_file1.json")
     file2_data = load_json("results_file2.json")
     dashboard_data = load_json("dashboard_data.json") or {}
+
     # Fallback values if files are missing or unreadable
     if file1_data is None:
         file1_data = {"Bullish": 0, "Bearish": 0, "Neutral": 0}
     if file2_data is None:
         file2_data = {"SUPPORTED": 0, "REFUTED": 0}
+
     return render_template(
         "index.html",
         file1_data=file1_data,
