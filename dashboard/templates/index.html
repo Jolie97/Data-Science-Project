@@ -957,6 +957,37 @@
           animation-duration: 0.01ms !important;
         }
       }
+
+      /* ---- Claim checker (chatbot) ---- */
+      .ct-verify { display: grid; gap: 18px; }
+      .ct-verify textarea { width: 100%; resize: vertical; min-height: 84px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 14px; color: var(--text); font: inherit; font-size: 14px; line-height: 1.6; padding: 14px 16px; }
+      .ct-verify textarea::placeholder { color: var(--subtle); }
+      .ct-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; margin-top: 12px; }
+      .ct-examples { display: flex; flex-wrap: wrap; gap: 8px; }
+      .ct-ex { background: transparent; border: 1px solid var(--line); color: var(--muted); border-radius: 999px; padding: 6px 12px; font-size: 12px; cursor: pointer; }
+      .ct-ex:hover { color: var(--text); background: var(--surface-2); }
+      .ct-btn { background: var(--green); color: #06231a; border: 0; border-radius: 12px; padding: 11px 20px; font-weight: 700; font-size: 13px; cursor: pointer; }
+      .ct-btn:disabled { opacity: 0.6; cursor: wait; }
+      .ct-hidden-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+      .ct-result { border-top: 1px solid var(--line); padding-top: 18px; display: grid; gap: 14px; }
+      .ct-head { display: flex; align-items: center; gap: 16px; }
+      .ct-high { --c: var(--green); }
+      .ct-caution { --c: #f5c26b; }
+      .ct-low { --c: var(--red); }
+      .ct-unverified { --c: var(--neutral); }
+      .ct-score { width: 68px; height: 68px; flex: 0 0 auto; border-radius: 50%; display: grid; place-items: center; font-size: 24px; font-weight: 800; border: 3px solid var(--c); color: var(--c); }
+      .ct-label { font-size: 18px; font-weight: 700; }
+      .ct-tier { font-size: 12px; color: var(--c); margin-top: 2px; }
+      .ct-expl { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.7; max-width: 70ch; }
+      .ct-sent { display: grid; gap: 6px; }
+      .ct-sent-row { display: flex; align-items: center; gap: 12px; font-size: 12px; color: var(--muted); }
+      .ct-track { position: relative; flex: 1; height: 8px; border-radius: 99px; background: linear-gradient(90deg, var(--red), var(--neutral), var(--green)); }
+      .ct-marker { position: absolute; top: 50%; width: 16px; height: 16px; border-radius: 50%; background: var(--text); border: 3px solid var(--bg); transform: translate(-50%, -50%); }
+      .ct-tone { font-size: 12px; color: var(--subtle); }
+      .ct-foot { font-size: 12px; color: var(--subtle); }
+      .ct-note { margin: 0; font-size: 12px; color: #f5c26b; }
+      .ct-error { margin: 0; color: var(--red); font-size: 13px; }
+      .ct-loading { margin: 0; color: var(--muted); font-size: 13px; }
     </style>
   </head>
   <body>
@@ -970,12 +1001,10 @@
       data-p2-supported="{{ file2_data.get('SUPPORTED', 0) }}"
       data-p2-refuted="{{ file2_data.get('REFUTED', 0) }}"
     ></div>
-
     <!-- New data binding: dashboard_data.json passed from Flask as dashboard_data (empty object if missing). -->
     <script id="dashboard-data" type="application/json">
       {{ (dashboard_data or {})|tojson }}
     </script>
-
     <svg
       xmlns="http://www.w3.org/2000/svg"
       style="position: absolute; width: 0; height: 0; overflow: hidden"
@@ -1017,7 +1046,6 @@
         <path d="M12 11v5M12 8h.01" />
       </symbol>
     </svg>
-
     <div class="app-shell">
       <aside class="sidebar" aria-label="Dashboard navigation">
         <a class="brand" href="#overview" aria-label="CryptoTruth overview">
@@ -1061,6 +1089,9 @@
           <a class="nav-link" href="#data-notes"
             ><svg class="icon"><use href="#i-info" /></svg>Data notes</a
           >
+          <a class="nav-link" href="#verify"
+            ><svg class="icon"><use href="#i-shield" /></svg>Check a claim</a
+          >
         </nav>
         <div class="side-note">
           <div class="side-note-heading">
@@ -1073,7 +1104,6 @@
         </div>
         <div class="side-footer">CRYPTOTRUTH / DASHBOARD</div>
       </aside>
-
       <main class="main" id="overview">
         <header class="topbar">
           <div class="breadcrumbs">
@@ -1103,7 +1133,6 @@
             <svg class="icon"><use href="#i-shield" /></svg>
           </div>
         </section>
-
         <section id="snapshot" aria-labelledby="snapshot-title">
           <div class="section-header">
             <div>
@@ -1662,14 +1691,39 @@
             </p>
           </div>
         </section>
-
+        <section id="verify" aria-labelledby="verify-title">
+          <div class="section-header">
+            <div>
+              <h2 id="verify-title">Check a claim</h2>
+              <p>
+                Paste a Reddit post or any crypto claim to see whether it holds
+                up and how it reads in tone.
+              </p>
+            </div>
+            <span class="chip" id="ct-mode">Ready</span>
+          </div>
+          <article class="panel ct-verify">
+            <div>
+              <label for="ct-text" class="ct-hidden-label">Post or claim to check</label>
+              <textarea id="ct-text" maxlength="1000" placeholder="e.g. Price of ETH is up, trading at $2,634."></textarea>
+              <div class="ct-actions">
+                <div class="ct-examples" id="ct-examples">
+                  <button type="button" class="ct-ex" data-text="Price of ETH is up, trading at $2,634.">Price claim</button>
+                  <button type="button" class="ct-ex" data-text="BTC just hit $500,000, easiest money ever!">Wild claim</button>
+                  <button type="button" class="ct-ex" data-text="Honestly I think this market is going to go crazy soon.">Opinion only</button>
+                </div>
+                <button type="button" class="ct-btn" id="ct-submit">Check claim</button>
+              </div>
+            </div>
+            <div class="ct-result" id="ct-result" aria-live="polite" hidden></div>
+          </article>
+        </section>
         <footer class="footer">
           <span>© CryptoTruth · Cryptocurrency discussion analysis</span
           ><span class="mono">Flask + Chart.js · Historical / batch data</span>
         </footer>
       </main>
     </div>
-
     <script>
       "use strict";
       // Existing Jinja-supplied values (POSITIVE = Supported, NEGATIVE = Refuted).
@@ -1697,7 +1751,6 @@
         return Number.isFinite(n) ? n : d;
       };
       const fixed = (v, d = 2) => num(v).toFixed(d);
-
       setText("p1-total", format(total1));
       setText("p1-bullish", format(p1[0]));
       setText("p1-bullish-foot", `${percent(p1[0], total1)} of analysed posts`);
@@ -1721,7 +1774,6 @@
         document.getElementById(`bar-${name}`).style.width =
           total > 0 ? `${(count / total) * 100}%` : "0%";
       });
-
       // dashboard_data.json (all fields optional; missing values fall back to 0 / empty).
       const D =
         JSON.parse(
@@ -1734,7 +1786,6 @@
       const scores = list(D.subreddit_scores);
       const div = D.divergence || {};
       const divExamples = list(div.examples);
-
       // Safe DOM helpers (textContent only).
       function cell(text, cls) {
         const td = document.createElement("td");
@@ -1761,7 +1812,6 @@
       }
       const signClass = (v) =>
         num(v) > 0 ? "num-pos" : num(v) < 0 ? "num-neg" : "";
-
       // 04 Subreddit sentiment
       fillRows(
         "subreddit-rows",
@@ -1822,7 +1872,6 @@
         ],
         6
       );
-
       // 07 Claims and proof
       const claimList = document.getElementById("claim-list");
       if (claims.length) {
@@ -1866,7 +1915,6 @@
           claimList.append(card);
         });
       }
-
       if (typeof Chart !== "undefined") {
         Chart.defaults.font.family =
           "'Plus Jakarta Sans', system-ui, sans-serif";
@@ -1975,7 +2023,6 @@
           m.style.display = "flex";
         });
       }
-
       const navLinks = document.querySelectorAll(".nav-link");
       navLinks.forEach((link) =>
         link.addEventListener("click", () => {
@@ -1987,6 +2034,57 @@
           link.setAttribute("aria-current", "page");
         })
       );
+
+      // ---- Claim checker: calls Flask POST /api/verify ----
+      (() => {
+        const $ = (id) => document.getElementById(id);
+        const box = $("ct-text"), btn = $("ct-submit"), out = $("ct-result"), chip = $("ct-mode");
+        if (!box || !btn || !out) return;
+        const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+        const money = (n) => "$" + new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 }).format(n);
+        const TIER = { high: "High trust", caution: "Use caution", low: "Low trust", unverified: "Can't be scored" };
+
+        function render(d) {
+          const t = d.trust || {}, s = d.sentiment || {};
+          chip.textContent = d.mode === "live" ? "Live pipeline" : "Demo mode (stub data)";
+          out.innerHTML = `
+            <div class="ct-head ct-${esc(t.tier)}">
+              <div class="ct-score">${t.score == null ? "–" : esc(t.score)}</div>
+              <div><div class="ct-label">${esc(t.label)}</div><div class="ct-tier">${esc(TIER[t.tier] || "")}</div></div>
+            </div>
+            <p class="ct-expl">${esc(d.explanation)}</p>
+            <div class="ct-sent">
+              <div class="ct-sent-row"><span>Bearish</span>
+                <div class="ct-track"><span class="ct-marker" style="left:${Number(s.position) || 50}%"></span></div>
+                <span>Bullish</span></div>
+              <div class="ct-tone">Tone: ${esc(s.label)}</div>
+            </div>
+            ${d.source ? `<div class="ct-foot">Source: ${esc(d.source)}</div>` : ""}
+            ${s.strong_tone && t.score != null ? `<p class="ct-note">Strongly worded, so treat with some caution.</p>` : ""}`;
+        }
+
+        async function check() {
+          const text = box.value.trim();
+          if (!text) { box.focus(); return; }
+          btn.disabled = true; btn.textContent = "Checking…";
+          out.hidden = false;
+          out.innerHTML = '<p class="ct-loading">Checking claim…</p>';
+          try {
+            const res = await fetch("/api/verify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text }) });
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok) throw new Error(data.error || "Something went wrong. Please try again.");
+            render(data);
+          } catch (e) {
+            out.innerHTML = `<p class="ct-error">${esc(e.message)}</p>`;
+          } finally {
+            btn.disabled = false; btn.textContent = "Check claim";
+          }
+        }
+
+        btn.addEventListener("click", check);
+        box.addEventListener("keydown", (e) => { if ((e.ctrlKey || e.metaKey) && e.key === "Enter") check(); });
+        document.querySelectorAll(".ct-ex").forEach((b) => b.addEventListener("click", () => { box.value = b.dataset.text; box.focus(); }));
+      })();
     </script>
   </body>
 </html>
