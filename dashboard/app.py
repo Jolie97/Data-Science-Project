@@ -93,7 +93,7 @@ def build_display(raw, mode="live"):
     dev = ver.get("deviation_pct")
     score = label = None
 
-    if veracity in ("SUPPORTED", "REFUTED"):
+    if veracity in ("SUPPORTED", "APPROXIMATE", "REFUTED"):
         if isinstance(dev, (int, float)):
             if dev <= 2:
                 score, label = 100 - dev * 2.5, "Accurate"
@@ -103,6 +103,8 @@ def build_display(raw, mode="live"):
                 score, label = max(5, 55 - (dev - 10)), "Inaccurate"
         elif veracity == "SUPPORTED":
             score, label = 85, "Supported by sources"
+        elif veracity == "APPROXIMATE":
+            score, label = 70, "Roughly accurate"
         else:
             score, label = 15, "Contradicted by sources"
 
