@@ -6,12 +6,8 @@ gunicorn>=21.0.0
 pandas>=2.0.0
 openpyxl>=3.1.0
 
-# NLP / Sentiment Analysis
+# Lightweight Sentiment Analysis
 nltk>=3.8.1
-transformers
-torch
-scipy
-spacy
 
 # Utilities
 python-dotenv>=1.0.0
