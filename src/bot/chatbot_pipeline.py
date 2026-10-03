@@ -682,7 +682,7 @@ def analyse_text(text: str) -> Dict:
         vader = get_lightweight_vader().polarity_scores( text )
         # Keep the same response structure expected by app.py.
         # FinBERT is not loaded in lightweight mode.
-        finbert = { "finbert_positive": 0.0, "finbert_negative": 0.0, "finbert_neutral": 1.0, "finbert_net": 0.0, }
+        finbert = { "finbert_positive": 0.0, "finbert_negative": 0.0, "finbert_neutral": 1.0, "finbert_net": None, }
         return { "text": text, "vader": vader, "finbert": finbert, "verification": verify_claim(text), }
     # -----------------------------------------------------------------------
     # Full local mode
