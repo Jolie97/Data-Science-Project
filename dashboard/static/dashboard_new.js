@@ -205,7 +205,8 @@
 
   const SERIES_FALLBACK = [COLOR.neutral, COLOR.green, COLOR.blue, COLOR.amber];
   const verdictColor = (label, i) => VERDICT_COLOR[label] || SERIES_FALLBACK[i % SERIES_FALLBACK.length];
-  const coverageColor = (label) => (label === "Scored" ? COLOR.green : COLOR.neutral);
+  const coverageColor = (label) =>
+    label === "Checkable" || label === "Scored" ? COLOR.green : COLOR.red;
 
   function hasValues(values) {
     return arr(values).some((v) => isNum(v) && v > 0);
