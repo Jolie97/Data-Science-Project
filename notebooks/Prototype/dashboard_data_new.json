@@ -1,0 +1,352 @@
+{
+  "schema_version": 2,
+  "meta": {
+    "generated_at": "2026-10-05T11:08:48.935739+00:00",
+    "source_file": "verified_claims.csv",
+    "summary_source": "Original trust_summary formula applied to CSV",
+    "total_claims": 1347,
+    "scored_claims": 249,
+    "not_scored_claims": 1098,
+    "date_start": "2026-08-04",
+    "date_end": "2026-09-30",
+    "missing_dates": 0,
+    "min_claims_user": 3,
+    "trust_formula": "(ACCURATE + 0.5 × APPROXIMATE) / SCORED_CLAIMS × 100; rounded to 1 decimal",
+    "notes": [
+      "Sections 01–03 use the existing results_file1.json / results_file2.json. Sections 04–09 are a separate market-verification cohort; totals need not match.",
+      "SCORED is normalized exactly as in overview_charts_new.py: only 1 / true count as scored.",
+      "ACCURATE, APPROXIMATE and INACCURATE are the existing market-based classifications, not NLI support probabilities or guarantees of truth.",
+      "Unscored claims are excluded from accuracy and trust denominators; missing values remain null, never invented zeros.",
+      "Trust is claim-weighted, not weighted by unique posts or users. Small sample sizes can produce extreme scores; see the scatter plot.",
+      "User view uses the original minimum of 3 scored claims and the deduplicated lowest/highest 10 selection.",
+      "Original extraction, coin/proxy matching, thresholds, market windows and timestamp fallback are unchanged. POST_DATE may use the parent post timestamp when a comment timestamp is unavailable.",
+      "No per-subreddit sentiment, topic sentiment or post/comment divergence is inferred from these files."
+    ]
+  },
+  "overview": {
+    "verdict_breakdown": {
+      "labels": [
+        "ACCURATE",
+        "APPROXIMATE",
+        "INACCURATE"
+      ],
+      "values": [
+        96,
+        5,
+        148
+      ]
+    },
+    "checkable_share": {
+      "labels": [
+        "Not checkable",
+        "Checkable"
+      ],
+      "values": [
+        1098,
+        249
+      ]
+    },
+    "claim_types": {
+      "labels": [
+        "NUMERIC_PRICE",
+        "NUMERIC_PERCENT",
+        "PREDICTION",
+        "EVENT_NEWS",
+        "TREND",
+        "OPINION_OTHER"
+      ],
+      "values": [
+        24,
+        32,
+        36,
+        46,
+        303,
+        906
+      ]
+    },
+    "accuracy_by_type": {
+      "labels": [
+        "NUMERIC_PERCENT",
+        "NUMERIC_PRICE",
+        "TREND"
+      ],
+      "datasets": [
+        {
+          "label": "ACCURATE",
+          "data": [
+            2,
+            3,
+            91
+          ]
+        },
+        {
+          "label": "APPROXIMATE",
+          "data": [
+            4,
+            1,
+            0
+          ]
+        },
+        {
+          "label": "INACCURATE",
+          "data": [
+            26,
+            20,
+            102
+          ]
+        }
+      ]
+    },
+    "accuracy_by_coin": {
+      "labels": [
+        "bnb",
+        "solana",
+        "ethereum",
+        "bitcoin"
+      ],
+      "datasets": [
+        {
+          "label": "ACCURATE",
+          "data": [
+            0,
+            1,
+            5,
+            90
+          ]
+        },
+        {
+          "label": "APPROXIMATE",
+          "data": [
+            0,
+            0,
+            0,
+            5
+          ]
+        },
+        {
+          "label": "INACCURATE",
+          "data": [
+            1,
+            2,
+            7,
+            138
+          ]
+        }
+      ]
+    },
+    "trust_by_subreddit": [
+      {
+        "SUBREDDIT": "cryptoexchange",
+        "SCORED_CLAIMS": 2.0,
+        "ACCURATE": 0.0,
+        "APPROXIMATE": 0.0,
+        "INACCURATE": 2.0,
+        "TRUST_SCORE": 0.0,
+        "TOTAL_CLAIMS": 7
+      },
+      {
+        "SUBREDDIT": "btc",
+        "SCORED_CLAIMS": 13.0,
+        "ACCURATE": 2.0,
+        "APPROXIMATE": 1.0,
+        "INACCURATE": 10.0,
+        "TRUST_SCORE": 19.2,
+        "TOTAL_CLAIMS": 83
+      },
+      {
+        "SUBREDDIT": "cryptomarkets",
+        "SCORED_CLAIMS": 18.0,
+        "ACCURATE": 4.0,
+        "APPROXIMATE": 0.0,
+        "INACCURATE": 14.0,
+        "TRUST_SCORE": 22.2,
+        "TOTAL_CLAIMS": 135
+      },
+      {
+        "SUBREDDIT": "cryptocurrency",
+        "SCORED_CLAIMS": 131.0,
+        "ACCURATE": 52.0,
+        "APPROXIMATE": 2.0,
+        "INACCURATE": 77.0,
+        "TRUST_SCORE": 40.5,
+        "TOTAL_CLAIMS": 632
+      },
+      {
+        "SUBREDDIT": "bitcoin",
+        "SCORED_CLAIMS": 85.0,
+        "ACCURATE": 38.0,
+        "APPROXIMATE": 2.0,
+        "INACCURATE": 45.0,
+        "TRUST_SCORE": 45.9,
+        "TOTAL_CLAIMS": 478
+      }
+    ],
+    "user_reliability": [
+      {
+        "AUTHOR": "HSuke",
+        "SCORED_CLAIMS": 3.0,
+        "ACCURATE": 0.0,
+        "APPROXIMATE": 0.0,
+        "INACCURATE": 3.0,
+        "TRUST_SCORE": 0.0,
+        "TOTAL_CLAIMS": 3,
+        "TRUST_LABEL": "SPREADER"
+      },
+      {
+        "AUTHOR": "RandomPlayerCSGO",
+        "SCORED_CLAIMS": 3.0,
+        "ACCURATE": 0.0,
+        "APPROXIMATE": 0.0,
+        "INACCURATE": 3.0,
+        "TRUST_SCORE": 0.0,
+        "TOTAL_CLAIMS": 3,
+        "TRUST_LABEL": "SPREADER"
+      },
+      {
+        "AUTHOR": "fan_of_hakiksexydays",
+        "SCORED_CLAIMS": 4.0,
+        "ACCURATE": 1.0,
+        "APPROXIMATE": 0.0,
+        "INACCURATE": 3.0,
+        "TRUST_SCORE": 25.0,
+        "TOTAL_CLAIMS": 6,
+        "TRUST_LABEL": "SPREADER"
+      },
+      {
+        "AUTHOR": "sylsau",
+        "SCORED_CLAIMS": 3.0,
+        "ACCURATE": 1.0,
+        "APPROXIMATE": 0.0,
+        "INACCURATE": 2.0,
+        "TRUST_SCORE": 33.3,
+        "TOTAL_CLAIMS": 6,
+        "TRUST_LABEL": "SPREADER"
+      },
+      {
+        "AUTHOR": "tom_murray_nw",
+        "SCORED_CLAIMS": 5.0,
+        "ACCURATE": 5.0,
+        "APPROXIMATE": 0.0,
+        "INACCURATE": 0.0,
+        "TRUST_SCORE": 100.0,
+        "TOTAL_CLAIMS": 6,
+        "TRUST_LABEL": "RELIABLE"
+      }
+    ]
+  },
+  "coverage_by_type": {
+    "labels": [
+      "EVENT_NEWS",
+      "NUMERIC_PERCENT",
+      "NUMERIC_PRICE",
+      "OPINION_OTHER",
+      "PREDICTION",
+      "TREND"
+    ],
+    "datasets": [
+      {
+        "label": "Not scored",
+        "data": [
+          46,
+          0,
+          0,
+          906,
+          36,
+          110
+        ]
+      },
+      {
+        "label": "Scored",
+        "data": [
+          0,
+          32,
+          24,
+          0,
+          0,
+          193
+        ]
+      }
+    ]
+  },
+  "status_counts": {
+    "labels": [
+      "NOT_CHECKABLE",
+      "INCONCLUSIVE",
+      "CONTRADICTED",
+      "VERIFIED",
+      "INACCURATE",
+      "ACCURATE",
+      "APPROXIMATE"
+    ],
+    "values": [
+      988,
+      110,
+      102,
+      91,
+      46,
+      5,
+      5
+    ]
+  },
+  "subreddit_scores": [
+    {
+      "subreddit": "bitcoin",
+      "claims": 478,
+      "scored_claims": 85.0,
+      "accurate": 38.0,
+      "approximate": 2.0,
+      "inaccurate": 45.0,
+      "verification_score": 45.9
+    },
+    {
+      "subreddit": "btc",
+      "claims": 83,
+      "scored_claims": 13.0,
+      "accurate": 2.0,
+      "approximate": 1.0,
+      "inaccurate": 10.0,
+      "verification_score": 19.2
+    },
+    {
+      "subreddit": "cryptocurrency",
+      "claims": 632,
+      "scored_claims": 131.0,
+      "accurate": 52.0,
+      "approximate": 2.0,
+      "inaccurate": 77.0,
+      "verification_score": 40.5
+    },
+    {
+      "subreddit": "cryptoexchange",
+      "claims": 7,
+      "scored_claims": 2.0,
+      "accurate": 0.0,
+      "approximate": 0.0,
+      "inaccurate": 2.0,
+      "verification_score": 0.0
+    },
+    {
+      "subreddit": "cryptomarkets",
+      "claims": 135,
+      "scored_claims": 18.0,
+      "accurate": 4.0,
+      "approximate": 0.0,
+      "inaccurate": 14.0,
+      "verification_score": 22.2
+    },
+    {
+      "subreddit": "superstonk",
+      "claims": 12,
+      "scored_claims": 0.0,
+      "accurate": 0.0,
+      "approximate": 0.0,
+      "inaccurate": 0.0,
+      "verification_score": null
+    }
+  ],
+  "availability": {
+    "subreddit_sentiment": false,
+    "top_topics": false,
+    "divergence": false
+  }
+}
