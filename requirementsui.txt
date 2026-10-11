@@ -1,17 +1,18 @@
-# Web Framework & Server
+# Web application
 flask>=3.0.0
 gunicorn>=21.0.0
 
-# Data & Visualization
-pandas>=2.0.0
-openpyxl>=3.1.0
+# Data processing
+pandas
+openpyxl
+scipy
 
-# Lightweight Sentiment Analysis
-nltk>=3.8.1
+# NLP and model inference
+nltk
+spacy
+transformers
+torch
 
 # Utilities
 python-dotenv>=1.0.0
 requests>=2.31.0
-
-torch>=2.13.0
-transformers>=5.15.0
