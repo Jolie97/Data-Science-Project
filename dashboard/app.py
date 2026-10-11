@@ -1,8 +1,6 @@
 import json
 import os
 import sys
-import subprocess
-from pathlib import Path
 
 from flask import Flask, jsonify, render_template, request
 
@@ -21,9 +19,6 @@ ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, ".."))  # project root
 PROTOTYPE_DIR = os.path.join(
     BASE_DIR, "..", "notebooks", "Prototype"
 )  # path to notebooks/Prototype/
-
-# Optional absolute data directory for runtime-managed snapshots.
-PROTOTYPE_DIR = os.path.abspath(os.environ.get("CRYPTOTRUTH_JSON_DIR", PROTOTYPE_DIR))
 
 # Make `src.bot.chatbot_pipeline` importable when running from dashboard/
 if ROOT_DIR not in sys.path:
@@ -65,9 +60,7 @@ def _load_pipeline():
         if callable(fn):
             print(f"[CryptoTruth] Using chatbot_pipeline.{name}()")
             return fn
-    public = [
-        n for n in dir(mod) if not n.startswith("_") and callable(getattr(mod, n))
-    ]
+    public = [n for n in dir(mod) if not n.startswith("_") and callable(getattr(mod, n))]
     print(f"[CryptoTruth] No entry point found. Looked for {PIPELINE_CANDIDATES}.")
     print(f"[CryptoTruth] Public callables in module: {public}")
     print("[CryptoTruth] Claim checker disabled (dashboard still works).")
@@ -160,7 +153,7 @@ def load_json(filename):
     file_path = os.path.join(PROTOTYPE_DIR, filename)
     if os.path.exists(file_path):
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
+            with open(file_path, "r") as f:
                 return json.load(f)
         except Exception as e:
             print(f"Error loading {file_path}: {e}")
@@ -168,78 +161,12 @@ def load_json(filename):
     return None
 
 
-def ensure_dashboard_export():
-    """At startup, export existing verified data if JSON is missing or stale.
-
-    This only aggregates prior verification results. It does not scrape Reddit,
-    download prices, or rerun NLP. A valid saved JSON can be served without raw
-    input files (for example, a committed snapshot on Render).
-    """
-    output = Path(PROTOTYPE_DIR) / "dashboard_data_new.json"
-    data_dir = Path(
-        os.environ.get("CRYPTOTRUTH_DATA_DIR", Path(ROOT_DIR) / "extracted_data")
-    )
-    database = data_dir / "verified_claims.db"
-    csv = data_dir / "verified_claims.csv"
-    # Prefer the original DB summaries when supplied; otherwise use the CSV.
-    source = database if database.is_file() else csv if csv.is_file() else None
-    existing = load_json(output.name)
-    valid = (
-        isinstance(existing, dict)
-        and existing.get("schema_version") == 2
-        and isinstance(existing.get("overview"), dict)
-        and isinstance(existing.get("meta"), dict)
-    )
-    if source is None:
-        if not valid:
-            app.logger.warning(
-                "Cannot generate dashboard_data_new.json: put verified_claims.csv "
-                "or verified_claims.db in %s, then restart Flask.",
-                data_dir,
-            )
-        return
-    if (
-        valid
-        and output.stat().st_mtime_ns >= source.stat().st_mtime_ns
-        and existing["meta"].get("source_file") == source.name
-    ):
-        return
-    exporter = Path(ROOT_DIR) / "extracted_data" / "overview_charts_new.py"
-    try:
-        result = subprocess.run(
-            [
-                sys.executable,
-                str(exporter),
-                "--db" if source == database else "--csv",
-                str(source.resolve()),
-                "--output",
-                str(output.resolve()),
-            ],
-            check=True,
-            capture_output=True,
-            text=True,
-            timeout=120,
-        )
-        app.logger.info(
-            "Dashboard export generated from %s: %s", source.name, result.stdout.strip()
-        )
-    except (OSError, subprocess.SubprocessError) as exc:
-        app.logger.error("Dashboard export generation failed: %s", exc)
-        if isinstance(exc, subprocess.CalledProcessError):
-            app.logger.error("Exporter details: %s", exc.stderr)
-        # Atomic exporter writes preserve any previous valid snapshot on failure.
-
-
-# Runs for both `python dashboard/app_new.py` and Gunicorn's `app_new:app`.
-# Raw data changed while the server is running? Run the exporter or restart it.
-ensure_dashboard_export()
-
-
 @app.route("/")
 def index():
     # Load data from the specified path
     file1_data = load_json("results_file1.json")
     file2_data = load_json("results_file2.json")
+    dashboard_data = load_json("dashboard_data.json") or {}
 
     # Fallback values if files are missing or unreadable
     if file1_data is None:
@@ -251,25 +178,8 @@ def index():
         "index.html",
         file1_data=file1_data,
         file2_data=file2_data,
+        dashboard_data=dashboard_data,
     )
-
-
-@app.get("/api/dashboard-data")
-def api_dashboard_data():
-    payload = load_json("dashboard_data_new.json")
-    if (
-        not isinstance(payload, dict)
-        or payload.get("schema_version") != 2
-        or not isinstance(payload.get("overview"), dict)
-    ):
-        response = jsonify(
-            error="Dashboard export is missing, invalid, or outdated. Generate dashboard_data_new.json with overview_charts_new.py."
-        )
-        response.status_code = 503
-    else:
-        response = jsonify(payload)
-    response.headers["Cache-Control"] = "no-store"
-    return response
 
 
 @app.route("/api/verify", methods=["POST"])
