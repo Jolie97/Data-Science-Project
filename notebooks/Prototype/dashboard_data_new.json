@@ -1,9 +1,9 @@
 {
   "schema_version": 2,
   "meta": {
-    "generated_at": "2026-10-05T11:08:48.935739+00:00",
-    "source_file": "verified_claims.csv",
-    "summary_source": "Original trust_summary formula applied to CSV",
+    "generated_at": "2026-10-11T09:24:37.344413+00:00",
+    "source_file": "verified_claims.db",
+    "summary_source": "Existing SQLite summary tables",
     "total_claims": 1347,
     "scored_claims": 249,
     "not_scored_claims": 1098,
