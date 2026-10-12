@@ -74,6 +74,8 @@ def _load_pipeline():
     return None
 
 
+# Restore the existing verification pipeline, including its CoinGecko-backed
+# numeric-claim checks. External lookups occur only when checking a claim.
 PIPELINE = _load_pipeline()
 
 
@@ -272,23 +274,6 @@ def api_dashboard_data():
     return response
 
 
-<<<<<<< HEAD
-@app.get("/api/dashboard-mock-data")
-def api_dashboard_mock_data():
-    # This separate, read-only route never touches the real export or chatbot.
-    path = Path(PROTOTYPE_DIR) / "dashboard_mock_data.json"
-    if not path.is_file():
-        return (
-            jsonify(
-                error="Sample JSON is missing. Run python scripts/generate_dashboard_mock.py."
-            ),
-            503,
-        )
-    return send_file(path, mimetype="application/json", conditional=True, max_age=0)
-
-
-=======
->>>>>>> parent of 73989c4 (feat: declan - dashboard changes)
 @app.route("/api/verify", methods=["POST"])
 def api_verify():
     payload = request.get_json(silent=True) or {}
