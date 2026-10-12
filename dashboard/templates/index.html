@@ -2033,9 +2033,32 @@
               <textarea
                 id="ct-text"
                 maxlength="1000"
-                placeholder="Paste a Reddit post or crypto claim"
+                placeholder="e.g. Price of ETH is up, trading at $2,634."
               ></textarea>
               <div class="ct-actions">
+                <div class="ct-examples" id="ct-examples">
+                  <button
+                    type="button"
+                    class="ct-ex"
+                    data-text="Price of ETH is up, trading at $2,634."
+                  >
+                    Price claim
+                  </button>
+                  <button
+                    type="button"
+                    class="ct-ex"
+                    data-text="BTC just hit $500,000, easiest money ever!"
+                  >
+                    Wild claim
+                  </button>
+                  <button
+                    type="button"
+                    class="ct-ex"
+                    data-text="Honestly I think this market is going to go crazy soon."
+                  >
+                    Opinion only
+                  </button>
+                </div>
                 <button type="button" class="ct-btn" id="ct-submit">
                   Check claim
                 </button>
@@ -2223,7 +2246,8 @@
         function render(d) {
           const t = d.trust || {},
             s = d.sentiment || {};
-          chip.textContent = "Live pipeline";
+          chip.textContent =
+            d.mode === "live" ? "Live pipeline" : "Demo mode (stub data)";
           out.innerHTML = `
             <div class="ct-head ct-${esc(t.tier)}">
               <div class="ct-score">${t.score == null ? "–" : esc(t.score)}</div>
@@ -2274,6 +2298,12 @@
         box.addEventListener("keydown", (e) => {
           if ((e.ctrlKey || e.metaKey) && e.key === "Enter") check();
         });
+        document.querySelectorAll(".ct-ex").forEach((b) =>
+          b.addEventListener("click", () => {
+            box.value = b.dataset.text;
+            box.focus();
+          })
+        );
       })();
     </script>
   </body>

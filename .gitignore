@@ -26,3 +26,5 @@ data/
 *.db
 *.sqlite
 *.sqlite3
+*.ipynb
+.ipynb
