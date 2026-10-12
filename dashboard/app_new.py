@@ -4,7 +4,7 @@ import sys
 import subprocess
 from pathlib import Path
 
-from flask import Flask, jsonify, render_template, request, send_file
+from flask import Flask, jsonify, render_template, request
 
 try:  # picks up COINGECKO key etc. from .env (searches upward from this file)
     from dotenv import load_dotenv
@@ -188,7 +188,7 @@ def ensure_dashboard_export():
             app.logger.warning("Cannot generate dashboard_data_new.json: put verified_claims.csv "
                                "or verified_claims.db in %s, then restart Flask.", data_dir)
         return
-    if (valid and output.stat().st_mtime_ns >= source.stat().st_mtime_ns
+    if (valid and isinstance(existing.get("claim_records"), list) and output.stat().st_mtime_ns >= source.stat().st_mtime_ns
             and existing["meta"].get("source_file") == source.name):
         return
     exporter = Path(ROOT_DIR) / "extracted_data" / "overview_charts_new.py"
@@ -219,9 +219,9 @@ def index():
 
     # Fallback values if files are missing or unreadable
     if file1_data is None:
-        file1_data = {"Bullish": 0, "Bearish": 0, "Neutral": 0}
+        file1_data = {}
     if file2_data is None:
-        file2_data = {"SUPPORTED": 0, "REFUTED": 0}
+        file2_data = {}
 
     return render_template(
         "index_1.html",
@@ -237,18 +237,15 @@ def api_dashboard_data():
         response = jsonify(error="Dashboard export is missing, invalid, or outdated. Generate dashboard_data_new.json with overview_charts_new.py.")
         response.status_code = 503
     else:
+        payload = dict(payload)
+        payload["legacy_results"] = {
+            "sentiment": load_json("results_file1.json"),
+            "nli_verdicts": load_json("results_file2.json"),
+        }
         response = jsonify(payload)
     response.headers["Cache-Control"] = "no-store"
     return response
 
-
-@app.get("/api/dashboard-mock-data")
-def api_dashboard_mock_data():
-    # This separate, read-only route never touches the real export or chatbot.
-    path = Path(PROTOTYPE_DIR) / "dashboard_mock_data.json"
-    if not path.is_file():
-        return jsonify(error="Sample JSON is missing. Run python scripts/generate_dashboard_mock.py."), 503
-    return send_file(path, mimetype="application/json", conditional=True, max_age=0)
 
 
 @app.route("/api/verify", methods=["POST"])
