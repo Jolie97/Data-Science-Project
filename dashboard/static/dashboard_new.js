@@ -246,8 +246,25 @@
   const SERIES_FALLBACK = [COLOR.neutral, COLOR.green, COLOR.blue, COLOR.amber];
   const verdictColor = (label, i) =>
     VERDICT_COLOR[label] || SERIES_FALLBACK[i % SERIES_FALLBACK.length];
-  const coverageColor = (label) =>
-    label === "Scored" ? COLOR.green : COLOR.neutral;
+  const coverageColor = (label) => {
+    const key = String(label ?? "")
+      .trim()
+      .toLowerCase()
+      .replace(/[_-]+/g, " ")
+      .replace(/\s+/g, " ");
+
+    if (key === "scored") {
+      return COLOR.green;
+    }
+
+    if (key === "not scored" || key === "unscored") {
+      return COLOR.amber;
+    }
+
+    console.warn("[CryptoTruth] Unexpected coverage label:", label);
+
+    return COLOR.neutral;
+  };
 
   function hasValues(values) {
     return arr(values).some((v) => isNum(v) && v > 0);
