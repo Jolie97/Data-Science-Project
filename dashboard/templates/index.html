@@ -989,67 +989,43 @@
       .ct-error { margin: 0; color: var(--red); font-size: 13px; }
       .ct-loading { margin: 0; color: var(--muted); font-size: 13px; }
 
-
-/* Interactive explorer styles (scoped; chatbot styles unchanged). */
-.main > .topbar {flex-wrap:wrap;gap:12px;}
-.main > .topbar .topbar-status {white-space:normal;max-width:100%;}
-.ix-banner {display:flex;gap:12px;align-items:center;margin:24px 0 14px;color:var(--muted);font-size:12px;line-height:1.6;}
-.ix-sample {display:inline-flex;white-space:nowrap;align-items:center;font:10px "DM Mono",monospace;text-transform:uppercase;letter-spacing:.07em;color:#f2c66d;background:rgba(242,198,109,.09);border:1px solid rgba(242,198,109,.28);padding:7px 10px;border-radius:7px;}
-.ix-filters {position:sticky;top:12px;z-index:20;background:#101c2def;border:1px solid #2b4056;border-radius:16px;padding:16px 20px;backdrop-filter:blur(16px);box-shadow:0 10px 35px #0004;}
-.ix-filters summary {font-size:13px;font-weight:700;cursor:pointer;}
-.ix-filters summary span {font-size:11px;font-weight:400;color:var(--muted);margin-left:12px;}
-.ix-filters fieldset {border:0;padding:18px 0 0;margin:0;min-width:0;}
-.ix-filter-grid {display:grid;grid-template-columns:.8fr .8fr 1.3fr 1.25fr 1.3fr;gap:16px;align-items:start;}
-.ix-filters label,.ix-control-label {display:block;color:#afc0d3;font-size:11px;line-height:1.7;}
-.ix-control-label {margin-bottom:6px;}
-.ix-filters select,.ix-card-tools select {display:block;width:100%;background:#080f1b;color:#dae6f3;border:1px solid #31455e;border-radius:8px;padding:9px 10px;font-family:inherit;font-size:12px;margin-top:6px;}
-.ix-filters output {float:right;color:#52e0aa;font-variant-numeric:tabular-nums;}
-.ix-filters input[type=range] {width:100%;accent-color:#52e0aa;cursor:pointer;margin-top:12px;}
-.ix-range-grid {display:grid;grid-template-columns:1fr 1fr auto;gap:22px;align-items:center;margin-top:15px;}
-.ix-button,.ix-view,.ix-segments button,.ix-events button {font:11px "Plus Jakarta Sans",sans-serif;color:#afc0d3;border:1px solid #31455e;border-radius:8px;padding:9px 12px;background:#142234;cursor:pointer;transition:background .18s,color .18s,border-color .18s;}
-.ix-button:hover,.ix-view:hover,.ix-segments button:hover,.ix-events button:hover {color:#f0f6fd;border-color:#52e0aa;}
-.ix-button:disabled {opacity:.45;cursor:not-allowed;}
-.ix-segments {display:flex;gap:3px;flex-wrap:wrap;}
-.ix-segments button {padding:8px 10px;border-color:transparent;background:#080f1b;}
-.ix-segments [aria-pressed=true],.ix-view[aria-pressed=true],.ix-events [aria-pressed=true] {color:#52e0aa;border-color:#32856c;background:#16332f;}
-.ix-help {font-size:10px;color:var(--subtle);margin:8px 0 0;line-height:1.5;}
-.ix-status-row {display:flex;align-items:center;justify-content:space-between;gap:15px;margin:16px 0;}
-#ix-status {font-size:12px;color:#afc0d3;line-height:1.8;}
-#ix-status[data-error=true] {color:#ff9caf;}
-.ix-events {font-size:10px;color:var(--subtle);}
-.ix-events>div {display:flex;gap:8px;flex-wrap:wrap;margin-top:9px;}
-.ix-events button {font-size:10px;padding:7px 10px;}
-.ix-section {scroll-margin-top:275px;}
-.ix-kpis {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;}
-.ix-kpis .kpi-value {font-size:clamp(24px,3vw,38px);margin-top:12px;}
-.ix-card {margin:0;overflow:hidden;}
-.ix-card-tools {display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px;min-height:32px;flex-wrap:wrap;}
-.ix-small-label {font-size:10px;color:var(--muted);display:flex;align-items:center;gap:8px;}
-.ix-card-tools select {width:auto;margin:0;padding:6px;font-size:11px;}
-.ix-view {white-space:nowrap;flex-shrink:0;font-size:10px;padding:7px 9px;}
-.ix-chart-wrap {height:330px;position:relative;margin-top:20px;}
-.ix-chart-wrap canvas {max-width:100%;}
-.ix-empty {color:var(--muted);font-size:13px;line-height:1.8;padding:45px 18px;text-align:center;}
-.ix-table-wrap {overflow:auto;max-height:380px;margin-top:18px;border:1px solid var(--line);border-radius:10px;}
-.ix-table-wrap table {width:100%;border-collapse:collapse;font-size:11px;}
-.ix-table-wrap th,.ix-table-wrap td {padding:11px;text-align:left;white-space:nowrap;border-bottom:1px solid var(--line);}
-.ix-table-wrap th {background:#17283d;color:#afc0d3;position:sticky;top:0;z-index:1;}
-.ix-table-wrap td {color:var(--muted);font-variant-numeric:tabular-nums;}
-.ix-table-wrap caption {padding:10px;text-align:left;font-size:10px;color:var(--subtle);}
-.ix-method dl {display:grid;grid-template-columns:105px 1fr;gap:8px;font-size:11px;line-height:1.7;margin-top:20px;}
-.ix-method dt {color:var(--subtle);}.ix-method dd {margin:0;overflow-wrap:anywhere;color:#afc0d3;}
-.ix-method ul {font-size:11px;line-height:1.9;padding-left:16px;color:var(--muted);}
-.ix-method li+li {margin-top:7px;}.ix-method a {color:#52e0aa;}
-.ix-sr {position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
-.ix-section [hidden],.ix-filters [hidden] {display:none!important;}
-.ix-section button:focus-visible,.ix-filters :focus-visible,.ix-button:focus-visible,.ix-events button:focus-visible {outline:2px solid #52e0aa;outline-offset:3px;}
-@media(max-width:1150px) {.ix-filter-grid {grid-template-columns:repeat(3,minmax(0,1fr));}.ix-filters {position:static;}.ix-section {scroll-margin-top:20px;}}
-@media(max-width:650px) {.ix-filter-grid {grid-template-columns:repeat(2,minmax(0,1fr));}.ix-range-grid {grid-template-columns:1fr;gap:8px;}.ix-kpis {grid-template-columns:repeat(2,minmax(0,1fr));}.ix-filters {padding:14px;}.ix-filters summary span {display:none;}.ix-status-row,.ix-banner {align-items:flex-start;flex-direction:column;}.ix-card .panel-head {flex-wrap:wrap;}.ix-chart-wrap {height:300px;}.ix-section .section-header {align-items:flex-start;}.ix-method dl {grid-template-columns:85px 1fr;}}
-
+      /* Styles for sections 04–09 */
+      .export-status { margin: 32px 0 8px; padding: 13px 16px; color: var(--muted); border: 1px solid var(--line); border-radius: 10px; font-size: 12px; line-height: 1.7; }
+      .export-status[data-state="error"] { color: #ffb2be; border-color: #714254; }
+      .export-kpis { margin-bottom: 17px; }
+      .export-single { grid-template-columns: minmax(0,1fr); }
+      .export-chart { height: 320px; position: relative; margin-top: 24px; }
+      .export-chart canvas { max-width: 100%; }
+      .export-empty { color: var(--muted); padding: 36px 12px; font-size: 13px; line-height: 1.7; }
+      .export-table { margin-top: 20px; color: var(--muted); font-size: 11px; }
+      .export-table summary { cursor: pointer; padding: 10px 0; color: #afc0d3; }
+      .export-table summary:hover { color: var(--green); }
+      .export-table summary:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
+      .export-table .table-wrap { overflow: auto; max-height: 330px; }
+      .export-table table { width: 100%; border-collapse: collapse; font-size: 11px; }
+      .export-table th, .export-table td { padding: 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+      .export-table caption { text-align: left; padding: 8px 10px; color: var(--muted); }
+      .export-method { margin-top: 17px; }
+      .export-method dl { display: grid; grid-template-columns: minmax(100px,150px) 1fr; gap: 12px 16px; font-size: 12px; line-height: 1.7; }
+      .export-method dt { color: var(--subtle); }
+      .export-method dd { margin: 0; overflow-wrap: anywhere; }
+      .export-method ul { padding-left: 18px; color: var(--muted); font-size: 12px; line-height: 1.9; }
+      .export-method li + li { margin-top: 6px; }
+      @media (max-width: 650px) { .export-chart { height: 300px; } .export-method dl { grid-template-columns: 1fr; gap: 4px; } .export-method dd { margin-bottom: 12px; } }
     </style>
     <script defer src="{{ url_for('static', filename='dashboard_new.js') }}"></script>
   </head>
   <body>
+    <!-- Original data binding: results_file1.json / results_file2.json via Flask/Jinja. POSITIVE = Supported, NEGATIVE = Refuted. -->
+    <div
+      id="chart-data"
+      hidden
+      data-p1-bullish="{{ file1_data.get('Bullish', 0) }}"
+      data-p1-bearish="{{ file1_data.get('Bearish', 0) }}"
+      data-p1-neutral="{{ file1_data.get('Neutral', 0) }}"
+      data-p2-supported="{{ file2_data.get('SUPPORTED', 0) }}"
+      data-p2-refuted="{{ file2_data.get('REFUTED', 0) }}"
+    ></div>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       style="position: absolute; width: 0; height: 0; overflow: hidden"
@@ -1115,16 +1091,16 @@
             ><svg class="icon"><use href="#i-layers" /></svg>Label breakdown</a
           >
           <a class="nav-link" href="#subreddits"
-            ><svg class="icon"><use href="#i-users" /></svg>Sentiment trends</a
+            ><svg class="icon"><use href="#i-users" /></svg>Claim accuracy</a
           >
           <a class="nav-link" href="#topics"
-            ><svg class="icon"><use href="#i-activity" /></svg>Topics &amp; assets</a
+            ><svg class="icon"><use href="#i-activity" /></svg>Claim types</a
           >
           <a class="nav-link" href="#divergence"
-            ><svg class="icon"><use href="#i-arrow" /></svg>Posts vs. comments</a
+            ><svg class="icon"><use href="#i-arrow" /></svg>Asset accuracy</a
           >
           <a class="nav-link" href="#claims"
-            ><svg class="icon"><use href="#i-check" /></svg>Engagement</a
+            ><svg class="icon"><use href="#i-check" /></svg>Score &amp; sample</a
           >
           <a class="nav-link" href="#scoring"
             ><svg class="icon"><use href="#i-shield" /></svg>Subreddit
@@ -1139,11 +1115,11 @@
         </nav>
         <div class="side-note">
           <div class="side-note-heading">
-            <span class="live-dot"></span>Sample data explorer
+            <span class="live-dot"></span>Snapshot-based analytics
           </div>
           <p>
-            Sections 01–09 use clearly labelled synthetic JSON. Your real results
-            and the claim checker remain separate.
+            Data is read from exported JSON files when this page loads. This is
+            not a live market feed.
           </p>
         </div>
         <div class="side-footer">CRYPTOTRUTH / DASHBOARD</div>
@@ -1155,7 +1131,8 @@
             ><strong>Overview</strong>
           </div>
           <div class="topbar-status">
-            <span class="live-dot" aria-hidden="true"></span>Sample data · Interactive explorer
+            <span class="live-dot" aria-hidden="true"></span>Project data · JSON
+            snapshot
           </div>
         </header>
         <section class="hero" aria-labelledby="page-title">
@@ -1168,31 +1145,323 @@
             </h1>
             <p>
               Explore sentiment analysis and claim verification results from
-              an interactive sample of crypto discussions. Filter the data, compare
-              communities, and explore how sentiment and verification relate.
+              CryptoTruth's processed Reddit data, across subreddits, topics and
+              comment threads.
             </p>
           </div>
           <div class="hero-stamp" aria-hidden="true">
             <svg class="icon"><use href="#i-shield" /></svg>
           </div>
         </section>
-
-<div class="ix-banner"><span class="ix-sample">Sample data</span><span>Fictional discussions for interactive exploration. Not market evidence.</span></div>
-<details class="ix-filters" open><summary>Explore &amp; filter <span id="ix-filter-hint">Choose a slice of the sample</span></summary>
-<fieldset id="ix-controls" disabled><legend class="ix-sr">Dashboard filters</legend>
-<div class="ix-filter-grid">
-<label>Year<select id="ix-year"><option value="all">All years</option></select></label>
-<label>Coin<select id="ix-coin"><option value="all">All coins</option></select></label>
-<label>Subreddit<select id="ix-sub"><option value="all">All subreddits</option></select></label>
-<div><span class="ix-control-label">Content type</span><div class="ix-segments" role="group" aria-label="Content type"><button type="button" data-kind="all" aria-pressed="true">All</button><button type="button" data-kind="post" aria-pressed="false">Posts</button><button type="button" data-kind="comment" aria-pressed="false">Comments</button></div></div>
-<label>Minimum sentiment strength <output id="ix-threshold-label" for="ix-threshold">0.00</output><input type="range" id="ix-threshold" min="0" max="1" step="0.05" value="0" aria-describedby="ix-threshold-note" /></label>
+        <section id="snapshot" aria-labelledby="snapshot-title">
+          <div class="section-header">
+            <div>
+              <h2 id="snapshot-title">
+                <span class="section-index">01 /</span>Snapshot overview
+              </h2>
+              <p>
+                Direct counts from the sentiment and claim verification exports.
+                Totals are calculated within each output separately.
+              </p>
+            </div>
+            <span class="chip">Data-linked · No estimates</span>
+          </div>
+          <div class="kpi-grid">
+            <article class="kpi-card blue">
+              <div class="kpi-top">
+                <span class="kpi-label">Posts analysed</span
+                ><span class="kpi-icon"
+                  ><svg class="icon"><use href="#i-layers" /></svg
+                ></span>
+              </div>
+              <div class="kpi-value" id="p1-total">0</div>
+              <div class="kpi-foot">Total · Sentiment analysis</div>
+            </article>
+            <article class="kpi-card green">
+              <div class="kpi-top">
+                <span class="kpi-label">Bullish posts</span
+                ><span class="kpi-icon"
+                  ><svg class="icon"><use href="#i-activity" /></svg
+                ></span>
+              </div>
+              <div class="kpi-value" id="p1-bullish">0</div>
+              <div class="kpi-foot" id="p1-bullish-foot">
+                Share of analysed posts
+              </div>
+            </article>
+            <article class="kpi-card blue">
+              <div class="kpi-top">
+                <span class="kpi-label">Claims verified</span
+                ><span class="kpi-icon"
+                  ><svg class="icon"><use href="#i-shield" /></svg
+                ></span>
+              </div>
+              <div class="kpi-value" id="p2-total">0</div>
+              <div class="kpi-foot">Total · Claim verification</div>
+            </article>
+            <article class="kpi-card green">
+              <div class="kpi-top">
+                <span class="kpi-label">Supported claims</span
+                ><span class="kpi-icon"
+                  ><svg class="icon"><use href="#i-check" /></svg
+                ></span>
+              </div>
+              <div class="kpi-value" id="p2-supported">0</div>
+              <div class="kpi-foot" id="p2-supported-foot">
+                Share of verified claims
+              </div>
+            </article>
+          </div>
+        </section>
+        <section id="analysis" aria-labelledby="analysis-title">
+          <div class="section-header">
+            <div>
+              <h2 id="analysis-title">
+                <span class="section-index">02 /</span>Sentiment analysis &amp;
+                claim verification
+              </h2>
+              <p>
+                Sentiment label counts alongside supported and refuted claim
+                counts.
+              </p>
+            </div>
+            <span class="chip">Count by label</span>
+          </div>
+          <div class="cards-grid">
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <p class="panel-kicker">Sentiment analysis / VADER</p>
+                  <h3>Post sentiment</h3>
+                  <p class="panel-sub">
+                    Distribution of Bullish, Bearish and Neutral
+                    classifications.
+                  </p>
+                </div>
+                <span class="panel-icon" aria-hidden="true"
+                  ><svg class="icon"><use href="#i-chart" /></svg
+                ></span>
+              </div>
+              <div class="panel-separator"></div>
+              <div class="chart-area">
+                <canvas
+                  id="chartPrototype1"
+                  role="img"
+                  aria-label="Bar chart of Bullish, Bearish and Neutral classification counts"
+                ></canvas>
+                <div class="chart-unavailable" id="fallback-1">
+                  Chart unavailable. Counts are still shown in the label
+                  breakdown below.
+                </div>
+              </div>
+              <div class="legend" aria-hidden="true">
+                <span><i class="green"></i>Bullish</span
+                ><span><i class="red"></i>Bearish</span
+                ><span><i class="neutral"></i>Neutral</span>
+              </div>
+              <div class="panel-meta">
+                <span>Source: results_file1.json</span
+                ><span class="source-tag">3 labels</span>
+              </div>
+            </article>
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <p class="panel-kicker">
+                    Claim verification / NLI + evidence retrieval
+                  </p>
+                  <h3>Claim verdicts</h3>
+                  <p class="panel-sub">
+                    Distribution of Supported and Refuted claims.
+                  </p>
+                </div>
+                <span class="panel-icon" aria-hidden="true"
+                  ><svg class="icon"><use href="#i-shield" /></svg
+                ></span>
+              </div>
+              <div class="panel-separator"></div>
+              <div class="chart-area">
+                <canvas
+                  id="chartPrototype2"
+                  role="img"
+                  aria-label="Bar chart of Supported and Refuted claim counts"
+                ></canvas>
+                <div class="chart-unavailable" id="fallback-2">
+                  Chart unavailable. Counts are still shown in the label
+                  breakdown below.
+                </div>
+              </div>
+              <div class="legend" aria-hidden="true">
+                <span><i class="green"></i>Supported</span
+                ><span><i class="red"></i>Refuted</span>
+              </div>
+              <div class="panel-meta">
+                <span>Source: results_file2.json</span
+                ><span class="source-tag">2 labels</span>
+              </div>
+            </article>
+          </div>
+        </section>
+        <section id="breakdown" aria-labelledby="breakdown-title">
+          <div class="section-header">
+            <div>
+              <h2 id="breakdown-title">
+                <span class="section-index">03 /</span>Label breakdown
+              </h2>
+              <p>
+                The same source counts in a scannable, accessible alternative to
+                the charts.
+              </p>
+            </div>
+            <span class="chip">Within-output share</span>
+          </div>
+          <div class="breakdown-grid">
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <p class="panel-kicker">Source / results_file1.json</p>
+                  <h3>Sentiment analysis</h3>
+                </div>
+                <span class="source-tag" id="p1-total-small">0 classified</span>
+              </div>
+              <div class="panel-separator"></div>
+              <div class="stat-row">
+                <div class="stat-row-head">
+                  <span class="stat-name">Bullish</span
+                  ><span class="stat-figures"
+                    ><strong id="row-bullish">0</strong
+                    ><span id="pct-bullish">0%</span></span
+                  >
+                </div>
+                <div class="track">
+                  <span class="fill green" id="bar-bullish"></span>
+                </div>
+              </div>
+              <div class="stat-row">
+                <div class="stat-row-head">
+                  <span class="stat-name">Bearish</span
+                  ><span class="stat-figures"
+                    ><strong id="row-bearish">0</strong
+                    ><span id="pct-bearish">0%</span></span
+                  >
+                </div>
+                <div class="track">
+                  <span class="fill red" id="bar-bearish"></span>
+                </div>
+              </div>
+              <div class="stat-row">
+                <div class="stat-row-head">
+                  <span class="stat-name">Neutral</span
+                  ><span class="stat-figures"
+                    ><strong id="row-neutral">0</strong
+                    ><span id="pct-neutral">0%</span></span
+                  >
+                </div>
+                <div class="track">
+                  <span class="fill neutral" id="bar-neutral"></span>
+                </div>
+              </div>
+              <p class="panel-note">
+                Percentages use only the three sentiment categories.
+              </p>
+            </article>
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <p class="panel-kicker">Source / results_file2.json</p>
+                  <h3>Claim verification</h3>
+                </div>
+                <span class="source-tag" id="p2-total-small">0 classified</span>
+              </div>
+              <div class="panel-separator"></div>
+              <div class="stat-row">
+                <div class="stat-row-head">
+                  <span class="stat-name">Supported</span
+                  ><span class="stat-figures"
+                    ><strong id="row-supported">0</strong
+                    ><span id="pct-supported">0%</span></span
+                  >
+                </div>
+                <div class="track">
+                  <span class="fill green" id="bar-supported"></span>
+                </div>
+              </div>
+              <div class="stat-row">
+                <div class="stat-row-head">
+                  <span class="stat-name">Refuted</span
+                  ><span class="stat-figures"
+                    ><strong id="row-refuted">0</strong
+                    ><span id="pct-refuted">0%</span></span
+                  >
+                </div>
+                <div class="track">
+                  <span class="fill red" id="bar-refuted"></span>
+                </div>
+              </div>
+              <p class="panel-note">
+                Percentages use only Supported and Refuted claims. Results are
+                not merged with the sentiment counts.
+              </p>
+            </article>
+          </div>
+        </section>
+<div id="dashboard-status" class="export-status" role="status" aria-live="polite">Loading market-verification snapshot…</div>
+<section id="subreddits" aria-labelledby="subreddits-title"><div class="section-header"><div><h2 id="subreddits-title"><span class="section-index">04 /</span>Market claim accuracy</h2><p>The existing market-verification verdicts, restricted to scored claims.</p></div><span class="chip">Market verification</span></div>
+<div class="kpi-grid export-kpis"><article class="kpi-card"><div class="kpi-label">Extracted claims</div><div class="kpi-value" id="export-total">—</div></article><article class="kpi-card"><div class="kpi-label">Scored claims</div><div class="kpi-value" id="export-scored">—</div></article><article class="kpi-card"><div class="kpi-label">Not scored</div><div class="kpi-value" id="export-unscored">—</div></article><article class="kpi-card"><div class="kpi-label">Scored share</div><div class="kpi-value" id="export-rate">—</div></article></div>
+<div class="cards-grid">
+<article class="panel export-panel"><div class="panel-head"><div><div class="panel-kicker">pie / JSON snapshot</div><h3>Verdict distribution</h3><p class="panel-sub">ACCURATE / APPROXIMATE / INACCURATE. Shares use scored claims as the denominator.</p></div></div>
+  <div class="export-chart"><canvas id="export-chart-verdict" role="img" aria-label="Verdict distribution; exact values in the data table below" aria-describedby="export-table-verdict"></canvas><p class="export-empty" hidden></p></div>
+  <details class="export-table"><summary>View exact data</summary><div class="table-wrap" id="export-table-verdict"></div></details></article>
+<article class="panel export-panel"><div class="panel-head"><div><div class="panel-kicker">pie / JSON snapshot</div><h3>Verification coverage</h3><p class="panel-sub">All extracted claims, including those the original pipeline could not score.</p></div></div>
+  <div class="export-chart"><canvas id="export-chart-checkable" role="img" aria-label="Verification coverage; exact values in the data table below" aria-describedby="export-table-checkable"></canvas><p class="export-empty" hidden></p></div>
+  <details class="export-table"><summary>View exact data</summary><div class="table-wrap" id="export-table-checkable"></div></details></article>
 </div>
-<div class="ix-range-grid"><label>From <output id="ix-from-label" for="ix-from">—</output><input type="range" id="ix-from" min="0" max="0" value="0" step="1" /></label><label>Through <output id="ix-to-label" for="ix-to">—</output><input type="range" id="ix-to" min="0" max="0" value="0" step="1" /></label><button type="button" id="ix-reset" class="ix-button">Reset filters</button></div>
-<p class="ix-help" id="ix-threshold-note">Strength = absolute sentiment score. Higher values keep stronger bullish and bearish language.</p>
-</fieldset></details>
-<div class="ix-status-row"><p id="ix-status" role="status" aria-live="polite">Loading sample JSON…</p><button type="button" id="ix-download" class="ix-button" disabled>Download filtered CSV</button></div>
-<div class="ix-events"><span>Try a fictional scenario</span><div id="ix-events"></div></div>
-<section id="snapshot" class="ix-section" aria-labelledby="snapshot-title"><div class="section-header"><div><h2 id="snapshot-title"><span class="section-index">01 /</span>Snapshot overview</h2><p>Every metric below updates with your filters. Posts and comments are counted separately.</p></div><span class="ix-sample">Sample data</span></div><div class="ix-kpis"><article class="kpi-card"><div class="kpi-label">Matched posts</div><div class="kpi-value" id="ix-kpi-posts">—</div></article><article class="kpi-card"><div class="kpi-label">Matched comments</div><div class="kpi-value" id="ix-kpi-comments">—</div></article><article class="kpi-card"><div class="kpi-label">Mean sentiment</div><div class="kpi-value" id="ix-kpi-sentiment">—</div></article><article class="kpi-card"><div class="kpi-label">Supported / resolved</div><div class="kpi-value" id="ix-kpi-support">—</div></article><article class="kpi-card"><div class="kpi-label">Verification coverage</div><div class="kpi-value" id="ix-kpi-coverage">—</div></article><article class="kpi-card"><div class="kpi-label">Total engagement</div><div class="kpi-value" id="ix-kpi-engagement">—</div></article></div></section><section id="analysis" class="ix-section" aria-labelledby="analysis-title"><div class="section-header"><div><h2 id="analysis-title"><span class="section-index">02 /</span>Sentiment &amp; claim verification</h2><p>Compare tone with simulated claim outcomes. Click a legend label to hide or show a category.</p></div><span class="ix-sample">Sample data</span></div><div class="cards-grid"><article class="panel ix-card" data-card="sentiment"><div class="panel-head"><div><div class="panel-kicker">Filtered sample / interactive</div><h3 id="ix-title-sentiment">Sentiment split</h3></div><button class="ix-view" type="button" data-table="sentiment" aria-pressed="false" aria-controls="ix-table-sentiment">Show table</button></div><p class="panel-sub" id="ix-note-sentiment">Bullish ≥ +0.05; bearish ≤ −0.05; otherwise neutral. Cutoff is defined in the JSON metadata.</p><div class="ix-card-tools"><div class="ix-segments" role="group" aria-label="Sentiment split chart type"><button type="button" data-chart-type="doughnut" aria-pressed="true">Donut</button><button type="button" data-chart-type="bar" aria-pressed="false">Bar</button><button type="button" data-chart-type="pie" aria-pressed="false">Pie</button></div></div><div class="ix-chart-wrap" id="ix-wrap-sentiment"><canvas id="ix-chart-sentiment" role="img" aria-label="Sentiment split" aria-describedby="ix-note-sentiment"></canvas><p class="ix-empty" hidden></p></div><div class="ix-table-wrap" id="ix-table-sentiment" hidden></div></article><article class="panel ix-card" data-card="verdict"><div class="panel-head"><div><div class="panel-kicker">Filtered sample / interactive</div><h3 id="ix-title-verdict">Claim verdict share</h3></div><button class="ix-view" type="button" data-table="verdict" aria-pressed="false" aria-controls="ix-table-verdict">Show table</button></div><p class="panel-sub" id="ix-note-verdict">Unverified means unresolved; it does not mean unsupported.</p><div class="ix-card-tools"><div class="ix-segments" role="group" aria-label="Claim verdict share chart type"><button type="button" data-chart-type="doughnut" aria-pressed="true">Donut</button><button type="button" data-chart-type="bar" aria-pressed="false">Bar</button><button type="button" data-chart-type="pie" aria-pressed="false">Pie</button></div></div><div class="ix-chart-wrap" id="ix-wrap-verdict"><canvas id="ix-chart-verdict" role="img" aria-label="Claim verdict share" aria-describedby="ix-note-verdict"></canvas><p class="ix-empty" hidden></p></div><div class="ix-table-wrap" id="ix-table-verdict" hidden></div></article></div></section><section id="breakdown" class="ix-section" aria-labelledby="breakdown-title"><div class="section-header"><div><h2 id="breakdown-title"><span class="section-index">03 /</span>Label breakdown</h2><p>Exact category counts and within-selection percentages.</p></div><span class="ix-sample">Sample data</span></div><div class="cards-grid"><article class="panel"><h3>Sentiment labels</h3><div class="ix-table-wrap" id="ix-sentiment-labels"></div></article><article class="panel"><h3>Claim outcomes</h3><div class="ix-table-wrap" id="ix-verdict-labels"></div></article></div></section><section id="subreddits" class="ix-section" aria-labelledby="subreddits-title"><div class="section-header"><div><h2 id="subreddits-title"><span class="section-index">04 /</span>Sentiment over time</h2><p>Monthly mean sentiment by coin. Missing months are gaps, not zero sentiment.</p></div><span class="ix-sample">Sample data</span></div><article class="panel ix-card" data-card="timeline"><div class="panel-head"><div><div class="panel-kicker">Filtered sample / interactive</div><h3 id="ix-title-timeline">Coin sentiment timeline</h3></div><button class="ix-view" type="button" data-table="timeline" aria-pressed="false" aria-controls="ix-table-timeline">Show table</button></div><p class="panel-sub" id="ix-note-timeline">Use the date handles above to zoom in on a period.</p><div class="ix-card-tools"><div class="ix-segments" role="group" aria-label="Coin sentiment timeline chart type"><button type="button" data-chart-type="line" aria-pressed="true">Line</button><button type="button" data-chart-type="bar" aria-pressed="false">Bar</button></div></div><div class="ix-chart-wrap" id="ix-wrap-timeline"><canvas id="ix-chart-timeline" role="img" aria-label="Coin sentiment timeline" aria-describedby="ix-note-timeline"></canvas><p class="ix-empty" hidden></p></div><div class="ix-table-wrap" id="ix-table-timeline" hidden></div></article></section><section id="topics" class="ix-section" aria-labelledby="topics-title"><div class="section-header"><div><h2 id="topics-title"><span class="section-index">05 /</span>Top topics &amp; assets</h2><p>Discussion volume across the selected records.</p></div><span class="ix-sample">Sample data</span></div><article class="panel ix-card" data-card="topics"><div class="panel-head"><div><div class="panel-kicker">Filtered sample / interactive</div><h3 id="ix-title-topics">Topics in focus</h3></div><button class="ix-view" type="button" data-table="topics" aria-pressed="false" aria-controls="ix-table-topics">Show table</button></div><p class="panel-sub" id="ix-note-topics">Each record has one topic and one coin; totals do not double-count mentions.</p><div class="ix-card-tools"><div class="ix-segments" role="group" aria-label="Topics in focus chart type"><button type="button" data-chart-type="bar" aria-pressed="true">Bar</button><button type="button" data-chart-type="pie" aria-pressed="false">Pie</button></div><label class="ix-small-label">Group by <select id="ix-topic-group"><option value="topic">Topic</option><option value="coin">Coin</option></select></label></div><div class="ix-chart-wrap" id="ix-wrap-topics"><canvas id="ix-chart-topics" role="img" aria-label="Topics in focus" aria-describedby="ix-note-topics"></canvas><p class="ix-empty" hidden></p></div><div class="ix-table-wrap" id="ix-table-topics" hidden></div></article></section><section id="divergence" class="ix-section" aria-labelledby="divergence-title"><div class="section-header"><div><h2 id="divergence-title"><span class="section-index">06 /</span>Post vs. comment sentiment</h2><p>Compare parent posts with their matching comments inside the current selection.</p></div><span class="ix-sample">Sample data</span></div><article class="panel ix-card" data-card="divergence"><div class="panel-head"><div><div class="panel-kicker">Filtered sample / interactive</div><h3 id="ix-title-divergence">Conversation alignment</h3></div><button class="ix-view" type="button" data-table="divergence" aria-pressed="false" aria-controls="ix-table-divergence">Show table</button></div><p class="panel-sub" id="ix-note-divergence">One point per subreddit, weighted by eligible parent post. Both parent and reply must pass every filter.</p><div class="ix-card-tools"><div class="ix-segments" role="group" aria-label="Conversation alignment chart type"><button type="button" data-chart-type="scatter" aria-pressed="true">Scatter</button><button type="button" data-chart-type="bar" aria-pressed="false">Bar</button></div></div><div class="ix-chart-wrap" id="ix-wrap-divergence"><canvas id="ix-chart-divergence" role="img" aria-label="Conversation alignment" aria-describedby="ix-note-divergence"></canvas><p class="ix-empty" hidden></p></div><div class="ix-table-wrap" id="ix-table-divergence" hidden></div></article></section><section id="claims" class="ix-section" aria-labelledby="claims-title"><div class="section-header"><div><h2 id="claims-title"><span class="section-index">07 /</span>Sentiment &amp; engagement</h2><p>Explore whether strongly worded discussions attract more activity.</p></div><span class="ix-sample">Sample data</span></div><article class="panel ix-card" data-card="engagement"><div class="panel-head"><div><div class="panel-kicker">Filtered sample / interactive</div><h3 id="ix-title-engagement">Discussion engagement</h3></div><button class="ix-view" type="button" data-table="engagement" aria-pressed="false" aria-controls="ix-table-engagement">Show table</button></div><p class="panel-sub" id="ix-note-engagement">Engagement = upvotes + replies. The scatter uses up to 1,200 evenly spaced records from the filtered order.</p><div class="ix-card-tools"><div class="ix-segments" role="group" aria-label="Discussion engagement chart type"><button type="button" data-chart-type="scatter" aria-pressed="true">Scatter</button><button type="button" data-chart-type="bar" aria-pressed="false">Bar</button></div></div><div class="ix-chart-wrap" id="ix-wrap-engagement"><canvas id="ix-chart-engagement" role="img" aria-label="Discussion engagement" aria-describedby="ix-note-engagement"></canvas><p class="ix-empty" hidden></p></div><div class="ix-table-wrap" id="ix-table-engagement" hidden></div></article></section><section id="scoring" class="ix-section" aria-labelledby="scoring-title"><div class="section-header"><div><h2 id="scoring-title"><span class="section-index">08 /</span>Community &amp; verification trends</h2><p>Community measures describe this synthetic selection, not real-world credibility.</p></div><span class="ix-sample">Sample data</span></div><div class="cards-grid"><article class="panel ix-card" data-card="leaderboard"><div class="panel-head"><div><div class="panel-kicker">Filtered sample / interactive</div><h3 id="ix-title-leaderboard">Subreddit leaderboard</h3></div><button class="ix-view" type="button" data-table="leaderboard" aria-pressed="false" aria-controls="ix-table-leaderboard">Show table</button></div><p class="panel-sub" id="ix-note-leaderboard">Compare all matching records, including unverified claims.</p><div class="ix-card-tools"><div class="ix-segments" role="group" aria-label="Subreddit leaderboard chart type"><button type="button" data-chart-type="bar" aria-pressed="true">Bar</button></div><label class="ix-small-label">Rank by <select id="ix-rank"><option value="volume">Volume</option><option value="sentiment">Sentiment</option><option value="coverage">Verification coverage</option></select></label></div><div class="ix-chart-wrap" id="ix-wrap-leaderboard"><canvas id="ix-chart-leaderboard" role="img" aria-label="Subreddit leaderboard" aria-describedby="ix-note-leaderboard"></canvas><p class="ix-empty" hidden></p></div><div class="ix-table-wrap" id="ix-table-leaderboard" hidden></div></article><article class="panel ix-card" data-card="verification"><div class="panel-head"><div><div class="panel-kicker">Filtered sample / interactive</div><h3 id="ix-title-verification">Verification over time</h3></div><button class="ix-view" type="button" data-table="verification" aria-pressed="false" aria-controls="ix-table-verification">Show table</button></div><p class="panel-sub" id="ix-note-verification">Resolved = supported + unsupported. Coverage uses all selected records; support rate uses only resolved claims.</p><div class="ix-card-tools"><div class="ix-segments" role="group" aria-label="Verification over time chart type"><button type="button" data-chart-type="line" aria-pressed="true">Line</button><button type="button" data-chart-type="bar" aria-pressed="false">Bar</button></div></div><div class="ix-chart-wrap" id="ix-wrap-verification"><canvas id="ix-chart-verification" role="img" aria-label="Verification over time" aria-describedby="ix-note-verification"></canvas><p class="ix-empty" hidden></p></div><div class="ix-table-wrap" id="ix-table-verification" hidden></div></article></div></section><section id="data-notes" class="ix-section" aria-labelledby="data-notes-title"><div class="section-header"><div><h2 id="data-notes-title"><span class="section-index">09 /</span>Data coverage &amp; methodology</h2><p>Inspect the selection and understand how the sample was constructed.</p></div><span class="ix-sample">Sample data</span></div><div class="cards-grid"><article class="panel ix-card" data-card="coverage"><div class="panel-head"><div><div class="panel-kicker">Filtered sample / interactive</div><h3 id="ix-title-coverage">Selected content mix</h3></div><button class="ix-view" type="button" data-table="coverage" aria-pressed="false" aria-controls="ix-table-coverage">Show table</button></div><p class="panel-sub" id="ix-note-coverage">Posts and comments within the current selection.</p><div class="ix-card-tools"><div class="ix-segments" role="group" aria-label="Selected content mix chart type"><button type="button" data-chart-type="bar" aria-pressed="true">Bar</button><button type="button" data-chart-type="doughnut" aria-pressed="false">Donut</button></div></div><div class="ix-chart-wrap" id="ix-wrap-coverage"><canvas id="ix-chart-coverage" role="img" aria-label="Selected content mix" aria-describedby="ix-note-coverage"></canvas><p class="ix-empty" hidden></p></div><div class="ix-table-wrap" id="ix-table-coverage" hidden></div></article><article class="panel ix-method"><h3>About this sample</h3><dl id="ix-metadata"></dl><ul><li>All discussions and events are fictional. These charts are not findings about real Reddit communities or market behavior.</li><li>Sentiment is on a −1 to +1 scale. The strength slider filters by its absolute value.</li><li>Each row has one simulated claim verdict. Missing confidence for unverified claims is null, not zero.</li><li>Filters apply to every section from 01 to 09. Community rankings and rates recompute their denominators from the selected records.</li><li>Monthly rates are calculated from counts, not averages of daily percentages. Undefined rates and means display as unavailable.</li><li>Your real <code>dashboard_data_new.json</code> remains separate. <a href="/api/dashboard-data" target="_blank" rel="noopener">Open the real export</a>.</li></ul></article></div></section>
+</section>
+<section id="topics" aria-labelledby="topics-title"><div class="section-header"><div><h2 id="topics-title"><span class="section-index">05 /</span>Claim types</h2><p>What the pipeline extracted, and how checkable claims were classified.</p></div><span class="chip">Market verification</span></div>
+<div class="cards-grid">
+<article class="panel export-panel"><div class="panel-head"><div><div class="panel-kicker">bar / JSON snapshot</div><h3>Claims by type</h3><p class="panel-sub">All claims, in the original ascending count order.</p></div></div>
+  <div class="export-chart"><canvas id="export-chart-types" role="img" aria-label="Claims by type; exact values in the data table below" aria-describedby="export-table-types"></canvas><p class="export-empty" hidden></p></div>
+  <details class="export-table"><summary>View exact data</summary><div class="table-wrap" id="export-table-types"></div></details></article>
+<article class="panel export-panel"><div class="panel-head"><div><div class="panel-kicker">bar / JSON snapshot</div><h3>Accuracy by claim type</h3><p class="panel-sub">Stacked counts of scored claims only.</p></div></div>
+  <div class="export-chart"><canvas id="export-chart-typeAccuracy" role="img" aria-label="Accuracy by claim type; exact values in the data table below" aria-describedby="export-table-typeAccuracy"></canvas><p class="export-empty" hidden></p></div>
+  <details class="export-table"><summary>View exact data</summary><div class="table-wrap" id="export-table-typeAccuracy"></div></details></article>
+</div>
+</section>
+<section id="divergence" aria-labelledby="divergence-title"><div class="section-header"><div><h2 id="divergence-title"><span class="section-index">06 /</span>Accuracy across assets</h2><p>Compare market-verification results across the assets identified by the pipeline.</p></div><span class="chip">Market verification</span></div>
+<div class="cards-grid export-single">
+<article class="panel export-panel"><div class="panel-head"><div><div class="panel-kicker">bar / JSON snapshot</div><h3>Accuracy by coin</h3><p class="panel-sub">Scored claims only. Generic crypto claims may be mapped to Bitcoin by the original verifier.</p></div></div>
+  <div class="export-chart"><canvas id="export-chart-coins" role="img" aria-label="Accuracy by coin; exact values in the data table below" aria-describedby="export-table-coins"></canvas><p class="export-empty" hidden></p></div>
+  <details class="export-table"><summary>View exact data</summary><div class="table-wrap" id="export-table-coins"></div></details></article>
+</div>
+</section>
+<section id="claims" aria-labelledby="claims-title"><div class="section-header"><div><h2 id="claims-title"><span class="section-index">07 /</span>Score & sample size</h2><p>One point per subreddit: compare the original trust score with the amount of scored evidence.</p></div><span class="chip">Market verification</span></div>
+<div class="cards-grid export-single">
+<article class="panel export-panel"><div class="panel-head"><div><div class="panel-kicker">scatter / JSON snapshot</div><h3>Subreddit evidence scatter</h3><p class="panel-sub">X: scored claims · Y: trust score (0–100). Hover or focus the data table for exact values.</p></div></div>
+  <div class="export-chart"><canvas id="export-chart-samples" role="img" aria-label="Subreddit evidence scatter; exact values in the data table below" aria-describedby="export-table-samples"></canvas><p class="export-empty" hidden></p></div>
+  <details class="export-table"><summary>View exact data</summary><div class="table-wrap" id="export-table-samples"></div></details></article>
+</div>
+</section>
+<section id="scoring" aria-labelledby="scoring-title"><div class="section-header"><div><h2 id="scoring-title"><span class="section-index">08 /</span>Subreddit & user scores</h2><p>Original summary scores and the original qualifying user selection.</p></div><span class="chip">Market verification</span></div>
+<div class="cards-grid">
+<article class="panel export-panel"><div class="panel-head"><div><div class="panel-kicker">bar / JSON snapshot</div><h3>Subreddit trust scores</h3><p class="panel-sub">Only subreddits with at least one scored claim. Bars retain the original ascending order.</p></div></div>
+  <div class="export-chart"><canvas id="export-chart-trust" role="img" aria-label="Subreddit trust scores; exact values in the data table below" aria-describedby="export-table-trust"></canvas><p class="export-empty" hidden></p></div>
+  <details class="export-table"><summary>View exact data</summary><div class="table-wrap" id="export-table-trust"></div></details></article>
+<article class="panel export-panel"><div class="panel-head"><div><div class="panel-kicker">bar / JSON snapshot</div><h3>User score range</h3><p class="panel-sub">Original lowest/highest 10, deduplicated; at least 3 scored claims per user.</p></div></div>
+  <div class="export-chart"><canvas id="export-chart-users" role="img" aria-label="User score range; exact values in the data table below" aria-describedby="export-table-users"></canvas><p class="export-empty" hidden></p></div>
+  <details class="export-table"><summary>View exact data</summary><div class="table-wrap" id="export-table-users"></div></details></article>
+</div>
+</section>
+<section id="data-notes" aria-labelledby="data-notes-title"><div class="section-header"><div><h2 id="data-notes-title"><span class="section-index">09 /</span>Data coverage & methodology</h2><p>Check what was scored, what was excluded, and which snapshot is on screen.</p></div><span class="chip">Market verification</span></div>
+<div class="cards-grid">
+<article class="panel export-panel"><div class="panel-head"><div><div class="panel-kicker">bar / JSON snapshot</div><h3>Checkability by claim type</h3><p class="panel-sub">Counts from the original scored/not-scored crosstab.</p></div></div>
+  <div class="export-chart"><canvas id="export-chart-coverage" role="img" aria-label="Checkability by claim type; exact values in the data table below" aria-describedby="export-table-coverage"></canvas><p class="export-empty" hidden></p></div>
+  <details class="export-table"><summary>View exact data</summary><div class="table-wrap" id="export-table-coverage"></div></details></article>
+<article class="panel export-panel"><div class="panel-head"><div><div class="panel-kicker">bar / JSON snapshot</div><h3>Pipeline status breakdown</h3><p class="panel-sub">Counts of the existing STATUS column, including unscored outcomes.</p></div></div>
+  <div class="export-chart"><canvas id="export-chart-statuses" role="img" aria-label="Pipeline status breakdown; exact values in the data table below" aria-describedby="export-table-statuses"></canvas><p class="export-empty" hidden></p></div>
+  <details class="export-table"><summary>View exact data</summary><div class="table-wrap" id="export-table-statuses"></div></details></article>
+</div>
+<article class="panel export-method"><h3>About this export</h3><dl id="export-metadata"></dl><ul id="export-notes"></ul></article>
+</section>
         <section id="verify" aria-labelledby="verify-title">
           <div class="section-header">
             <div>
@@ -1228,6 +1497,125 @@
     </div>
     <script>
       "use strict";
+      // Existing Jinja-supplied values (POSITIVE = Supported, NEGATIVE = Refuted).
+      const dataEl = document.getElementById("chart-data").dataset;
+      const p1 = [
+        Number(dataEl.p1Bullish) || 0,
+        Number(dataEl.p1Bearish) || 0,
+        Number(dataEl.p1Neutral) || 0
+      ];
+      const p2 = [
+        Number(dataEl.p2Supported) || 0,
+        Number(dataEl.p2Refuted) || 0
+      ];
+      const total1 = p1.reduce((s, c) => s + c, 0);
+      const total2 = p2.reduce((s, c) => s + c, 0);
+      const format = (v) => new Intl.NumberFormat("en-AU").format(v);
+      const percent = (v, t) =>
+        t > 0 ? `${((v / t) * 100).toFixed(1)}%` : "0%";
+      const setText = (id, text) => {
+        const e = document.getElementById(id);
+        if (e) e.textContent = text;
+      };
+      const num = (v, d = 0) => {
+        const n = Number(v);
+        return Number.isFinite(n) ? n : d;
+      };
+      const fixed = (v, d = 2) => num(v).toFixed(d);
+      setText("p1-total", format(total1));
+      setText("p1-bullish", format(p1[0]));
+      setText("p1-bullish-foot", `${percent(p1[0], total1)} of analysed posts`);
+      setText("p2-total", format(total2));
+      setText("p2-supported", format(p2[0]));
+      setText(
+        "p2-supported-foot",
+        `${percent(p2[0], total2)} of verified claims`
+      );
+      setText("p1-total-small", `${format(total1)} classified`);
+      setText("p2-total-small", `${format(total2)} classified`);
+      [
+        ["bullish", p1[0], total1],
+        ["bearish", p1[1], total1],
+        ["neutral", p1[2], total1],
+        ["supported", p2[0], total2],
+        ["refuted", p2[1], total2]
+      ].forEach(([name, count, total]) => {
+        setText(`row-${name}`, format(count));
+        setText(`pct-${name}`, percent(count, total));
+        document.getElementById(`bar-${name}`).style.width =
+          total > 0 ? `${(count / total) * 100}%` : "0%";
+      });
+      if (typeof Chart !== "undefined") {
+        Chart.defaults.font.family =
+          "'Plus Jakarta Sans', system-ui, sans-serif";
+        Chart.defaults.color = "#97a9bd";
+        const colors = ["#52e0aa", "#ff778b", "#9baec7"];
+        const scaleX = {
+          border: { display: false },
+          grid: { display: false },
+          ticks: { color: "#afc0d3", font: { size: 11, weight: "600" } }
+        };
+        const scaleY = {
+          beginAtZero: true,
+          border: { display: false },
+          grid: { color: "rgba(173,195,218,.10)", drawTicks: false },
+          ticks: {
+            color: "#71869e",
+            precision: 0,
+            padding: 10,
+            callback: (v) => format(v)
+          }
+        };
+        function drawChart(canvasId, labels, values) {
+          return new Chart(document.getElementById(canvasId), {
+            type: "bar",
+            data: {
+              labels,
+              datasets: [
+                {
+                  label: "Count",
+                  data: values,
+                  backgroundColor: colors.slice(0, values.length),
+                  hoverBackgroundColor: colors.slice(0, values.length),
+                  borderRadius: 7,
+                  borderSkipped: false,
+                  maxBarThickness: 58,
+                  categoryPercentage: 0.66,
+                  barPercentage: 0.82
+                }
+              ]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              animation: { duration: 650 },
+              interaction: { intersect: false, mode: "index" },
+              plugins: {
+                legend: { display: false },
+                tooltip: {
+                  displayColors: false,
+                  backgroundColor: "#21344a",
+                  titleColor: "#f0f6fd",
+                  bodyColor: "#f0f6fd",
+                  padding: 11,
+                  cornerRadius: 9,
+                  callbacks: { label: (c) => ` ${format(c.parsed.y)}` }
+                }
+              },
+              scales: { x: scaleX, y: scaleY }
+            }
+          });
+        }
+        drawChart("chartPrototype1", ["Bullish", "Bearish", "Neutral"], p1);
+        drawChart("chartPrototype2", ["Supported", "Refuted"], p2);
+      } else {
+        document.querySelectorAll(".chart-area canvas").forEach((c) => {
+          c.hidden = true;
+        });
+        document.querySelectorAll(".chart-unavailable").forEach((m) => {
+          m.style.display = "flex";
+        });
+      }
       const navLinks = document.querySelectorAll(".nav-link");
       navLinks.forEach((link) =>
         link.addEventListener("click", () => {
