@@ -3,6 +3,7 @@ CryptoTruth Quantitative Evaluation Script
 Generates Accuracy, Precision, Recall, F1-scores, and Confusion Matrices.
 """
 
+from collections import Counter
 import sys
 from pathlib import Path
 import pandas as pd
@@ -33,7 +34,7 @@ def evaluate_sentiment(test_csv_path: Path):
 
     predicted_labels = []
     for _, row in df.iterrows():
-        text = f"{row['title']} {str(row.get('description', ''))}"
+        text = f"{row['TITLE']} {str(row.get('description', ''))}"
         score = engine.score_vader(text)["compound"]
 
         # Mapped thresholds
@@ -81,13 +82,15 @@ def evaluate_claim_verifier(test_csv_path: Path):
     predicted_labels = []
     for claim in df["claim_text"]:
         res = verifier.verify_claim(claim)
-        predicted_labels.append(res["veracity"])  # SUPPORTED or REFUTED
+        predicted_labels.append(
+            res["veracity"]
+        )  # SUPPORTED or REFUTED or NOT ENOUGH INFO
 
     df["predicted"] = predicted_labels
     y_true = df["true_veracity"]
     y_pred = df["predicted"]
 
-    labels = ["SUPPORTED", "REFUTED"]
+    labels = ["SUPPORTED", "REFUTED", "NOT ENOUGH INFO"]
     print(f"Overall Accuracy:  {accuracy_score(y_true, y_pred):.4f}")
     print(
         f"Macro F1-Score:    {f1_score(y_true, y_pred, average='macro', zero_division=0):.4f}"
@@ -97,6 +100,11 @@ def evaluate_claim_verifier(test_csv_path: Path):
     )
 
     print("Detailed Classification Report:")
+
+    # print("Ground-truth labels:", Counter(map(repr, y_true)))
+    # print("Predicted labels:", Counter(map(repr, y_pred)))
+    # print("Configured labels:", labels)
+
     print(classification_report(y_true, y_pred, target_names=labels, zero_division=0))
 
     print("Confusion Matrix:")
@@ -110,8 +118,12 @@ def evaluate_claim_verifier(test_csv_path: Path):
 
 
 if __name__ == "__main__":
-    sentiment_test = PROJECT_ROOT / "data" / "evaluation_sentiment_testset.csv"
-    claims_test = PROJECT_ROOT / "data" / "evaluation_claims_testset.csv"
+    sentiment_test = (
+        PROJECT_ROOT / "notebooks" / "Prototype" / "evaluation_sentiment_testset.csv"
+    )
+    claims_test = (
+        PROJECT_ROOT / "notebooks" / "Prototype" / "evaluation_claims_testset.csv"
+    )
 
     if sentiment_test.exists():
         evaluate_sentiment(sentiment_test)

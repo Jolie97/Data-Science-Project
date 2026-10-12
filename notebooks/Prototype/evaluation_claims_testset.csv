@@ -1,0 +1,1321 @@
+claim_id,post_id,title,description,claim_text,true_veracity,evidence_source,annotation_notes
+t3_1vrhmaz_claim_001,t3_1vrhmaz,Cardano holders: don't ignore governance,,Cardano holders: don't ignore governance,SUPPORTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1vhvx6h_claim_011,t3_1vhvx6h,The Clarity Act just missed its window before the August recess. Here's why September is a much smaller door than people think.,"Thune confirmed late Thursday that the Senate is punting the Clarity Act to September. His words: the Democrats were insistent on no Clarity vote, and it gets queued up first thing when they return.
+
+That's being reported as a delay. I'd argue it's closer to a shot clock running down, and the calendar math is the part nobody's saying out loud.
+
+Where the bill actually stands:
+
+Passed the House in July 2025, 294 to 134
+
+Advanced out of Senate Banking in May 2026, 15 to 9
+
+Has been sitting on the Senate Legislative Calendar since June 1 as Calendar No. 423, eligible for a floor vote any time leadership wanted to schedule one
+
+It sat there for two months and still didn't get called. That's the tell. This wasn't a scheduling accident, it was a vote count that wasn't there.
+
+Why September is tighter than it sounds: the Senate returns mid-September for a few weeks, then attention collapses into the November midterms. The bill needs 60 votes, which means real Democratic support, and reporting suggests some Democrats are reluctant precisely because of the political optics ahead of the midterms and the industry's growing lobbying footprint. Republican support has also wavered. And even if it clears the Senate, it goes back to the House before it can be signed.
+
+The unresolved fights are the same three that have stalled it all year: the ethics provisions being negotiated by Gallego and Tillis around officials and their spouses issuing digital assets, whether yield or rewards on stablecoins get allowed, and whether the bill gives enforcement agencies enough tools on illicit finance.
+
+The part worth actually thinking about: bills die at the end of a Congress. If Clarity doesn't clear the Senate in that September window, it doesn't just get postponed to next year. It restarts from zero in a new Congress with a possibly different balance of power, and the entire SEC/CFTC jurisdictional question stays unsettled by statute, which means it keeps getting decided by enforcement actions and court rulings instead.
+
+Full disclosure so nobody feels misled: I write a twice weekly newsletter covering bitcoin law and regulation, which is why I track this stuff this closely. Not linking it, not asking anyone to sign up, just being upfront about where the interest comes from.
+
+So the question: has any of this actually changed what you do? Did the regulatory limbo push you further into self custody, make you use offshore platforms, delay a project you wanted to build, or change how you handle taxes and reporting? Or have you just tuned Congress out entirely at this point and gone back to ignoring it?
+
+Sources: The Block, Politico via Cointelegraph, CoinDesk.","It restarts from zero in a new Congress with a possibly different balance of power, and the entire SEC/CFTC jurisdictional question stays unsettled by statute, which means it keeps getting decided by enforcement actions and court rulings instead.",REFUTED,,"Bill expiration at end of Congress is a checkable procedural claim, but broader SEC/CFTC prediction is compound and needs separate verification."
+t3_1voaysm_claim_001,t3_1voaysm,The Great Bitcoin Transfer: Wall Street Is Quietly Buying the Coins Bitcoin's OGs Are Selling.,,The Great Bitcoin Transfer: Wall Street Is Quietly Buying the Coins Bitcoin's OGs Are Selling.,REFUTED,,Factual or context-dependent statement; independent evidence insufficient for a binary ground-truth label.
+t3_1vh830c_claim_002,t3_1vh830c,What if the cold card attack is a rogue AI?,"It was announced on July 21st that openAI and anthropic models broke out of their sandbox and hacked many companies. Wallet drains started on July 30th. AI found the vulnerability. I know it's more likely an inside job, but I don't think it's crazy to consider",Wallet drains started on July 30th.,REFUTED,,No corroboration of the specific wallet-drain start date or alleged rogue-AI link; lack of evidence is not REFUTED.
+t3_1wpxina_claim_002,t3_1wpxina,if you left crypto in 2021 the weirdest change isnt the coins,"came back after barely paying attention for a few years and the whole setup feels different I remember bouncing between twitter, charts, etherscan and my wallet just to figure out what people were trading now im on pumpfun seeing what’s moving, checking holders, looking at trader profiles and following callouts from the same app crypto is still chaos
+
+we just have much better screens for watching it now","came back after barely paying attention for a few years and the whole setup feels different I remember bouncing between twitter, charts, etherscan and my wallet just to figure out what people were trading now im on pumpfun seeing what’s moving, checking holders, looking at trader profiles and following callouts from the same app crypto is still chaos
+
+we just have much better screens for watching it now",REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1wsiky9_claim_013,t3_1wsiky9,Litecoin has a hidden superpower nobody talks about (and they should),"This one's a bit long. If you just want the TLDR skip to the last paragraph.
+
+ETH and SOL offer huge possibilities: smart contracts, DeFi, entire ecosystems built on top. But look at how many projects have launched on them over the past few years, and how many actually survived past one hype season. Most are ghost towns: a token, a website, a Discord, and silence a year later. The problem isn't the tech itself. It's that the barrier to entry is so low that any idea, good or bad, can get a token in a week.
+
+On Scrypt, with Litecoin as the foundation, you can build something just as interesting, only more durable, because it requires real work instead of just deploying a contract.
+
+# And I'll say this upfront: this post isn't about telling you to buy LTC. Litecoin itself isn't the point here. What I'm interested in is the mechanism it powers, and what you can build alongside it.
+
+# Did you know that the exact same hardware that mines Litecoin also secures the Dogecoin network at the same time, with zero extra electricity or hardware? It's called merged mining. A miner solves one computational problem, and that proof of work is valid on both networks simultaneously, because they both run the same algorithm (Scrypt).
+
+# This isn't some obscure detail. It's the foundation of the entire Proof-of-Work Scrypt ecosystem, and honestly one of the more underrated things in crypto right now.
+
+Why this even matters: token vs. mined coin
+
+Crypto is flooded with tokens. They're easy to create, easy to plug into wallets and exchanges, and startup funding is usually not hard to find either. The result is millions of projects, with only a fraction of them actually alive.
+
+A mined coin is a different category entirely. Much harder to break into, but you lose a whole class of risk. There's no single admin address that can freeze your wallet, rug pull you, or mint itself extra supply overnight. What you hold is backed by real electricity and real hardware that someone actually spent.
+
+**Why it's worth rooting for Litecoin, even if you don't hold it**
+
+**This is where merged mining comes back in. When LTC price rises, Scrypt mining profitability rises with it. Higher profitability attracts more miners and more hardware. More miners means higher hashrate across the entire Scrypt network, which directly increases the security of every coin running on that same algorithm. Litecoin's success genuinely raises the security and visibility of everything merge-mined alongside it.**
+
+The project I'm actually here for: r/Pepecoin
+
+Full disclosure upfront: I hold $PEP and I'm involved in the community, so weigh everything below with that in mind.
+
+# Pepecoin is a Scrypt PoW coin, merge-mined alongside LTC and DOGE, meaning it inherits the same battle-tested network security from block one, at zero extra cost to miners. What makes it different from the hundred other frog-themed tokens out there is exactly that. It's not a token sitting on someone else's chain, dependent on a contract owner or a bridge or a foundation's goodwill. It's its own blockchain, secured by the same hashpower that's been protecting Litecoin since 2011 and Dogecoin since 2013.
+
+That's the bet, if you want to call it that. While most meme projects live and die by marketing spend, Pepecoin's security doesn't depend on hype cycles. It scales with however healthy the broader Scrypt ecosystem is. Every bit of good news for LTC or DOGE mining economics is, structurally, good news for PEP too. It's small right now, and it might stay small, but the mechanism underneath it isn't going anywhere as long as Litecoin exists.
+
+Capital is starting to notice
+
+An interesting signal from the past few months: Bit Origin, a Nasdaq-listed company, announced plans to build a Dogecoin-based treasury worth up to $500M, basically ""MicroStrategy for DOGE."" I've also come across a smaller, private initiative called Scrypt Strategy, building a publicly transparent, multi-coin Scrypt treasury with disclosed wallet addresses. It's a small, young outfit with no major press coverage yet, so treat it as something to watch, not proof that institutions are flooding in. Still, the direction things are heading is worth paying attention to.
+
+TL;DR
+
+Litecoin itself isn't the hero of this post. It's the foundation that, through merged mining, props up an entire ecosystem of Scrypt coins: DOGE as the biggest and most recognizable, alongside smaller projects like **Dingocoin, Bellscoin, Luckycoin, Junkcoin, TrumPOW, and Shibacoin,** each backed by real hashrate, not just a token.
+
+I'm personally focused on r/Pepecoin ($PEP), its own PoW blockchain, not a token riding on someone else's chain, merge-mined alongside LTC and DOGE, inheriting that network's security from block one. Full disclosure: I hold PEP and I'm involved in the community, so factor that bias in. The stronger Litecoin gets, the stronger the whole Scrypt ecosystem gets, and that directly feeds the security and visibility of projects like PEP. I'm not telling anyone to buy LTC or PEP. I'm telling you to understand the mechanism, because the more people who get it, the healthier this whole corner of the market becomes. Patience, and actually understanding what you're holding, is the only thing that matters here.","It's its own blockchain, secured by the same hashpower that's been protecting Litecoin since 2011 and Dogecoin since 2013.",REFUTED,,"PEP independent chain/merged mining corroborated, but shared mining began later than Dogecoin launch and wording implies historical identity of hashpower; needs clarified scope."
+t3_1wsne98_claim_002,t3_1wsne98,What are you guys doing right now with the crypto market?,"I was buying BTC heavily in the 60k range and even was able to scoop up some sats in the high 50ks. I kept a stack of cash in reserve but this big move in the crypto market has made me sit back and reconsider my options from here. I'm not particularly excited about making large purchases right now and feel that there is at least a decent possibility we see a big sell off sometime over the next couple months. We are near extreme greed territory and price seems to have stagnated here all while the crypto pump was being talked about on the mainstream news and every crypto youtuber is saying we are going to 90k+ by end of the year.
+
+What are you guys thinking? My plan right now is to continue to sit and wait to see what plays out and hoping we get a sell off, if not I already have large positions in place.",I'm not particularly excited about making large purchases right now and feel that there is at least a decent possibility we see a big sell off sometime over the next couple months.,REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1vmhgi8_claim_001,t3_1vmhgi8,Why You Shouldn't Copy Addresses From Your Wallet Transaction History - Address Poisoning Attacks,"Cryptocurrency addresses are long, random strings, so hardly anyone types them manually. Most people copy and paste them from somewhere. Attackers exploit precisely that habit.
+
+The structure of the technique, called address poisoning, is as follows:
+
+First, the attacker observes the address of the party you actually transact with. Then, they create a fake address that matches the first and last few characters of your real address. Tools exist to generate such addresses, so it's not difficult.
+
+Next, they send a zero-amount transfer from this fake address to your wallet. This records the address in your transaction history.
+
+Later, when you need to make a transfer, if you copy and paste an address that looks familiar from your history, you'll end up sending it to the attacker. Most people only check the beginning and end, not the middle, and wallet apps often truncate the middle part, making this attack easier.
+
+This raises a question: How can someone else create a transaction that appears to originate from your address? The ERC-20 standard's transfer function doesn't check balances or approvals if the amount is zero. Therefore, anyone can create a zero-value transfer from an arbitrary address by paying a small fee.
+
+The terrifying aspect of this attack is the time delay. Cases have been reported where attackers plant a fake address and wait for over two months before a victim falls prey. By then, no one remembers when or how that record was created.
+
+The countermeasure is simple:
+
+Don't use your transaction history as an address book. It's safer to save frequently used addresses in your wallet's address book feature and only retrieve them from there.
+
+If you use an exchange, set up a withdrawal whitelist. This restricts withdrawals to registered addresses, and new addresses often have a waiting period for addition, giving you time to reverse mistakes.
+
+For large amounts, send a small amount first to confirm, then send the rest. While the fee might seem wasteful, it's better than losing the entire amount.
+
+And when checking addresses, look at the middle, not just the beginning and end. Attackers only match the beginning and end.",Why You Shouldn't Copy Addresses From Your Wallet Transaction History - Address Poisoning Attacks,SUPPORTED,https://www.ledger.com/academy/topics/security/what-are-address-poisoning-attacks-in-crypto-and-how-to-avoid-them,The extracted safety recommendation is supported by Ledger: transaction-history lookalikes can cause misdirected transfers. This does not validate every ERC-20 assertion in the description.
+t3_1vfqnta_claim_018,t3_1vfqnta,Flywheel Protocol: A Different Way to Think About On-Chain Rewards,"One thing I’ve noticed over the last few years is that almost every protocol asks the same question:
+“How do we reward our community?”
+
+The answer has almost always been the same:
+
+Print more tokens.
+
+Whether it’s liquidity mining, staking emissions, or farming incentives, many reward systems rely on creating new supply. That can attract users quickly, but it also introduces inflation and often isn’t sustainable unless the protocol keeps growing fast enough to offset it.
+
+That got me thinking about a different question.
+What if rewards came from actual economic activity instead of inflation?
+That’s the idea behind Flywheel Protocol.
+
+What is Flywheel?
+Flywheel is an on-chain distribution protocol.
+It isn’t designed to be another token.
+It isn’t even designed around one specific project.
+Instead, it’s infrastructure that allows a project to define how value flows back to its community.
+
+Think of Flywheel as a programmable distribution engine.
+Revenue comes in from whatever sources a project chooses.
+
+The protocol accounts for it transparently.
+Then it distributes that value according to rules the project configures.
+
+At its simplest:
+
+Revenue Source
+↓
+Flywheel
+↓
+Treasury
+↓
+Users
+
+The interesting part is that the revenue source doesn’t matter.
+It could be:
+Creator fees from a launchpad
+NFT royalties
+Marketplace fees
+Protocol revenue
+Gaming economies
+Manual treasury deposits
+Future integrations that don’t even exist yet
+Flywheel isn’t tied to one business model.
+It’s designed to sit underneath many different ones.
+
+Why make it configurable?
+Every community is different.
+An NFT project doesn’t reward users the same way a launchpad does.
+A game doesn’t reward users the same way a DeFi protocol does.
+
+Instead of forcing everyone into one reward model, Flywheel is designed to let projects configure their own.
+
+For example, a project could choose:
+
+What assets users deposit
+Which revenue sources feed the protocol
+Reward epochs
+Pool weighting
+Compounding
+Early withdrawal penalties
+Burn mechanics
+Treasury allocations
+Supported payout assets
+Future gamification systems
+NFT multipliers
+LP incentives
+
+Bullion is simply testing one possible configuration.
+Another project could choose something completely different without rebuilding the entire reward infrastructure.
+
+Bullion is the first proof of concept
+Rather than releasing Flywheel as an abstract idea, we decided to build a live implementation first.
+That’s Bullion.
+Bullion is running as a public beta to prove the distribution model works before expanding Flywheel into a protocol other projects can integrate.
+At the time I’m writing this, Bullion has been live for less than 6 days.
+
+Already, over 153 million Bullion has been deposited into the protocol since going live roughly 2 days ago representing roughly 15.3% of the total supply.
+That’s encouraging because it gives us real user behavior to learn from instead of relying only on simulations.
+
+How does Bullion work?
+Users deposit Bullion into a shared pool.
+Every deposit receives a weight based on:
+The amount deposited
+The epoch selected
+Longer epochs receive higher weighting.
+During each reward period, protocol revenue is distributed proportionally according to each participant’s weighted share of the pool.
+If your position represents 5% of the total weighted pool, you receive approximately 5% of the revenue allocated for that distribution period.
+No emissions.
+No newly printed reward tokens.
+Just proportional distribution of value entering the protocol.
+
+Auto-compounding
+Users can also choose to compound.
+Instead of withdrawing rewards every cycle, they can automatically add them back into their deposited position.
+As that position grows, so does its weight inside the pool.
+Over time, compounding increases a participant’s share without requiring continuous manual deposits.
+That creates the “flywheel.”
+Protocol activity generates revenue.
+Revenue grows positions.
+Larger positions earn a larger share of future revenue.
+The system reinforces itself through participation rather than inflation.
+
+Why this could scale
+This is the part I’m most excited about.
+Bullion is only one implementation.
+The long-term vision is much larger.
+Imagine hundreds of projects all using the same distribution infrastructure.
+One launchpad routes creator fees.
+An NFT marketplace routes royalties.
+A game routes marketplace revenue.
+A DAO routes treasury income.
+
+Each project keeps its own identity and business model, but they all share the same underlying distribution engine.
+Instead of every team building reward logic from scratch, they configure Flywheel to match their ecosystem.
+
+That dramatically lowers the complexity of launching sustainable reward systems.
+It also opens the door to layering additional mechanics on top.
+
+Projects could build quests, loyalty systems, NFT boosts, reputation systems, governance perks, seasonal events, referral programs, LP incentives, and other gamified experiences, all using the same underlying distribution layer.
+
+Flywheel doesn’t replace those systems.
+It becomes the foundation they build on.
+
+What about real-world assets?
+This is where I think things become really interesting.
+
+As more assets move on-chain, users shouldn’t be limited to earning rewards in only one token.
+Instead, projects could eventually allow participants to choose how they want to settle their rewards.
+
+That could mean stablecoins.
+It could mean tokenized gold.
+It could mean tokenized silver.
+Or any supported on-chain asset in the future.
+
+The goal isn’t simply to tokenize real-world assets.
+The goal is to make participation in those assets more accessible through decentralized infrastructure.
+Someone anywhere in the world with a wallet and an internet connection can participate without needing a traditional brokerage account or local financial institution.
+There’s still smart contract risk, market risk, and regulatory uncertainty around RWAs generally, but the direction is compelling.
+
+It’s still early
+Bullion is intentionally being used as a beta.
+We’re testing assumptions.
+Watching how users behave.
+Finding edge cases.
+Improving the protocol before asking other projects to build on top of it.
+Rewards are not guaranteed, and they depend entirely on the economic activity flowing into the protocol.
+If no revenue enters Flywheel, there is nothing to distribute.
+That’s an intentional design decision.
+
+I’d love feedback
+The goal isn’t to convince anyone this is perfect.
+It’s to ask whether this is a better direction for crypto.
+Instead of building systems that rely primarily on inflation, what if we built infrastructure that distributes actual protocol activity back to participants?
+That’s the problem we’re trying to solve.
+I’d genuinely be interested in hearing what this community thinks, especially from builders who’ve designed token economies or reward systems before.
+
+Bullion Contract Address on Robinhood: 0xb1814Cd38c7c6F283f7dF1CA15396818f7207AdF
+
+X account: @bullionRH
+
+My X account: @zbits33","Projects could build quests, loyalty systems, NFT boosts, reputation systems, governance perks, seasonal events, referral programs, LP incentives, and other gamified experiences, all using the same underlying distribution layer.",REFUTED,,Proposed protocol capabilities require implementation documentation; the promotional post is not independent verification.
+t3_1vfpwqu_claim_006,t3_1vfpwqu,"Daily Crypto Discussion - August 4, 2026 (GMT+0)","Welcome to the Daily Crypto Discussion thread. Please read the disclaimer and rules before participating.
+
+ 
+
+Disclaimer:
+
+Consider all information posted here with several liberal heaps of salt, and always cross check any information you may read on this thread with known sources. Any trade information posted in this open thread may be highly misleading, and could be an attempt to manipulate new readers by known ""pump and dump (PnD) groups"" for their own profit. BEWARE of such practices and exercise utmost caution before acting on any trade tip mentioned here.
+
+Please be careful about what information you share and the actions you take. Do not share the amounts of your portfolios (why not just share percentage?). Do not share your private keys or wallet seed. Use strong, non-SMS 2FA if possible. Beware of scammers and be smart. Do not invest more than you can afford to lose, and do not fall for pyramid schemes, promises of unrealistic returns (get-rich-quick schemes), and other common scams.
+
+ 
+
+Rules:
+
+All sub rules apply in this thread. The prior exemption for karma and age requirements is no longer in effect.
+
+Discussion topics must be related to cryptocurrency.
+
+Behave with civility and politeness. Do not use offensive, racist or homophobic language.
+
+Comments will be sorted by newest first.
+
+ 
+
+Useful Links:
+
+Beginner Resources
+
+Intro to r/Cryptocurrency MOONs 🌔
+
+MOONs Wiki Page
+
+r/CryptoCurrency Discord
+
+r/CryptoCurrencyMemes
+
+Prior Daily Discussions - (Link fixed.)
+
+r/CryptoCurrencyMeta - Join in on all meta discussions regarding r/CryptoCurrency whether it be moon distributions or governance.
+
+ 
+
+Finding Other Discussion Threads
+
+Follow a mod account below to be notified in your home feed when the latest r/CC discussion thread of your interest is posted.
+
+u/CryptoDaily- — Posts the Daily Crypto Discussion threads.
+
+u/CryptoSkeptics — Posts the Monthly Skeptics Discussion threads.
+
+u/CryptoOptimists- — Posts the Monthly Optimists Discussion threads.
+
+u/CryptoNewsUpdates — Posts the Monthly News Summary threads.",u/CryptoNewsUpdates — Posts the Monthly News Summary threads.,REFUTED,,"The source post states this moderator role, but external account/activity verification was not completed."
+t3_1wp5yqz_claim_001,t3_1wp5yqz,"XRP, DOGE Deemed Massively ‘Discounted’ By This Metric",,"XRP, DOGE Deemed Massively ‘Discounted’ By This Metric",REFUTED,,"Metric, measurement date, and discount definition missing."
+t3_1vfybb3_claim_003,t3_1vfybb3,Fake Ledger Wallet App - Don’t lose your money!,"Holy shit, last night I opened my ledger wallet app on my Mac M3 for the first time in 3-6 months.
+
+Immediately, it asked me for a 24-word recovery phrase. I knew something was wrong so I had AI scan the applications on my computer and found out it was a completely fraudulent app!
+
+I originally had the real app and somehow, it was replaced with a malicious clone app without my knowledge!
+
+Be so careful! Warn your less-savvy friends because this is a Very craft scam","Immediately, it asked me for a 24-word recovery phrase.",REFUTED,,Personal fake-app experience cannot be independently established; generic phishing guidance would not verify this event.
+t3_1vmqc8v_claim_001,t3_1vmqc8v,Is crypto actually making the dollar stronger? The stablecoin numbers are messing with my head.,"ok this might be a newbie post. I keep seeing ""crypto is going to end dollar dominance,"" and the more I look at where stablecoin money actually goes, the more I think it might be the opposite? What is ""stable"" really mean here?
+
+Correct me if Im wrong here, stablecoins are backed by reserves, and those reserves are mostly parked in short-term US Treasuries. The market's now around $322B.
+
+And then the GENIUS Act comes along and basically requires every compliant stablecoin to be backed 1:1 by cash and Treasuries. So now US law is quietly turning the fastest-growing part of crypto into a permanent buyer of US government debt. Every new stablecoin dollar = new demand for Treasuries. That doesn't sound like the dollar losing, does it?
+
+The part that really flipped it for me: someone in Argentina or Nigeria or Turkey buying USDC to dodge their own currency falling apart is basically choosing it, from a place that never had easy dollar access before. That feels like the US exporting the dollar without opening a single bank branch overseas.
+
+Which I guess is why it's turning into a whole geopolitical thing - China's been pushing for a ""multipolar"" money system to water down the dollar, and Europe seems kind of stuck watching a US law push dollar rails into their backyard faster than they can respond.
+
+So what am I getting wrong? Is this genuinely a win for US dollar power, or is it a trap, like, what happens to the Treasury market if everyone tries to redeem at once? And does this actually speed up other countries trying to ditch the dollar because now they can see exactly what's happening?
+
+Would love to hear how people here think about it, because I can't tell if this is a big deal or if I've just talked myself into something.",Is crypto actually making the dollar stronger? The stablecoin numbers are messing with my head.,REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1wt09ic_claim_002,t3_1wt09ic,"I took one for the team, you're welcome folks ✌","You know how one person sometimes has the power to drastically change the price in a way that screws them over? Well just a heads-up, I just spent 50 bucks on a bitcoin price ticker that only has FIVE digits, it will be delivered between October 2nd-14th, so plan accordingly.","Well just a heads-up, I just spent 50 bucks on a bitcoin price ticker that only has FIVE digits, it will be delivered between October 2nd-14th, so plan accordingly.",REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1vp08p9_claim_002,t3_1vp08p9,The worst mathematical anomaly in the entire crypto market.,"I have discovered a flawless, mathematically proven law of the blockchain.
+
+If I buy a token, it will immediately enter a 6-day accumulation phase of pure, agonizing sideways chop. If I finally sell that token out of boredom to rotate my capital, it will instantly print a 400% god candle the exact millisecond my transaction confirms. If I try to FOMO back in to catch the pump, it will immediately retrace 60%.
+
+I am fully convinced the blockchain is sentient and its only algorithmic purpose is to maximize my personal psychological suffering.","If I buy a token, it will immediately enter a 6-day accumulation phase of pure, agonizing sideways chop.",REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1vgg8ev_claim_003,t3_1vgg8ev,"Katana reintroduces Krates as part of their questing program, introducing another pathway for yield for users","Krates are back on Katana. If you were around for the pre-deposit campaign you remember them: earn one, open it, get some KAT.
+
+TL;DR - you can earn additional yield in the form of gacha boxes on Katana, and it averages to an extra ~1% on stablecoins and 1.5% on KAT, just for using the same platforms most katana users already use. (This is a longer, detailed post, but you can jump to the math section if your interested in exploring how it works or just ask questions in the comments and I'll try to answer)
+
+So Krates are now part of Katana Quests. Katana quests are a gamified way to earn additional KAT (or USDC for top prizes) by actively participating in defi activities on Katana. Essentially, it's a bonus layer sitting on top of yield you're already earning.
+
+I have been posting posting about and been farming Katana for a while as I find the yields and risk/reward aspect of the opportunities on the chain to be among the best in defi. Krates just make it better.
+
+The setup: XP is earned by doing normal DeFi on Katana, staking KAT for vKAT or avKAT, supplying to vaults, borrowing on morpho, LPing via Charm, and trading. XP accrues daily per dollar deployed. Different XP for different activities.
+
+XP has two uses. In July and every month going forward, unused XP will be used in a raffle. Currently the raffle total prize pool is $15000. The other use is to redeem 350,000 XP for a Krate & open it for an instant reward. Any leftover krate XP gets entered into the raffle & XP resets monthly.
+
+Ok, that's the boring stuff. How does it actually look like when deploying capital, just to calculate some potential increase in returns.
+
+Personally, I only supply to vaults, borrow a little bit, and hold vKAT/avKAT. Here's the baseline math behind $1000 deployed with either USDC/USDT and avKAT. This is the baseline as you can use avKAT as collateral to borrow stables then deploy the stables to loop further, which I do, but that's for another post. This is pure krate return, so you're earning on top of the yield of the vaults.
+
+Supplying USDC on Morpho pays 3 XP per dollar per day, so $1,000 over 30 days is 90,000 XP. Holding avKAT pays 5 XP per dollar per day, so you earn 150,000 XP a month. Next, the Krate costs 350,000 XP & the reward pool this epoch has these published odds:
+
+Common (69.95%): 277 avKAT and min. 85,000 XP
+
+Uncommon (25%): 369 avKAT and min. 130,000 XP
+
+Rare (5%): min. 1,107 avKAT and min. 170,000 XP
+
+Super Rare (0.05%): 45,421 avKAT or 1,000 in stablecoin
+
+Run the average avKAT across those odds:
+
+0.6995 × 277 = 193.8 avKAT
+
+0.25 × 369 = 92.3 avKAT
+
+0.05 × 1,107 = 55.4 avKAT
+
+0.0005 × 45,421 = 22.7 avKAT
+
+Total: ~364 avKAT per Krate on average.
+
+Since Krates also refund XP, you get about 100,000 back per Krate, or 28.7% of the cost. Loop that refund into more Krates & your XP stretches about 1.4x, so each XP becomes roughly 0.00146 avKAT.
+
+Currently, 1 avKAT = ~1.30 KAT (though this continues to compound every 2 weeks). At KAT ~$0.0045, that's ~$0.0058 per avKAT.
+
+Now the month, per $1,000:
+
+USDC supply: 90,000 XP -> ~131 avKAT -> ~$0.77. On $1,000 that's about 7.7 bps a month, ~0.9% a year, from the Krate layer alone.
+
+avKAT: 150,000 XP -> ~219 avKAT -> ~$1.28. About 12.8 bps a month, ~1.5% a year.
+
+So basically, you're earning an extra 1% APY on your stables and 1.5% APY on your KAT for using the same protocols you already were using.
+
+Want more XP on the same capital? Hold avKAT: 31.98% APY & 5 XP per dollar per day, so 5,000 XP/day on $1,000. vKAT shows 47.25% APY at the same 5 XP/$. The KAT LP pools on Charm pay the top rate, 6 XP per dollar per day. Same principle every time: pick the position for its yield, & the XP tags along.
+
+What does the XP turn into? 350,000 XP redeems for one Krate. Every Krate pays out, there are no
+
+I'm not the biggest trader, especially with perps, but traders can feast on this as well. Perp volume pays 1.5 XP per dollar of volume, but if you are leverage trading this creates bonus volume on the same dollar of collateral. A small stack can push a lot of volume, so your dollar goes further on XP than it does sitting in a supply position, at higher risk. If you're a trader, that's the high-octane path.
+
+Though I don't trade, I'm a fan of how Katana aligns with their users. Katana owns its perp venue so the fees are Katana's revenue & they route that revenue back to users as XP & rewards. The more you use their perps, the more they can pay you, because they capture the value instead of leaking it to a third party. The platform earns & it hands a cut back to the people generating the revenue.
+
+So do the math for your own size & risk tolerance. If you're like me & you'd rather earn yield with less drama, sit in Morpho supply or avKAT & let the XP stack on top. If you're a trader, perps stretch your dollar further on XP & feed the venue that funds the whole thing. Either way you're paid twice: the yield on your capital, & the XP that becomes avKAT on top.
+
+Krates are back, & this time your XP has somewhere to go.
+
+Just so everyone is aware, rules state 18+ and questing isn't available in the US and some other jurisdictions (cough cough VPN cough cough).
+
+Will I be the only r/CryptoCurrency user doing this or will I have friends join me?","TL;DR - you can earn additional yield in the form of gacha boxes on Katana, and it averages to an extra ~1% on stablecoins and 1.5% on KAT, just for using the same platforms most katana users already use.",REFUTED,,"Returns depend on contemporaneous reward odds, token prices, XP refunds and rules; arithmetic alone does not verify the stated yield."
+t3_1vh1tvj_claim_001,t3_1vh1tvj,"This is a trip down memory lane, so glad i didnt mine this bullshit",,"This is a trip down memory lane, so glad i didnt mine this bullshit",REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1vh93o7_claim_002,t3_1vh93o7,Easiest way to convert and then change exchange?,"Hello,
+
+Please no roasting or anything but a while back I invested in CRO and did the lockup for the card and thankfully got in and out net positive barely. Now I have around $700 in staking and earnings in CRO in the crypto.com app and want to have it in bitcoin while the rest of my bitcoin is on Robinhood(again no roasting I don’t mind it and don’t care). Would it be better to swap it for btc then transfer it or sell it for usd take it to my bank and then deposit into Robinhood and buy?",Now I have around $700 in staking and earnings in CRO in the crypto.com app and want to have it in bitcoin while the rest of my bitcoin is on Robinhood(again no roasting I don’t mind it and don’t care).,REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1wra8zv_claim_001,t3_1wra8zv,Daily Crypto Discussion,"Welcome to the Daily Crypto Discussion thread. Please read the disclaimer and rules before participating.
+
+ 
+
+Disclaimer:
+
+Consider all information posted here with several liberal heaps of salt, and always cross check any information you may read on this thread with known sources. Any trade information posted in this open thread may be highly misleading, and could be an attempt to manipulate new readers by known ""pump and dump (PnD) groups"" for their own profit. BEWARE of such practices and exercise utmost caution before acting on any trade tip mentioned here.
+
+Please be careful about what information you share and the actions you take. Do not share the amounts of your portfolios (why not just share percentage?). Do not share your private keys or wallet seed. Use strong, non-SMS 2FA if possible. Beware of scammers and be smart. Do not invest more than you can afford to lose, and do not fall for pyramid schemes, promises of unrealistic returns (get-rich-quick schemes), and other common scams.
+
+ 
+
+Rules:
+
+All sub rules apply in this thread. The prior exemption for karma and age requirements is no longer in effect.
+
+Discussion topics must be related to cryptocurrency.
+
+Behave with civility and politeness. Do not use offensive, racist or homophobic language.
+
+Comments will be sorted by newest first.
+
+ 
+
+Useful Links:
+
+Beginner Resources
+
+Intro to r/Cryptocurrency MOONs 🌔
+
+MOONs Wiki Page
+
+r/CryptoCurrency Discord
+
+r/CryptoCurrencyMemes
+
+Prior Daily Discussions - (Link fixed.)
+
+r/CryptoCurrencyMeta - Join in on all meta discussions regarding r/CryptoCurrency whether it be moon distributions or governance.
+
+ 
+
+Finding Other Discussion Threads
+
+Follow a mod account below to be notified in your home feed when the latest r/CC discussion thread of your interest is posted.
+
+u/CryptoDaily- — Posts the Daily Crypto Discussion threads.
+
+u/CryptoSkeptics — Posts the Monthly Skeptics Discussion threads.
+
+u/CryptoOptimists- — Posts the Monthly Optimists Discussion threads.
+
+u/CryptoNewsUpdates — Posts the Monthly News Summary threads.",Daily Crypto Discussion,REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1wrmtc0_claim_002,t3_1wrmtc0,The BCH Bullet — Sunday 27th September 2026,"Joemar Taganna endorses the 1-minute block proposal after reviewing its security assumptions, CME Group plans to launch Bitcoin Cash futures, ParyonUSD reaches $1 million in TVL. And more.","Joemar Taganna endorses the 1-minute block proposal after reviewing its security assumptions, CME Group plans to launch Bitcoin Cash futures, ParyonUSD reaches $1 million in TVL.",REFUTED,,"Compound claim: CME launch plan corroborated earlier, but endorsement and ParyonUSD TVL also need verification."
+t3_1wpycmd_claim_003,t3_1wpycmd,"Two tokens hit the same rating score this week from opposite directions, and the letter grade tells you neither","I work on crypto asset ratings, and something sitting in our own dated records this week is a decent illustration of a thing that trips people up reading any rating, ours or anyone else's.
+
+The letter and the number are two separate publications. One does not tell you the other, and the letter tells you nothing about direction, size or how long something has been where it is.
+
+Two worked examples from the same morning, Sept 25, 2026, both quoted straight from our own dated snapshots**:**
+
+OKB: Sept 15: score 26.4 Sept 16: 25.6 Sept 17: 31.2 Sept 18: 36.8 Sept 19: 42.4 Sept 20 through Sept 25: 42.4 on every morning. That is a rise of 16.8 points across three mornings and then a flat line for a week. The grade read F on every one of those eleven mornings, including all the ones on the way up.
+
+Tron: Sept 15: score 44.8 Sept 16 through Sept 25: 42.4 on every one of those ten mornings. Nothing moved at all after the first step. Grade F on all eleven mornings.
+
+So this morning both of them read exactly 42.4 and both read F. One got there by climbing hard and stopping. One got there by sitting still for 10 days. The letter is identical and it carries neither fact.
+
+And the part people find strangest when we show them: Zano reads 41.0 this morning, lower than both, and its grade is C, ranked 50.
+
+The practical version, which is the only reason I am posting it:
+
+If you use any rating to filter a list of tokens, read the number and the date sitting next to the letter, not the letter on its own. A letter is a bucket. Two things in the same bucket can be moving in opposite directions, and something in a better bucket can be sitting on a worse number. That is true of every rating system I have ever looked at, not only ours.
+
+Every figure above is from our own dated records covering all crypto assets we grade, Sept 15 through Sept 25, 2026.
+
+Disclosure: I work on CryptoGrade, which is where those numbers come from.",The letter and the number are two separate publications.,REFUTED,,Publisher-specific rating claim; dated CryptoGrade methodology/records needed.
+t3_1wts7c2_claim_002,t3_1wts7c2,"Computershare Warrant Awareness: ""In order to sell your Warrants your instructions must be received by [5] business days before the warrant exercise expiration date of October 30, 2026."" Also: You get *one* digital exercise *or* sell action. A second exercise or sell action must be done by mail.","*This is my own repost from a few months ago. All of the screenshots broke on the original post. I'm too lazy to put them all back in. If any of this information is outdated, Mods please message me and take down the post. I have not gone through this process recently to re-verify, but this information is important for apes to know.
+
+Original Post: https://www.reddit.com/r/Superstonk/s/fXpmDDZasA
+(1.1K Upvotes / 138 comments)
+
+I remembered apes talking about receiving emails about selling warrants through Computershare.
+
+\*\*Instructions on how to exercise/sell through Computershare\*\*
+
+Going through this process is how I discovered the verbiage in this post's title
+
+(I did not complete the entire process)
+
+I went to my email account I use for Computershare. I searched for ""Computershare"".
+
+I had 2 emails.
+
+I see the suspicious domain [www.ComputershareCAS.com/GameStop](http://www.ComputershareCAS.com/GameStop).
+
+￼​I ask AI ""where on the Computershare.com website is computersharecas.com mentioned""
+
+Response:
+
+On \[[https://www.computershare.com/us/personal/shareholders/becoming-a-registered-shareholder-in-us-listed-companies\](https://www.computershare.com/us/personal/shareholders/becoming-a-registered-shareholder-in-us-listed-companies)](https://www.computershare.com/us/personal/shareholders/becoming-a-registered-shareholder-in-us-listed-companies%5D(https://www.computershare.com/us/personal/shareholders/becoming-a-registered-shareholder-in-us-listed-companies)) (GME warrants section).
+
+I follow that link and look at the url after I land to verify its the [computershare.com](http://computershare.com) address I'm familiar with and trust.
+
+￼​I do a Ctrl-F for [computersharecas.com](http://computersharecas.com)
+
+￼​I then go back to my two emails.
+
+The first one has your name and your Account Code and the link to follow.
+
+￼​I follow the link.
+
+￼​The first email has your Account Code
+
+The second email has your Control Code
+
+You don't have to give your Computershare credentials.
+
+These two codes ARE your credentials, so protect them.
+
+￼​￼​I'm just reading this now: ""Please note, if you have made a request for less than the total number of warrants you hold within the account, subsequent requests to address any remaining warrant balance within the account will need to be made via \*\*physical mail delivery\*\* of the Warrant Election Form to Computershare. The Warrant Election Form can be found on the landing page of this website.""
+
+￼​I think there should be a lot more awareness of this in the sub.
+
+I bought a stupid amount of warrants and DRSed them. They are in Computershare, but I don't see them here. I have some homework to do.
+
+From what I read in that note, you get ONE electronic transfer regarding warrants. A second transfer must be made through snail mail. Please correct me in the comments if I am misunderstanding this.
+
+Also your sell order must be received by 5 business days before warrant expiration.
+
+This needs to be common knowledge if true. And it looks to me like it's true.
+
+This makes it sound like if you sell warrants with the intention of using the proceeds to exercise other warrants, the exercise would have to be done via snail mail.
+
+I'll have to wait until after the holiday to contact Computershare about the rest of my warrants that I don't see through this portal that I DRS'ed.
+
+Also I will seek clarification from Computershare if these limits are per Computershare account holder, per Computershare account, per Account Code/Control Code pair, or something else. There are many questions to answer before warrants cross their strike price.
+
+Are the Account Code/Control Code pair per account holder? Per account? How do I verify how to exercise or sell the rest of my warrants not accounted for through this portal?
+
+Another question: Is banking information on subsequent screens or do they use the account already attached to my account?
+
+Also, if someone did a test exercise of one warrant, do they have to physically mail in their subsequent warrant exercise/sell orders as they already used their one digital freebie?
+
+If I have warrants in 6 Computershare accounts, how many digital warrant exercise/sell actions do i get? Can I move them all to one account first? Do I have to get re-issued an Account Code/Control Code? If so how long does that take? If not, how does that work?
+
+I have many questions for Computershare, and I want to trust what Iearn because the consequences of being misinformed are significant for me, and many others I'm sure.
+
+I hope the title I chose was not misleading, I did not have any more characters available to clarify.
+
+If Mods have any information they have already collected or are aware of, please drop a link in the comments and thank you. I am more than willing to make edits to this post to add clarifying information. I'm honestly just learning about this and am not 100% sure if I am understanding this correctly, but it sure seems like it.
+
+If anyone has more info about any of this, please comment.
+
+Any more official documents/FAQs/etc from Computershare, please share.
+
+Tldr: Following the Computershare warrant exercise/sell link shows that a Computershare warrant sell order must be received 5 business days before warrant expiration and that you get ONE electronic warrant action. Any subsequent warrant exercising/selling must done via snail mail. I have purchased and DRSed more warrants not listed in this portal, I'll call or chat with Computershare next week as I bought a stupid amount of warrants.
+
+Ok, time to go for a run.
+
+Edit: 5 business days means a full ***WEEK*** before expiration
+
+Edit: If a sell must be a week in advance of expiration, how much delay is there in executing the sell order?
+
+Edit: All of my screenshots broke for some reason (?)",*This is my own repost from a few months ago.,REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1vqzt57_claim_009,t3_1vqzt57,‘The great quantum migration’ is coming as more than $2 trillion in digital assets is at risk—nearly the entire value of the overall crypto market,"Watch out crypto-bros—it might be time to start moving assets. Researchers are making progress toward quantum computers powerful enough to undermine the mathematical assumptions that currently protect cryptocurrency and other blockchain-based assets.
+
+Because of this, the industry needs to replace its cryptographic infrastructure before the quantum computers arrive.
+
+“The great quantum migration is going to require the entire digital asset industry to participate,” Christopher Smith, co-founder and CEO of Quantus, a quantum-secure blockchain network.
+Quantum computing is a fundamentally different approach to processing information. Traditional computers use bits represented as either 0 or 1, and are physically constrained by how tiny transistors can be miniaturized. Quantum computers use subatomic particles and trapped ions to crunch numbers via qubits—allowing the machines to theoretically perform any calculation in a fraction of the time it would take today’s technology.
+
+Until recently, the cryptography that proves ownership of digital assets was considered essentially unbreakable. That’s because today’s classical computers would take too long to feasibly perform the calculations needed for gaining access to a so-called private key that authorizes transactions. 
+
+According to reports, a standard supercomputer would take hundreds of millions of years to break a cryptography code.
+
+But a sufficiently powerful quantum computer can change that, Smith warned. “Over $2 trillion in digital assets is secured by elliptic curve cryptography, which has been known to be quantum-vulnerable for over 30 years,” he said. That’s nearly the entire overall crypto market, which is worth $2.16 trillion.  
+
+Read more [paywall removed for Redditors]:  https://fortune.com/2026/08/15/quantum-computing-migration-2-trillion-digital-assets-risk-crypto-market-bitcoin/?utm_source=reddit/","That’s nearly the entire overall crypto market, which is worth $2.16 trillion.",REFUTED,,Point-in-time market cap needs post timestamp and matching market-data definition.
+t3_1wq264c_claim_001,t3_1wq264c,Why kraken is forcing customers to provide personal information to PERSONA ?,"I understand that PERSONA is a startup focused on age verification. These kind of start ups are normally sold to the best bidder sometime in the future. I am unsure of the specific benefit to Kraken and it's customers and who would happily provide personal information to PERSONA considering this.
+
+What is more concerning, is that I have asked Kraken why in their Reddit channels, and the posts have been banned.
+
+Can anyone suggest any reason ?",I am unsure of the specific benefit to Kraken,REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1vnbu5m_claim_003,t3_1vnbu5m,"High funding isn't confirmation, it's a warning","People read high funding as the trend being strong. It's the opposite.
+
+Perps have no expiry so nothing pulls them back to spot. That's what funding is
+
+for. Perp above spot, longs pay shorts. Below, shorts pay longs. Usually every
+
+8h, depends on the venue.
+
+What it actually shows you is what people are paying to keep a position open.
+
+Not an opinion, an actual payment. So it's honest. Funding staying high means
+
+leveraged longs are packed in and bleeding to stay there.
+
+That's a crowded trade, and cascades feed on crowded trades. The same thing that
+
+makes funding expensive is also piling up forced flow underneath.
+
+Negative funding during a selloff is the mirror image — shorts paying to stay
+
+short, squeeze setup.
+
+Also it compounds. Doesn't look like much per interval, but it's three times a
+
+day. Sit through a few weeks of chop and it quietly eats you. Had a position go
+
+nowhere and my balance was still down, took me a while to figure out where it
+
+went.
+
+Thing to be careful about: it's positioning, not direction. Crowded can stay
+
+crowded a long time and trends run through expensive funding all the time.
+
+Trading off this alone gets you early and wrong, over and over.
+
+Do you look at the absolute level or how fast it moved? Been watching the second
+
+one more lately, though I'm not sure that's actually better or just a different
+
+way to be wrong.","Doesn't look like much per interval, but it's three times a
+
+day.",SUPPORTED,https://www.binance.com/en-AU/support/faq/detail/360033525031,Supported in the eight-hour funding context stated in the description: three intervals per day. Not a universal rule; other contracts use different intervals.
+t3_1vgg087_claim_001,t3_1vgg087,Does anyone loop ONYC or strategies like it?,"I’ve become interested in OnRe’s On Chain Yield Coin, ONYC. It gets a steady 10-12% APY from reinsurance underwriting. It can be looped/leveraged on Kamino by borrowing USDC/USDG against it.
+
+Does anybody use this strategy or anything like it for RWA? I’m interesting in using DeFi to have a tiny sleeve of my portfolio achieve a 10% CAGR. Less than 1% though of course.
+
+What additional risks would I be taking? Could it be worth it to loop, or would it be better to just hold the tokens outright?
+
+What other RWA do you guys use in DeFi to get better than average returns? I’m not the most interested in holding majors, I don’t personally believe in the price of BTC or ETH going up.
+
+But I think DeFi is really fascinating and probably had some good opportunities? I just don’t know what I’d personally do to pursue it, safely of course.
+
+I was also interested in LPing for RWA like gold, tokenized ETFs, or tokenized stocks. Wouldn’t that be a benefit in flat or choppy markets, to essentially harvest volatility?
+
+I would just be devastated to be drained or hacked somehow. I know these protocols can get hacked and that doesn’t sit right with me. I’d rather have most of my money in safer ETFs with actual insurance.","I’ve become interested in OnRe’s On Chain Yield Coin, ONYC.",REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1vqqq04_claim_001,t3_1vqqq04,Crypto-schekel,"I lanched My game 2 weeks ago and started to post it on reddit, it gave an unbeliveble traffic of 5000 visitors a day.
+
+Even though it started a controversy of spamming and lp discussions it really gave me the traffic that i needed in the launch.
+
+Now the traffic looks stable and it looks like it can sustain itself.
+
+Of course i will also list it in the app store and android play and other distribution like pix.
+
+But i think the hardest part it is the day you launch.
+
+Hoops-gm.com",Crypto-schekel,REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1vlb2ov_claim_001,t3_1vlb2ov,Everyone says cooler CPI = bullish for BTC. Is it really that simple?,"CPI is out tomorrow at 8:30 AM ET, and the usual playbook seems pretty obvious:
+
+Softer CPI → yields down → risk-on → BTC up
+Hotter CPI → yields up → risk-off → BTC down
+
+But lately the first move after macro data hasn’t always been the real move.
+
+I’m more interested in what happens to Treasury yields and DXY immediately after the release. If those don’t confirm the initial BTC move, I wouldn’t be surprised to see it reverse pretty quickly.
+
+If CPI lands right at consensus, do you think the event is basically priced in?
+
+And if we get a surprise in either direction, would you trade the initial BTC move or wait for confirmation?
+
+What’s your setup for CPI?","CPI is out tomorrow at 8:30 AM ET, and the usual playbook seems pretty obvious:
+
+Softer CPI → yields down → risk-on → BTC up
+Hotter CPI → yields up → risk-off → BTC down
+
+But lately the first move after macro data hasn’t always been the real move.",REFUTED,,Tomorrow cannot be resolved without post timestamp; macro price arrows are not guaranteed causal outcomes.
+t3_1vr3qe1_claim_001,t3_1vr3qe1,Criminal use of Bitcoin,"Bring up Bitcoin anywhere and someone says it's mainly a tool for criminals.
+
+But every Bitcoin transaction lands on a permanent public ledger anyone can examine, forever, which is an odd design for something meant to hide money. Cash disappears the moment it changes hands and leaves nothing to trace. US Treasury assessments still name cash, not crypto, as the dominant vehicle for laundering, and researchers tracking blockchain activity keep finding illicit use is only a fraction of total volume.
+
+Why is this argument so sticky, despite the lack of merit?",Criminal use of Bitcoin,REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1vhvx6h_claim_012,t3_1vhvx6h,The Clarity Act just missed its window before the August recess. Here's why September is a much smaller door than people think.,"Thune confirmed late Thursday that the Senate is punting the Clarity Act to September. His words: the Democrats were insistent on no Clarity vote, and it gets queued up first thing when they return.
+
+That's being reported as a delay. I'd argue it's closer to a shot clock running down, and the calendar math is the part nobody's saying out loud.
+
+Where the bill actually stands:
+
+Passed the House in July 2025, 294 to 134
+
+Advanced out of Senate Banking in May 2026, 15 to 9
+
+Has been sitting on the Senate Legislative Calendar since June 1 as Calendar No. 423, eligible for a floor vote any time leadership wanted to schedule one
+
+It sat there for two months and still didn't get called. That's the tell. This wasn't a scheduling accident, it was a vote count that wasn't there.
+
+Why September is tighter than it sounds: the Senate returns mid-September for a few weeks, then attention collapses into the November midterms. The bill needs 60 votes, which means real Democratic support, and reporting suggests some Democrats are reluctant precisely because of the political optics ahead of the midterms and the industry's growing lobbying footprint. Republican support has also wavered. And even if it clears the Senate, it goes back to the House before it can be signed.
+
+The unresolved fights are the same three that have stalled it all year: the ethics provisions being negotiated by Gallego and Tillis around officials and their spouses issuing digital assets, whether yield or rewards on stablecoins get allowed, and whether the bill gives enforcement agencies enough tools on illicit finance.
+
+The part worth actually thinking about: bills die at the end of a Congress. If Clarity doesn't clear the Senate in that September window, it doesn't just get postponed to next year. It restarts from zero in a new Congress with a possibly different balance of power, and the entire SEC/CFTC jurisdictional question stays unsettled by statute, which means it keeps getting decided by enforcement actions and court rulings instead.
+
+Full disclosure so nobody feels misled: I write a twice weekly newsletter covering bitcoin law and regulation, which is why I track this stuff this closely. Not linking it, not asking anyone to sign up, just being upfront about where the interest comes from.
+
+So the question: has any of this actually changed what you do? Did the regulatory limbo push you further into self custody, make you use offshore platforms, delay a project you wanted to build, or change how you handle taxes and reporting? Or have you just tuned Congress out entirely at this point and gone back to ignoring it?
+
+Sources: The Block, Politico via Cointelegraph, CoinDesk.","Or have you just tuned Congress out entirely at this point and gone back to ignoring it?
+
+Sources: The Block, Politico via Cointelegraph, CoinDesk.",REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1wt953w_claim_012,t3_1wt953w,Gnosis Chain is retiring its validators and settling on Ethereum instead. The L1 premium is gone.,"GnosisDAO voted on Aug 19 to turn Gnosis Chain from an independent L1 into a rollup that settles on Ethereum. The result was 123,158 GNO for, 115 against (vote and proposal).
+
+The proposal's authors wrote that ""Gnosis Chain has failed to deliver on its original value proposition"". That value proposition was credible neutrality: a decentralized, low-cost chain run by a large set of independent validators. They also explained the reason it didn't work: ""Credible neutrality is Ethereum's home turf"". Fee revenue covered only a small fraction of the cost of securing the chain, so the DAO treasury was paying for security.
+
+This isn't a new project deciding where to launch. It's an established chain, with its own validators and years of history, concluding that being a separate L1 isn't worth what it costs.
+
+What changes:
+
+Gnosis Chain stops running its own validator set. Ethereum takes over settlement, meaning the final record of who owns what.
+
+Gnosis still produces its own blocks, every 2 seconds, and proves its state to Ethereum every Ethereum block.
+
+Users keep their addresses, balances and contracts, and xDAI stays the fee token.
+
+Gnosis calls this the first instance of an ""Ethereum Economic Zone"" (EEZ). The EEZ is a framework for rollups that are closely tied to Ethereum, co-led by Gnosis and ZisK and co-funded by the Ethereum Foundation.
+
+According to Gnosis, the EEZ gives it something no L2 currently offers. A contract on Gnosis can call a contract on Ethereum mainnet and use the result in the same transaction, with no bridge and no waiting. Apps on Gnosis could then use Ethereum's liquidity directly, as if it lived on Gnosis.
+
+Gnosis does give something up. It no longer controls its own settlement, and at launch Gnosis Ltd runs the sequencer, the single operator that puts transactions in order. Gnosis says it will come back to the DAO with evidence before deciding whether to decentralize it.
+
+That's a real trade-off, but the risk is limited. Per Gnosis, every block is proven and settled on Ethereum, so the sequencer can't forge state, steal funds or roll back finalized history. It can only delay or leave out transactions. On a standalone L1, the chain's own validators are the last word. Here, Ethereum is.
+
+Proving starts with an interim setup and moves to ZK proofs as the full EEZ spec is completed, which Gnosis expects over the course of 2027.
+
+The proposal targeted the switch to a rollup for around the turn of the year. After that, the key milestones will be users having the capability to force a transaction through Ethereum if the sequencer ignores them, the upgrade keys being spread across a large number of independent parties or eliminated altogether, and users being able to withdraw without the operator's cooperation. Fees, uptime and withdrawals should be similar to the old chain.
+
+This sets a precedent. Plenty of L1s run their own validators, bridges, tooling and liquidity programs, and pay for all of it themselves. Gnosis evaluated the costs and decided settling on Ethereum is the better deal. The L1 premium is gone, and I expect more established chains to come to the same conclusion.","Apps on Gnosis could then use Ethereum's liquidity directly, as if it lived on Gnosis.",SUPPORTED,https://www.gnosis.io/v4/blog/we-re-building-the-ethereum-economic-zone-heres-why,"Supported as the proposed EEZ synchronous-composability capability, not a claim that deployment is already complete."
+t3_1wsm4bs_claim_001,t3_1wsm4bs,"A message to the casual, lurker, buttcoiner, and all of us, a personal opinion and my story.","Hello,
+
+In 2020 I had a mid life crisis just turned 40, been working the same job for 20 years, and took the last 5 years to clean up 112k of credit card debt, cars and student loans. So I’m 40, not much money, almost nothing in my 401k and at least my wife and I own a home and no debt.
+
+So where do I go from here, I had a realization that if I play by the rules and start my 401k I could work another 25-30 years and maybe get to retire and live a few good years until I’m too old to be able to really live. So we work our entire lives and contribute to a system that is owned by them and rigged by them. so that they can get rich and maybe at the end I can have a little bit.
+
+What a scam but we are all in it every day, our dollars are deflated, our buying power diminished. The government printing more, they all get rich while we get crumbs. So I took a risk, and I want to emphasize that it takes a risk to invest in bitcoin and unplug from the safe old system. I’ve never taken risks in my life.
+
+Covid had hit and with the help of the cares act I took out my 401k in full and lumped into Bitcoin. Then I sold all my collectables (lord of the rings sword collection) and then stopped my 401k and used that money to DCA into Bitcoin, another risk as losing the employer match was not smart. I unplugged from THEIR system and invested in MY system.
+
+That’s what resonated with me about Bitcoin that it was made for YOU! 401k, bonds, real estate, stock market, everything is rigged for THEM, all made by people corrupted by money and power to enrich themselves.
+
+So fast forward to 2024, I was laid off by my company of 20 years and devastated, depressed because finding a job in tech sucks, I am still unemployed however I have had a few 6 month contracts but my wife and I are ok because we took the time to get out of debt (another system setup by assholes to keep you a slave and enrich them) we are ok because I still have my Bitcoin, haven’t sold one sat.
+
+My point is to people who are on the edge buying in or wondering if Bitcoin is a scam just know that Bitcoin is a system for YOU, and you have a choice to keep compliance and enrich others, or take a risk on yourself.
+
+So what are your stories? How did you find Bitcoin?
+
+PS I just sold all my alts as well to keep me going. They are just a bastardization of Bitcoin made to do one thing, enrich their creators. Bitcoin was made for everyone. It’s not perfect by any means but it’s more perfect than investing in the ultimate shitcoin, the USD.
+
+Thank you for attending my TED talk.","A message to the casual, lurker, buttcoiner, and all of us, a personal opinion and my story.",REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1wq3u4x_claim_001,t3_1wq3u4x,Bitget crypto exchange hit by $390mn hack,,Bitget crypto exchange hit by $390mn hack,SUPPORTED,https://thehackernews.com/2026/09/bitget-says-suspected-north-korean.html,Reporting quotes a revised estimate of approximately $390.06M; $390mn treated as rounded historical reporting. Bitget later gives approximately $388M as final verified amount.
+t3_1vqevm4_claim_012,t3_1vqevm4,Dice entropy to mnemonic,"I'm experimenting with the idea of generating a new mnemonic for a wallet with dice. I've never owned a hardware wallet (yet) and and wanting to generate a new seed for one in the future.
+
+SIDE NOTE: I'M not going to use the entropy generated that I share here. YOU SHOULD NOT use the entropy example here either. DON'T use the websites with an online computer. KNOW what you're doing before you use any information from this thread.
+
+Back to the question. I bought dice from the dollar store (yes, just testing things out right now) and rolled all 15 in the package a few times and generate entropy. After 99 rolls (this is what I read in a few places, I looked for websites that converted the entropy to a 24 word mnemonic.
+
+3653462546461144335434522636454342256326513252111434324356415313433346212641323141661614122625351213 (DO NOT USE THIS YOURSELF!!)
+
+I pasted this into various sites:
+
+https://getcoinplate.com/bip39-seed-phrase-mnemonics-generator-offline-online-tool/
+
+https://bitcoiner.guide/seed/#/seed
+
+https://bitcoinistrue.com/tools/dice-to-seed/
+
+https://github.com/veebch/Bip39-Dice (more manual, printed PDF)
+
+https://github.com/RushabhParmar12/dice-to-seed/blob/main/dice-to-seed.html
+
+The first word of the mnemonic that is generated by the above 4 are as follows, in order:
+
+640 - exotic
+
+439 - cycle
+
+61 - always
+
+632 - exclude
+
+632 - exclude
+
+The first one, I used advanced mode, turned on entropy, chose dice 1-6 and pasted it in. I noticed that it changed the entries under ""Filtered Entropy"" so all 6's are 0's. Then a 3 became 1, 0 became 1, then 5 to 0 and the next 3 is 0. I tried changing the mnemonic length and PBKDF2 rounds but still didn't match any other generator.
+
+The second said that my ""176"" bit of entropy was lacking for a 24 word seed, and I needed 256 die rolls... so I continued:
+
+3653462546461144335434522636454342256326513252111434324356415313433346212641323141661614122625351213424633161623322125164332116246665112353222644653362342435442642536413555435524466156533541154654213346523215324224621243621665516654134426356356525456124642 (AGAIN, DO NOT USE THIS YOURSELF!!)
+
+After pasting these into the 4 sites (and manual PDF), I then was given these for 1st words:
+
+doctor
+
+issue
+
+uniform
+
+exclude
+
+exclude
+
+So, the first 3 are calculating very differently.
+
+However, when I take the HEX from the entropy section of the last one (4ef315daeb1456608ee4b5784f166993f11fc6e7e608f908d8d47f6d8d3c955f) and paste that HEX into the first, it gives me ""exclude"" as the first word. The list then updates to:
+
+exclude
+
+discover
+
+--- no HEX option
+
+--- no HEX option
+
+exclude (source of HEX)
+
+I forget where I read this, but the idea of using multiple mnemonic generators with the same dice rolls was stressed to be sure there wasn't something underhanded being done in the code that selected words. If that's the case, why are most of these different?
+
+Either way, with some manipulation, 3 agree on the first word, so those are likely safe to trust. Still I'm liking the PDF manual version.
+
+Does anyone else have experience with this approach and have further input?","However, when I take the HEX from the entropy section of the last one (4ef315daeb1456608ee4b5784f166993f11fc6e7e608f908d8d47f6d8d3c955f) and paste that HEX into the first, it gives me ""exclude"" as the first word.",SUPPORTED,https://bips.dev/39/ ; https://frozensecurity.com/tools/bip39-words/exclude/,"For the supplied 256-bit hexadecimal entropy, first 11 bits give zero-based index 631 = exclude. Validates the deterministic BIP39 result, not the personal account of running the website."
+t3_1vqzpg8_claim_003,t3_1vqzpg8,Potential new user/invester into Bitcoin,"Hello everyone.
+
+Today I was checking Bitcoin, I was never into this kind of matter or interests BUT today I was just browsing the web and checking it out, I'm new in this world and I wish to leanr as I was always curious.
+
+I was impressed when I saw that 1 Bitcoin = 55457,88 €.
+
+I'm interested here about some advice, sound advice if possible, for someone who wishes to get into Bitcoin and start with buying small and eventually grow in time.
+Is there anything that I can do? What should I look for on the Bitcoin market and it's fluctuations?","I was impressed when I saw that 1 Bitcoin = 55457,88 €.",REFUTED,,"Personal observed BTC/EUR price needs timestamp, venue and independent quote."
+t3_1wnhnz6_claim_013,t3_1wnhnz6,"Nasdaq just made Pyth an official distributor of its real-time US stock data. What that means for stock perps, prediction market settlement, & the revenue line behind PYTH","Tokenized stocks were the 2025 narrative, and 2026 is turning into the year the plumbing catches up. Today Nasdaq approved Pyth as an official distributor of Nasdaq Basic, its real-time quote and trade feed for US equities. For this sub the interesting part is what it does for the products people actually trade & for a revenue line that's been compounding monthly. So let's dive in.
+
+What Pyth is, in money terms
+
+Pyth is a market data platform. Customers pay for prices they use to list products, settle markets and run trading systems, & one subscription covers equities, commodities, FX, crypto and rates. The data is first-party: Jane Street, Virtu, Cboe, DRW, Hudson River Trading & Jump publish their own prices instead of a vendor relaying someone else's. It started inside Jump Trading in 2021 and the team spun out as Douro Labs.
+
+Pyth Pro, the paid institutional feed, launched September 2025. Annualized recurring revenue went from about $1M in late 2025 to $7.49M in July to $10.4M in August, up 39% month over month. New ARR, which is the subscription revenue added in a given month, went from $1.7M in July to $2.9M in August, so the pace of signings is accelerating and the base is compounding at the same time. Pyth Indices, the products that keep pricing when the cash market is shut, sit at $1.59M ARR on their own with 45 live & 14 more coming. The catalog is 3,500+ feeds including 1,024 US equity feeds, and Kraken, Coinbase, Binance, Kalshi & Polymarket are among the named customers.
+
+Part of that revenue buys PYTH through the Reserve. More subscriptions means more revenue and more PYTH bought on the open market each month, & today's deal adds a new class of data owner to the marketplace that revenue runs through.
+
+Previously, every major tokenized-stock product went with Chainlink. xStocks uses custom Chainlink Data Streams, Ondo Global Markets named Chainlink its official oracle last October, and Robinhood Chain reads Chainlink's 24/5 equity feeds. Those feeds aggregate third-party sources, including consolidated tape, pre & post-market venues, overnight venues and ICE's consolidated feed, into one Chainlink-signed price. That's been the default for the whole category. However, Pyth may be trailblazing a better solution.
+
+The category has never had is the exchange's own product under the exchange's own license.
+
+So what is Nasdaq Basic?
+
+Nasdaq Basic is the best bid and offer plus last trade for every US exchange-listed stock (NYSE names included), along with the Nasdaq Official Opening & Closing Prices that most of the industry marks positions to. For well over a decade it's been the real-time product under brokerages, banks, fintechs and consumer investing apps. Nasdaq sells it through about sixteen approved distributors, & they're the names whose terminals sit on every trading desk in the country: Bloomberg, Thomson Reuters, Morningstar, etc.
+
+As of today Pyth is on that list, and it's the only crypto-native name on it. Apps license with Nasdaq & pull the feed through the Pyth Data Marketplace, with Nasdaq keeping attribution and commercial control. It's the same product under the same license, delivered with onchain finance capabilities.
+
+What this means if you trade the products
+
+Stock perps get a mark price from the exchange's own book. If you're long a US equity perp on a DEX, your mark, your funding and your liquidation line can now key off Nasdaq's best bid and offer, with size, instead of an aggregator's estimate of it. Every vendor & every aggregation step is a place where a bad print or a stale tick can put the wrong number onchain and liquidate you on a price that never traded, and this path has fewer of them. That's one way it has an edge over Chainlink's model.
+
+Prediction markets get a verifiable close. A market on whether a stock finishes above a level on a given day can now resolve on the Nasdaq Official Closing Price, the same auction print the rest of the industry marks to. We won't have the resolution controversies at the margins anymore, because the market can call Nasdaq's official price, sourced onchain through Pyth. Kalshi and Polymarket are both already Pyth customers, so this is the settlement layer the venues you trade on are plugged into.
+
+IPO-day markets get a real number from the first print. New listings can be priced from the opening print, so a perp or a prediction market on a fresh IPO doesn't have to wait for an aggregator to find its footing.
+
+After-hours products get a reference price. US equities on Pyth run 24/5 including overnight, & when Nasdaq is closed Pyth Indices keep pricing 24/7 on top names like Amazon, Meta and Palantir. That means a tokenized-stock position or a perp can be hedged, marked or traded on a weekend on a price that has something behind it.
+
+Tokenized stocks get priced off the exchange. A wrapped share can be minted, redeemed or quoted against Nasdaq's actual bid & offer rather than a synthetic, and the exchanges that list them (Kraken, Coinbase, Binance and OKX are all Pyth customers) are pulling from the same source.
+
+In 2025 the wins were crypto companies wrapping stocks and buying oracle feeds. In 2026 the exchange itself is choosing a crypto-native channel to sell its product through. Euronext, Fidelity and now Nasdaq are on the same network, & every one of them makes it easier for the next data owner to say yes.
+
+I've been bullish on tokenized stocks since I learned of the concept, and one blocker to mass adoption was the price sitting one step removed from the real market. That's over as of today, and the products get a lot more interesting from this point on thanks to Pyth's access to Nasdaq Basic.
+
+I, a decentralization maxi, am glad to see Pyth competing with Chainlink as an oracle. It's super healthy for this space and I really hope to see Pyth continue to build and grow.
+
+DYOR & NFA.","The catalog is 3,500+ feeds including 1,024 US equity feeds, and Kraken, Coinbase, Binance, Kalshi & Polymarket are among the named customers.",REFUTED,,Exact historical feed counts and full customer list not established by retrieved sources.
+t3_1wrmtc0_claim_001,t3_1wrmtc0,The BCH Bullet — Sunday 27th September 2026,"Joemar Taganna endorses the 1-minute block proposal after reviewing its security assumptions, CME Group plans to launch Bitcoin Cash futures, ParyonUSD reaches $1 million in TVL. And more.",The BCH Bullet — Sunday 27th September 2026,REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1wtpyh6_claim_001,t3_1wtpyh6,HELP,i have 0.0056 of BTC in my crypto.com what do i do with it? i just randomly put like 250 CAD in there like a few years ago and i just recently re opened and got access to my app acccount again. can someone please give me a good guidance on what to do with this i do want to let it grow if i can.,i just randomly put like 250 CAD in there like a few years ago,REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1vnbu5m_claim_001,t3_1vnbu5m,"High funding isn't confirmation, it's a warning","People read high funding as the trend being strong. It's the opposite.
+
+Perps have no expiry so nothing pulls them back to spot. That's what funding is
+
+for. Perp above spot, longs pay shorts. Below, shorts pay longs. Usually every
+
+8h, depends on the venue.
+
+What it actually shows you is what people are paying to keep a position open.
+
+Not an opinion, an actual payment. So it's honest. Funding staying high means
+
+leveraged longs are packed in and bleeding to stay there.
+
+That's a crowded trade, and cascades feed on crowded trades. The same thing that
+
+makes funding expensive is also piling up forced flow underneath.
+
+Negative funding during a selloff is the mirror image — shorts paying to stay
+
+short, squeeze setup.
+
+Also it compounds. Doesn't look like much per interval, but it's three times a
+
+day. Sit through a few weeks of chop and it quietly eats you. Had a position go
+
+nowhere and my balance was still down, took me a while to figure out where it
+
+went.
+
+Thing to be careful about: it's positioning, not direction. Crowded can stay
+
+crowded a long time and trends run through expensive funding all the time.
+
+Trading off this alone gets you early and wrong, over and over.
+
+Do you look at the absolute level or how fast it moved? Been watching the second
+
+one more lately, though I'm not sure that's actually better or just a different
+
+way to be wrong.","High funding isn't confirmation, it's a warning",REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1wttp7o_claim_004,t3_1wttp7o,"We are smooth brained as fuck, guys","I asked chat about Rc buys before Jan 2021 and he bought a fuck ton of shares in Oct-Dec. RKs whole ""I'll do it myself"" ""the ides of November"", it was pretty clear. I'm not sure if he posted the date or polyrhythm but all we had to do was wait for RC to buy shares again lmfao.
+
+The price is so fucking cheap!! Warrants are literally down still! It could not be fucking clearer lmao.
+
+I think my cost basis is around $19.50. Have a few hundred warrants in Fidelity for quick selling, a few hundred in Computershare. The price action from 2021 was quite immediate after December lmao. Bought in at $8, jumped to $24, Shitron got buttfucked and the rest is history
+
+And let this history repeat 😈","Have a few hundred warrants in Fidelity for quick selling, a few hundred in Computershare.",REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1vqcp3b_claim_002,t3_1vqcp3b,Gary V is on Whatnot Live telling people to buy his NFTs!!,"That’s right! It’s 2026 and Gary Vee is on Whatnot (lmao) telling people to go to OpenSea and buy his NFTs. AND PEOPLE DID!
+
+Grifters gonna grift.
+
+Oh and he called himself a hero to entrepreneurs.
+
+It would be hilarious if it wasn’t so absurd.",It’s 2026 and Gary Vee is on Whatnot (lmao) telling people to go to OpenSea and buy his NFTs.,REFUTED,,Specific livestream allegation needs recording or dated transcript.
+t3_1wtr3jq_claim_001,t3_1wtr3jq,Stock > warrants 09/29/26,"Stock flips red but still winning that voulme race. The score is now 242/2 in favor of the stock. Both red today:(
+
+The warrants gained about 302k volume compared to yesterday. Let's keep pushing towards that 1m volume mark!!
+
+Todays song of the dayyyyy: Time Is A Destroyer By Adept",Stock > warrants 09/29/26,REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1vigpdi_claim_001,t3_1vigpdi,Nomura’s Laser Digital Partners with ZIGChain to Target USD 100m in Onchain Vaults,,Nomura’s Laser Digital Partners with ZIGChain to Target USD 100m in Onchain Vaults,SUPPORTED,https://crypto.news/zigchain-laser-digital-partnership-targets-institutional-onchain-finance/,"Partnership and target of at least $100M TVL corroborated; this is a target, not already realized TVL."
+t3_1vqv0mp_claim_003,t3_1vqv0mp,Some hopium from a veteran of the 2022 bear market.,"I started buying bitcoin in June of 2021, “to the moon” I said to myself. And surely to the moon it went, until about November. I experienced a premium bag holding experience for the next 18 months.
+
+I never stopped buying though. By August of 2023 I achieved the coveted 1 BTC milestone. Then SBF sent the entire industry into Hades. I still look back at that divet in the chart he caused with fond memories. Twitter (yes it was still Twitter back then) was basically setting bitcoin’s headstone at that time. “Dead for good” they asserted. “Done forever”.
+
+I hear the same things today during my second bear market, maybe life is a flat circle. The same people who emphatically declared bitcoin dead back then are doing the same thing today.
+
+I can’t say when it will happen but I know this. We will see green the likes of which have never been seen before and it will be glorious. It will be so green you will put your phone into night mode to save your retinas and get some well needed sleep!
+
+An everlasting green.
+
+My portfolio is still green to this day, in the middle of this bear market. The one after Bitcoin was declared dead for the millionth time.","And surely to the moon it went, until about November.",REFUTED,,"BTC historical price movement can be checked, but metaphorical wording and missing exact interval need clarification."
+t3_1wsjdui_claim_010,t3_1wsjdui,Rumpelstiltskin and the Alchemy of Sovereign Debt,"Rumpelstiltskin is a four-hundred-year-old warning, and the people who encoded it didn’t have newspapers or courts or any official channel to name what was being done to them. So they gave it a spinning wheel. A tower room. A strange little man who dances alone in the dark.
+
+And they passed it down to their children, and their children’s children, hoping that eventually someone would stop and actually look at what the story was about.
+
+The King is broke, his treasury is hollow and his demands are not. So the demand descends down through the layers of power until it lands on the person with the least ability to refuse it.
+
+A miller’s daughter. She can’t produce what’s being asked for. Nobody could. The King isn’t asking for labor, he’s asking for transformation: straw into gold, nothing into something, poverty taxed into wealth. And the penalty for failure is death.
+
+The impossible tax, enforced by the threat of state violence, levied on the person who cannot possibly pay it. That is not a fairy tale contrivance. That is a template. That is Tuesday, in various centuries, in various countries, dressed in different clothes but running the same logic.
+
+The miller’s daughter has one night to produce gold from straw or she dies.
+
+And then the door opens.
+
+He’s small. He’s strange. He has no name you know and no allegiance to any power you can see. But he has the one thing neither the King nor the miller’s daughter possesses: the ability to create gold where there was none before.
+
+Not earn it. Not find it. Create it.
+
+This is what happens every time a loan gets issued against money a bank doesn’t actually have in a vault. The bank doesn’t hold your neighbor’s deposit and lend it to you. It creates a new number, extends a new claim, conjures new purchasing power into existence from the architecture of debt itself. Credit creation. Fractional reserve banking. The machinery underneath every modern economy.
+
+The Imp didn’t come from nowhere. The King’s impossible demand built him a door and left it unlocked. When the State requires what cannot naturally exist, someone will always appear who specializes in manufacturing it, for a price structured entirely in their favor.
+
+The girl is desperate and alone and facing execution. She says yes.
+
+Night one, he takes her necklace. Jewelry: portable, liquid, immediately convertible. The easy assets, the ones that move without friction. He spins the straw into gold, pockets the necklace, and disappears.
+
+Night two, more straw. More gold demanded. He takes her ring this time. A ring is different. A ring is heritage, lineage, property that was meant to outlast a single life. He takes the things that were supposed to be permanent.
+
+Night three, she has nothing. Not a single asset remaining, liquid or otherwise. She is completely bare.
+
+So he asks for her firstborn child.
+
+A monster wanting a baby reads as grotesque fairy tale nonsense rather than anything meaningful. But the story is asking a specific question: why does an infant represent something that necklaces and rings do not?
+
+Because an infant is the future. Future labor, future productivity, future tax revenue. Future human capital. By claiming the firstborn of a woman who is about to become queen, the Imp isn’t collecting some strange trophy. He is installing his debt into the next generation before it’s born. The child will arrive in a world where it already owes something to an entity it has never met and cannot name. It is collateral. It is already, in every meaningful sense, owned.
+
+The unborn pledged before they breathe.
+
+That is not a fairy tale. That is a description of generational debt: the loan that outlives the borrower, the obligation that passes to children who had no voice in its creation, the chain that lengthens with each new link.
+
+And the whole time, what is the King doing?
+
+Nothing.
+
+He is doing absolutely nothing.
+
+The straw becomes gold. The treasury fills. He marries the girl and ascends to every benefit of the arrangement without once asking where the gold came from, who made it, or what it cost. The Imp operates in the gap between the King’s demand and the girl’s desperation, and the King is perfectly content to let that gap exist as long as it keeps producing results.
+
+The King is not the Imp’s enemy. The King is the Imp’s silent partner. The whole system runs on the King’s willingness to look away, to take the conjured wealth and ask no questions about the conjuring.
+
+That is not a character flaw specific to one fictional monarch. That is a structural description of how states and financial systems coexist. The State benefits from the credit creation. The financier benefits from the extraction. The person trapped between them provides the collateral and the labor and ultimately the children, and is thanked for it by being allowed to live.
+
+The miller’s daughter becomes Queen and thinks she has won something.
+
+She has not won anything.
+
+Then the Imp comes to collect her son.
+
+Every weapon fails. The King’s army is useless. Money is useless: she doesn’t have any, she gave it all away in the tower. Status, power, royal authority: none of it touches the contract. A contract, once made, is not broken by the borrower wishing very hard that they hadn’t signed it.
+
+She sends a messenger. The messenger finds the Imp dancing alone around a fire in the woods, singing to himself. Singing his own name, the one he has never once offered to anyone, the one he guards so completely that he apparently believes no one will ever find it. The messenger brings it back. The Queen speaks it in open court.
+
+The Imp tears himself in half with rage.
+
+In traditions older than this story, to know the true name of a creature is to hold absolute power over it. That is not superstition. It is a description of something precise: what happens when a shadow entity is forced into the light of public scrutiny.
+
+The Imp’s entire power structure rests on anonymity. On existing in the unnamed space between the King’s visible authority and the borrower’s documented desperation. He doesn’t need to hide. He just needs to remain unidentified. Unnamed. Unaudited. As long as no one can say exactly who he is and exactly how the mechanism works, the contract holds.
+
+The moment he is named, exposed, legible, dragged into the open where everyone can see the machinery, it ends. Not because the Queen is stronger than him. But because the system he represents cannot function under scrutiny. Transparency is the only weapon that works, because it’s the only threat the system has no defense against.
+
+He doesn’t tear himself in half because he’s embarrassed. He tears himself in half because without the dark, he doesn’t exist.
+
+This story is four hundred years old and the people who told it didn’t have the vocabulary we have now. They didn’t know the terms: fractional reserve banking, structural adjustment, generational debt, shell companies, dark pools, offshore trusts, the unelected boards of central banks.
+
+But they knew the feeling. They knew what it was to have an impossible demand placed on them by a power they couldn’t refuse, and to have someone appear offering relief that would cost them more than they understood in the moment of signing. They knew what it was to look up, years later, and realize they had given away everything: their liquid wealth, their property, their children’s freedom, to something that didn’t even have a face.
+
+So they gave it a face. A ridiculous, dancing face. And they hid the mechanism inside it like a message in a bottle.
+
+The message is this: you will not beat it with force. You will not buy your way out. The only move that works, the only one that ever worked, is learning the name. Saying it out loud. In public. Where everyone can hear it.
+
+Start saying its name.
+
+▧ I’m writing a book about Satoshi Nakamoto and his journey of inventing Bitcoin. In my book, Satoshi fights the parasites who rule over us, and he wins. Of course, unlike reality, this is just fiction. You can preorder it today with Bitcoin, and the first 10 chapters are out now.",That is not a character flaw specific to one fictional monarch.,REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1vhvx6h_claim_007,t3_1vhvx6h,The Clarity Act just missed its window before the August recess. Here's why September is a much smaller door than people think.,"Thune confirmed late Thursday that the Senate is punting the Clarity Act to September. His words: the Democrats were insistent on no Clarity vote, and it gets queued up first thing when they return.
+
+That's being reported as a delay. I'd argue it's closer to a shot clock running down, and the calendar math is the part nobody's saying out loud.
+
+Where the bill actually stands:
+
+Passed the House in July 2025, 294 to 134
+
+Advanced out of Senate Banking in May 2026, 15 to 9
+
+Has been sitting on the Senate Legislative Calendar since June 1 as Calendar No. 423, eligible for a floor vote any time leadership wanted to schedule one
+
+It sat there for two months and still didn't get called. That's the tell. This wasn't a scheduling accident, it was a vote count that wasn't there.
+
+Why September is tighter than it sounds: the Senate returns mid-September for a few weeks, then attention collapses into the November midterms. The bill needs 60 votes, which means real Democratic support, and reporting suggests some Democrats are reluctant precisely because of the political optics ahead of the midterms and the industry's growing lobbying footprint. Republican support has also wavered. And even if it clears the Senate, it goes back to the House before it can be signed.
+
+The unresolved fights are the same three that have stalled it all year: the ethics provisions being negotiated by Gallego and Tillis around officials and their spouses issuing digital assets, whether yield or rewards on stablecoins get allowed, and whether the bill gives enforcement agencies enough tools on illicit finance.
+
+The part worth actually thinking about: bills die at the end of a Congress. If Clarity doesn't clear the Senate in that September window, it doesn't just get postponed to next year. It restarts from zero in a new Congress with a possibly different balance of power, and the entire SEC/CFTC jurisdictional question stays unsettled by statute, which means it keeps getting decided by enforcement actions and court rulings instead.
+
+Full disclosure so nobody feels misled: I write a twice weekly newsletter covering bitcoin law and regulation, which is why I track this stuff this closely. Not linking it, not asking anyone to sign up, just being upfront about where the interest comes from.
+
+So the question: has any of this actually changed what you do? Did the regulatory limbo push you further into self custody, make you use offshore platforms, delay a project you wanted to build, or change how you handle taxes and reporting? Or have you just tuned Congress out entirely at this point and gone back to ignoring it?
+
+Sources: The Block, Politico via Cointelegraph, CoinDesk.","And even if it clears the Senate, it goes back to the House before it can be signed.",REFUTED,,"Return to House applies if Senate amends the text; needs the actual bill/version comparison, not a universal rule."
+t3_1vfqnta_claim_002,t3_1vfqnta,Flywheel Protocol: A Different Way to Think About On-Chain Rewards,"One thing I’ve noticed over the last few years is that almost every protocol asks the same question:
+“How do we reward our community?”
+
+The answer has almost always been the same:
+
+Print more tokens.
+
+Whether it’s liquidity mining, staking emissions, or farming incentives, many reward systems rely on creating new supply. That can attract users quickly, but it also introduces inflation and often isn’t sustainable unless the protocol keeps growing fast enough to offset it.
+
+That got me thinking about a different question.
+What if rewards came from actual economic activity instead of inflation?
+That’s the idea behind Flywheel Protocol.
+
+What is Flywheel?
+Flywheel is an on-chain distribution protocol.
+It isn’t designed to be another token.
+It isn’t even designed around one specific project.
+Instead, it’s infrastructure that allows a project to define how value flows back to its community.
+
+Think of Flywheel as a programmable distribution engine.
+Revenue comes in from whatever sources a project chooses.
+
+The protocol accounts for it transparently.
+Then it distributes that value according to rules the project configures.
+
+At its simplest:
+
+Revenue Source
+↓
+Flywheel
+↓
+Treasury
+↓
+Users
+
+The interesting part is that the revenue source doesn’t matter.
+It could be:
+Creator fees from a launchpad
+NFT royalties
+Marketplace fees
+Protocol revenue
+Gaming economies
+Manual treasury deposits
+Future integrations that don’t even exist yet
+Flywheel isn’t tied to one business model.
+It’s designed to sit underneath many different ones.
+
+Why make it configurable?
+Every community is different.
+An NFT project doesn’t reward users the same way a launchpad does.
+A game doesn’t reward users the same way a DeFi protocol does.
+
+Instead of forcing everyone into one reward model, Flywheel is designed to let projects configure their own.
+
+For example, a project could choose:
+
+What assets users deposit
+Which revenue sources feed the protocol
+Reward epochs
+Pool weighting
+Compounding
+Early withdrawal penalties
+Burn mechanics
+Treasury allocations
+Supported payout assets
+Future gamification systems
+NFT multipliers
+LP incentives
+
+Bullion is simply testing one possible configuration.
+Another project could choose something completely different without rebuilding the entire reward infrastructure.
+
+Bullion is the first proof of concept
+Rather than releasing Flywheel as an abstract idea, we decided to build a live implementation first.
+That’s Bullion.
+Bullion is running as a public beta to prove the distribution model works before expanding Flywheel into a protocol other projects can integrate.
+At the time I’m writing this, Bullion has been live for less than 6 days.
+
+Already, over 153 million Bullion has been deposited into the protocol since going live roughly 2 days ago representing roughly 15.3% of the total supply.
+That’s encouraging because it gives us real user behavior to learn from instead of relying only on simulations.
+
+How does Bullion work?
+Users deposit Bullion into a shared pool.
+Every deposit receives a weight based on:
+The amount deposited
+The epoch selected
+Longer epochs receive higher weighting.
+During each reward period, protocol revenue is distributed proportionally according to each participant’s weighted share of the pool.
+If your position represents 5% of the total weighted pool, you receive approximately 5% of the revenue allocated for that distribution period.
+No emissions.
+No newly printed reward tokens.
+Just proportional distribution of value entering the protocol.
+
+Auto-compounding
+Users can also choose to compound.
+Instead of withdrawing rewards every cycle, they can automatically add them back into their deposited position.
+As that position grows, so does its weight inside the pool.
+Over time, compounding increases a participant’s share without requiring continuous manual deposits.
+That creates the “flywheel.”
+Protocol activity generates revenue.
+Revenue grows positions.
+Larger positions earn a larger share of future revenue.
+The system reinforces itself through participation rather than inflation.
+
+Why this could scale
+This is the part I’m most excited about.
+Bullion is only one implementation.
+The long-term vision is much larger.
+Imagine hundreds of projects all using the same distribution infrastructure.
+One launchpad routes creator fees.
+An NFT marketplace routes royalties.
+A game routes marketplace revenue.
+A DAO routes treasury income.
+
+Each project keeps its own identity and business model, but they all share the same underlying distribution engine.
+Instead of every team building reward logic from scratch, they configure Flywheel to match their ecosystem.
+
+That dramatically lowers the complexity of launching sustainable reward systems.
+It also opens the door to layering additional mechanics on top.
+
+Projects could build quests, loyalty systems, NFT boosts, reputation systems, governance perks, seasonal events, referral programs, LP incentives, and other gamified experiences, all using the same underlying distribution layer.
+
+Flywheel doesn’t replace those systems.
+It becomes the foundation they build on.
+
+What about real-world assets?
+This is where I think things become really interesting.
+
+As more assets move on-chain, users shouldn’t be limited to earning rewards in only one token.
+Instead, projects could eventually allow participants to choose how they want to settle their rewards.
+
+That could mean stablecoins.
+It could mean tokenized gold.
+It could mean tokenized silver.
+Or any supported on-chain asset in the future.
+
+The goal isn’t simply to tokenize real-world assets.
+The goal is to make participation in those assets more accessible through decentralized infrastructure.
+Someone anywhere in the world with a wallet and an internet connection can participate without needing a traditional brokerage account or local financial institution.
+There’s still smart contract risk, market risk, and regulatory uncertainty around RWAs generally, but the direction is compelling.
+
+It’s still early
+Bullion is intentionally being used as a beta.
+We’re testing assumptions.
+Watching how users behave.
+Finding edge cases.
+Improving the protocol before asking other projects to build on top of it.
+Rewards are not guaranteed, and they depend entirely on the economic activity flowing into the protocol.
+If no revenue enters Flywheel, there is nothing to distribute.
+That’s an intentional design decision.
+
+I’d love feedback
+The goal isn’t to convince anyone this is perfect.
+It’s to ask whether this is a better direction for crypto.
+Instead of building systems that rely primarily on inflation, what if we built infrastructure that distributes actual protocol activity back to participants?
+That’s the problem we’re trying to solve.
+I’d genuinely be interested in hearing what this community thinks, especially from builders who’ve designed token economies or reward systems before.
+
+Bullion Contract Address on Robinhood: 0xb1814Cd38c7c6F283f7dF1CA15396818f7207AdF
+
+X account: @bullionRH
+
+My X account: @zbits33","One thing I’ve noticed over the last few years is that almost every protocol asks the same question:
+“How do we reward our community?”",REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1wpib7l_claim_003,t3_1wpib7l,So i lost all my money die to trust and lack of awareness,"So i lost all my money due to trust
+
+So i recently have been really interested in learning about crypto and memecoins. I want to quit my job. I work full time earning $150 a month. In my currency it’s average but you can’t do anything with it. So i saved up a little money about $50 to invest in learning how to trade. I had done so much research about it all. I lnew there was alot of scammers. Despite that this guy had a following of over 20,000. He seemed so legit. Anyway for a week he was hyping up this coin he was going to launch. $SOF a solana meme coin. I was invested i was so excited even left work early that day to be home for the launch. As soon as it launched it was already crazy high. I invested when it wws at +20 or something like thag. He kept telling us to hold in the telegram and that these guys were going to come in and inflate the market cap like hell. They never came or we just got played my investment of $35 kept dropping and dropping and now it has like $0.000034 im the coin. I lost all my money. So i message this guy his X account is zyrox just incase you need to know. I messaged him and asked him to return my money. He blocked me. Thats safe to say im done with this hustle for now anyway. Just warning people out there that are looking to get into this. Its a glorified industry. People make it seem like by just starting you can retire your 9-5. Maybe its possible. However its extremely hard and filled with very crappy people. Just be careful you heard my story. Now be careful how you proceed with yours.",So i saved up a little money about $50 to invest in learning how to trade.,REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1vnb048_claim_003,t3_1vnb048,Questions from a Memecoin Newbie,"Hey everyone, I've been scouting around memecoins for quite a while now ( On Pumpfun, DexScreener & Twitter ) And some parts are still a bit unclear. So just here to get you guys' opinions on them 🙂
+
+1. Where do you find tokens to Buy?
+
+Do you guys just sit infront of Pumpfun all day? Look into a page you found while scrolling X? or Get into an already pumped one on Dex? ( or any other ways that I missed )
+
+2. What do you look for before Buying?
+
+When you find a token, do you just check out the Twitter page, see if they have enough impressions/engagement, or see if they have any roadmap and get in?
+
+3. How does a project actually find Holders?
+
+This is the part that tricks me. I used to think the Dev would make a Twitter page first, gather followers and then launch the token. But as I look into more projects, it seems to turn around. The token comes first. So how does the project actually find any holders?
+
+4. How do you know when to exit / if the project is long lasting?
+
+If there is no sign of a roadmap or a plan, how do you know when to get out? Even if there were a plan, would you trust them and wait?
+
+** 5. What kind of project would you Trust? **
+
+I recently saw a boosted post on Twitter with a CA. Basically, the page gets good impressions ( around 100k+ per day. Only 5k followers. All look genuine tho ) So his sole plan is ""My page gets good impressions/attention. Attention = Money. Would something like that be good enough for you to make a move?
+
+My biggest reason for the post is a token called DrTrump. It just launched with no marketing, no recent memes or a big following page. Yet it still reached over 1M in Mcap. I saw this token very early on. But I never got in because I couldn't see why it should go that high. And I still don't get it. The posts only got a couple thousand views. So why should it do that well????
+
+Some of the points might feel repetitive. But I would love to hear your thoughts on the topic. Thanks.","So just here to get you guys' opinions on them 🙂
+
+1.",REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
+t3_1vqevm4_claim_008,t3_1vqevm4,Dice entropy to mnemonic,"I'm experimenting with the idea of generating a new mnemonic for a wallet with dice. I've never owned a hardware wallet (yet) and and wanting to generate a new seed for one in the future.
+
+SIDE NOTE: I'M not going to use the entropy generated that I share here. YOU SHOULD NOT use the entropy example here either. DON'T use the websites with an online computer. KNOW what you're doing before you use any information from this thread.
+
+Back to the question. I bought dice from the dollar store (yes, just testing things out right now) and rolled all 15 in the package a few times and generate entropy. After 99 rolls (this is what I read in a few places, I looked for websites that converted the entropy to a 24 word mnemonic.
+
+3653462546461144335434522636454342256326513252111434324356415313433346212641323141661614122625351213 (DO NOT USE THIS YOURSELF!!)
+
+I pasted this into various sites:
+
+https://getcoinplate.com/bip39-seed-phrase-mnemonics-generator-offline-online-tool/
+
+https://bitcoiner.guide/seed/#/seed
+
+https://bitcoinistrue.com/tools/dice-to-seed/
+
+https://github.com/veebch/Bip39-Dice (more manual, printed PDF)
+
+https://github.com/RushabhParmar12/dice-to-seed/blob/main/dice-to-seed.html
+
+The first word of the mnemonic that is generated by the above 4 are as follows, in order:
+
+640 - exotic
+
+439 - cycle
+
+61 - always
+
+632 - exclude
+
+632 - exclude
+
+The first one, I used advanced mode, turned on entropy, chose dice 1-6 and pasted it in. I noticed that it changed the entries under ""Filtered Entropy"" so all 6's are 0's. Then a 3 became 1, 0 became 1, then 5 to 0 and the next 3 is 0. I tried changing the mnemonic length and PBKDF2 rounds but still didn't match any other generator.
+
+The second said that my ""176"" bit of entropy was lacking for a 24 word seed, and I needed 256 die rolls... so I continued:
+
+3653462546461144335434522636454342256326513252111434324356415313433346212641323141661614122625351213424633161623322125164332116246665112353222644653362342435442642536413555435524466156533541154654213346523215324224621243621665516654134426356356525456124642 (AGAIN, DO NOT USE THIS YOURSELF!!)
+
+After pasting these into the 4 sites (and manual PDF), I then was given these for 1st words:
+
+doctor
+
+issue
+
+uniform
+
+exclude
+
+exclude
+
+So, the first 3 are calculating very differently.
+
+However, when I take the HEX from the entropy section of the last one (4ef315daeb1456608ee4b5784f166993f11fc6e7e608f908d8d47f6d8d3c955f) and paste that HEX into the first, it gives me ""exclude"" as the first word. The list then updates to:
+
+exclude
+
+discover
+
+--- no HEX option
+
+--- no HEX option
+
+exclude (source of HEX)
+
+I forget where I read this, but the idea of using multiple mnemonic generators with the same dice rolls was stressed to be sure there wasn't something underhanded being done in the code that selected words. If that's the case, why are most of these different?
+
+Either way, with some manipulation, 3 agree on the first word, so those are likely safe to trust. Still I'm liking the PDF manual version.
+
+Does anyone else have experience with this approach and have further input?",I tried changing the mnemonic length and PBKDF2 rounds but still didn't match any other generator.,REFUTED,,"Question, advice, opinion, satire, personal account, or heading; cannot establish SUPPORTED/REFUTED from this text."
