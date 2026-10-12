@@ -1045,7 +1045,7 @@
 @media(max-width:650px) {.ix-filter-grid {grid-template-columns:repeat(2,minmax(0,1fr));}.ix-range-grid {grid-template-columns:1fr;gap:8px;}.ix-kpis {grid-template-columns:repeat(2,minmax(0,1fr));}.ix-filters {padding:14px;}.ix-filters summary span {display:none;}.ix-status-row,.ix-banner {align-items:flex-start;flex-direction:column;}.ix-card .panel-head {flex-wrap:wrap;}.ix-chart-wrap {height:300px;}.ix-section .section-header {align-items:flex-start;}.ix-method dl {grid-template-columns:85px 1fr;}}
 
     </style>
-    <script defer src="{{ url_for('static', filename='dashboard_new.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='dashboard_new.js', v='no-filters-20261012') }}"></script>
   </head>
   <body>
     <svg
@@ -1163,7 +1163,7 @@
             </h1>
             <p>
               Explore sentiment analysis and claim verification results from
-              crypto discussions. Filter the data, compare
+              crypto discussions. Compare
               communities, and explore how sentiment and verification relate.
             </p>
           </div>
@@ -1173,24 +1173,12 @@
         </section>
 
 
-<details class="ix-filters" open><summary>Explore &amp; filter <span id="ix-filter-hint">Loading available filters…</span></summary>
-<fieldset id="ix-controls" disabled><legend class="ix-sr">Dashboard filters</legend>
-<div class="ix-filter-grid">
-<label>Year<select id="ix-year"><option value="all">All years</option></select></label>
-<label>Coin<select id="ix-coin"><option value="all">All coins</option></select></label>
-<label>Subreddit<select id="ix-sub"><option value="all">All subreddits</option></select></label>
-<div><span class="ix-control-label">Verification coverage</span><div class="ix-segments" role="group" aria-label="Verification coverage"><button type="button" data-kind="all" aria-pressed="true">All</button><button type="button" data-kind="scored" aria-pressed="false">Scored</button><button type="button" data-kind="unscored" aria-pressed="false">Unscored</button></div></div>
-<label>Minimum scored claims (community) <output id="ix-threshold-label" for="ix-threshold">0</output><input type="range" id="ix-threshold" min="0" max="150" value="0" step="1" aria-describedby="ix-threshold-note" /></label>
-</div>
-<div class="ix-range-grid"><label>From <output id="ix-from-label" for="ix-from">—</output><input type="range" id="ix-from" min="0" max="0" value="0" step="1" /></label><label>Through <output id="ix-to-label" for="ix-to">—</output><input type="range" id="ix-to" min="0" max="0" value="0" step="1" /></label><button type="button" id="ix-reset" class="ix-button">Reset filters</button></div>
-<p class="ix-help" id="ix-threshold-note">The minimum scored-claims slider affects the community ranking only.</p><p class="ix-help" id="ix-scope"></p>
-</fieldset></details>
-<div class="ix-status-row"><p id="ix-status" role="status" aria-live="polite">Loading dashboard data…</p><button type="button" id="ix-download" class="ix-button" disabled>Download current CSV</button></div>
+<div class="ix-status-row"><p id="ix-status" role="status" aria-live="polite">Loading dashboard data…</p><button type="button" id="ix-download" class="ix-button" disabled>Download CSV</button></div>
 <div class="ix-events"><span>Crypto events · October–November 2026 · official event pages</span><div id="ix-events"></div></div>
-<section id="snapshot" class="ix-section" aria-labelledby="snapshot-title"><div class="section-header"><div><h2 id="snapshot-title"><span class="section-index">01 /</span>Snapshot overview</h2><p>Market-verification claims in the current scope.</p></div></div><div class="ix-kpis"><article class="kpi-card"><div class="kpi-label">Total claims</div><div class="kpi-value" id="ix-kpi-posts">—</div></article><article class="kpi-card"><div class="kpi-label">Scored claims</div><div class="kpi-value" id="ix-kpi-comments">—</div></article><article class="kpi-card"><div class="kpi-label">Unscored claims</div><div class="kpi-value" id="ix-kpi-sentiment">—</div></article><article class="kpi-card"><div class="kpi-label">Accurate / scored</div><div class="kpi-value" id="ix-kpi-support">—</div></article><article class="kpi-card"><div class="kpi-label">Verification coverage</div><div class="kpi-value" id="ix-kpi-coverage">—</div></article><article class="kpi-card"><div class="kpi-label">Weighted verification score</div><div class="kpi-value" id="ix-kpi-engagement">—</div></article></div></section>
+<section id="snapshot" class="ix-section" aria-labelledby="snapshot-title"><div class="section-header"><div><h2 id="snapshot-title"><span class="section-index">01 /</span>Snapshot overview</h2><p>Market-verification claims in the saved export.</p></div></div><div class="ix-kpis"><article class="kpi-card"><div class="kpi-label">Total claims</div><div class="kpi-value" id="ix-kpi-posts">—</div></article><article class="kpi-card"><div class="kpi-label">Scored claims</div><div class="kpi-value" id="ix-kpi-comments">—</div></article><article class="kpi-card"><div class="kpi-label">Unscored claims</div><div class="kpi-value" id="ix-kpi-sentiment">—</div></article><article class="kpi-card"><div class="kpi-label">Accurate / scored</div><div class="kpi-value" id="ix-kpi-support">—</div></article><article class="kpi-card"><div class="kpi-label">Verification coverage</div><div class="kpi-value" id="ix-kpi-coverage">—</div></article><article class="kpi-card"><div class="kpi-label">Weighted verification score</div><div class="kpi-value" id="ix-kpi-engagement">—</div></article></div></section>
 <section id="analysis" class="ix-section" aria-labelledby="analysis-title"><div class="section-header"><div><h2 id="analysis-title"><span class="section-index">02 /</span>Sentiment &amp; claim verification</h2><p>Sentiment and market verification come from separate result sets.</p></div></div><div class="cards-grid"><article class="panel ix-card" data-card="sentiment">
 <div class="panel-head"><div><div class="panel-kicker">Historical results / interactive</div><h3 id="ix-title-sentiment">Sentiment split</h3></div><button class="ix-view" type="button" data-table="sentiment" aria-pressed="false" aria-controls="ix-table-sentiment">Show table</button></div>
-<p class="panel-sub" id="ix-note-sentiment">Saved sentiment results; not affected by claim filters.</p>
+<p class="panel-sub" id="ix-note-sentiment">Saved sentiment results from a separate result set.</p>
 <div class="ix-card-tools"><div class="ix-segments" role="group" aria-label="Sentiment split chart type"><button type="button" data-chart-type="doughnut" aria-pressed="true">Donut</button><button type="button" data-chart-type="bar" aria-pressed="false">Bar</button><button type="button" data-chart-type="pie" aria-pressed="false">Pie</button></div></div>
 <div class="ix-chart-wrap" id="ix-wrap-sentiment"><canvas id="ix-chart-sentiment" role="img" aria-label="Sentiment split" aria-describedby="ix-note-sentiment"></canvas><p class="ix-empty" hidden></p></div><div class="ix-table-wrap" id="ix-table-sentiment" hidden></div></article><article class="panel ix-card" data-card="verdict">
 <div class="panel-head"><div><div class="panel-kicker">Historical results / interactive</div><h3 id="ix-title-verdict">Market verdict share</h3></div><button class="ix-view" type="button" data-table="verdict" aria-pressed="false" aria-controls="ix-table-verdict">Show table</button></div>
@@ -1205,7 +1193,7 @@
 <div class="ix-chart-wrap" id="ix-wrap-topics"><canvas id="ix-chart-topics" role="img" aria-label="Claims by type" aria-describedby="ix-note-topics"></canvas><p class="ix-empty" hidden></p></div><div class="ix-table-wrap" id="ix-table-topics" hidden></div></article></section>
 <section id="divergence" class="ix-section" aria-labelledby="divergence-title"><div class="section-header"><div><h2 id="divergence-title"><span class="section-index">06 /</span>Accuracy by asset</h2><p>Compare market-verification outcomes across coins.</p></div></div><article class="panel ix-card" data-card="divergence">
 <div class="panel-head"><div><div class="panel-kicker">Historical results / interactive</div><h3 id="ix-title-divergence">Coin verdicts</h3></div><button class="ix-view" type="button" data-table="divergence" aria-pressed="false" aria-controls="ix-table-divergence">Show table</button></div>
-<p class="panel-sub" id="ix-note-divergence">Scored claims only. Coin selection applies to this chart.</p>
+<p class="panel-sub" id="ix-note-divergence">Scored claims only, grouped by coin.</p>
 <div class="ix-card-tools"><div class="ix-segments" role="group" aria-label="Coin verdicts chart type"><button type="button" data-chart-type="bar" aria-pressed="true">Bar</button></div></div>
 <div class="ix-chart-wrap" id="ix-wrap-divergence"><canvas id="ix-chart-divergence" role="img" aria-label="Coin verdicts" aria-describedby="ix-note-divergence"></canvas><p class="ix-empty" hidden></p></div><div class="ix-table-wrap" id="ix-table-divergence" hidden></div></article></section>
 <section id="claims" class="ix-section" aria-labelledby="claims-title"><div class="section-header"><div><h2 id="claims-title"><span class="section-index">07 /</span>Accuracy by claim type</h2><p>Compare market-verification outcomes across claim categories.</p></div></div><article class="panel ix-card" data-card="engagement">
@@ -1224,12 +1212,12 @@
 <div class="ix-chart-wrap" id="ix-wrap-verification"><canvas id="ix-chart-verification" role="img" aria-label="Coverage by claim type" aria-describedby="ix-note-verification"></canvas><p class="ix-empty" hidden></p></div><div class="ix-table-wrap" id="ix-table-verification" hidden></div></article></div></section>
 <section id="data-notes" class="ix-section" aria-labelledby="data-notes-title"><div class="section-header"><div><h2 id="data-notes-title"><span class="section-index">09 /</span>Data coverage &amp; methodology</h2><p>Read the source, coverage and limits of the available data.</p></div></div><div class="cards-grid"><article class="panel ix-card" data-card="coverage">
 <div class="panel-head"><div><div class="panel-kicker">Historical results / interactive</div><h3 id="ix-title-coverage">Verification coverage</h3></div><button class="ix-view" type="button" data-table="coverage" aria-pressed="false" aria-controls="ix-table-coverage">Show table</button></div>
-<p class="panel-sub" id="ix-note-coverage">Scored and unscored claims in the current scope.</p>
+<p class="panel-sub" id="ix-note-coverage">Scored and unscored claims in the saved export.</p>
 <div class="ix-card-tools"><div class="ix-segments" role="group" aria-label="Verification coverage chart type"><button type="button" data-chart-type="bar" aria-pressed="true">Bar</button><button type="button" data-chart-type="doughnut" aria-pressed="false">Donut</button></div></div>
 <div class="ix-chart-wrap" id="ix-wrap-coverage"><canvas id="ix-chart-coverage" role="img" aria-label="Verification coverage" aria-describedby="ix-note-coverage"></canvas><p class="ix-empty" hidden></p></div><div class="ix-table-wrap" id="ix-table-coverage" hidden></div></article><article class="panel ix-method"><h3>About this dataset</h3><dl id="ix-metadata"></dl><ul>
 <li>Market-verification categories retain their original definitions. They are not NLI support probabilities or guarantees of truth.</li>
 <li>Unscored claims do not contribute to accuracy or verification-score denominators. Undefined rates display as unavailable.</li>
-<li>Sentiment and NLI results are separate saved cohorts. Claim filters do not apply to those totals.</li>
+<li>Sentiment and NLI results are separate saved cohorts; their totals need not match the market-verification dataset.</li>
 <li>Dates, when exported, use the existing POST_DATE field; a comment may inherit its parent post's timestamp.</li>
 <li>The event calendar opens official sources; it does not imply that this dataset contains reactions to those events.</li>
 <li><a href="/api/dashboard-data" target="_blank" rel="noopener">Open the results export</a>.</li></ul></article></div></section>

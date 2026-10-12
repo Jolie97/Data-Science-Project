@@ -100,8 +100,7 @@ if (typeof document !== "undefined") (() => {
   const percent = (n,d) => d ? `${(n/d*100).toFixed(1)}%` : "—";
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const M = CryptoTruthData;
-  let data, selected=[], current, dates=[], activeDates=[], pending=false, rowMode=false;
-  const state = {year:"all",coin:"all",sub:"all",kind:"all",from:null,to:null};
+  let data, selected=[], current, pending=false, rowMode=false;
   function el(tag, text) {
     const e = document.createElement(tag);
     e.textContent = text;
@@ -120,7 +119,7 @@ if (typeof document !== "undefined") (() => {
     host,
     headers,
     rows,
-    caption = "Exact values for the selected data"
+    caption = "Exact values in the saved export"
   ) {
     const t = document.createElement("table");
     t.append(el("caption", caption));
@@ -141,7 +140,7 @@ if (typeof document !== "undefined") (() => {
     }
     if (!rows.length) {
       const r = document.createElement("tr"),
-        td = el("td", "No matching data. Broaden the filters or reset.");
+        td = el("td", "No exported values are available for this chart.");
       td.colSpan = headers.length;
       r.append(td);
       body.append(r);
@@ -192,7 +191,7 @@ if (typeof document !== "undefined") (() => {
     key,
     config,
     hasData,
-    emptyMessage = "No matching data. Broaden the filters or reset."
+    emptyMessage = "No exported values are available for this chart."
   ) {
     const card = cards.get(key),
       canvas = $(`ix-chart-${key}`),
@@ -315,9 +314,9 @@ if (typeof document !== "undefined") (() => {
     table($(`ix-table-${key}`),["Category",...value.datasets.map(d=>d.label)],value.labels.map((l,i)=>[l,...value.datasets.map(d=>number(d.data[i]))]));
   }
   function communityRows() {
-    const min=Number($("ix-threshold").value),rank=$("ix-rank").value;
+    const rank=$("ix-rank").value;
     const metric=r=>rank==="trust" ? r.verification_score : rank==="coverage" ? M.ratio(r.scored_claims,r.claims) : r.claims;
-    return current.subreddit_scores.filter(r=>(rowMode || state.sub==="all" || r.subreddit===state.sub) && r.scored_claims>=min)
+    return [...current.subreddit_scores]
       .sort((a,b)=>(metric(b)??-1)-(metric(a)??-1) || a.subreddit.localeCompare(b.subreddit));
   }
   function drawCommunities() {
@@ -337,8 +336,8 @@ if (typeof document !== "undefined") (() => {
   }
   function update() {
     pending=false;
-    selected=rowMode ? M.filter(data.claim_records,state) : [];
-    current=rowMode ? M.aggregate(selected) : data;
+    selected=rowMode ? data.claim_records : [];
+    current=data;
     const o=current.overview,meta=current.meta;
     const count=name=>o.verdict_breakdown.values[o.verdict_breakdown.labels.indexOf(name)] ?? 0;
     const accurate=count("ACCURATE"),approximate=count("APPROXIMATE");
@@ -355,7 +354,7 @@ if (typeof document !== "undefined") (() => {
     }
     categorical("verdict",o.verdict_breakdown.labels,o.verdict_breakdown.values,verdictColors,"Claims");
     table($("ix-verdict-labels"),["Status","Claims","Share"],current.status_counts.labels.map((l,i)=>[l,number(current.status_counts.values[i]),percent(current.status_counts.values[i],meta.total_claims)]));
-    const coinMatrix=M.selectMatrix(o.accuracy_by_coin,rowMode ? "all" : state.coin);
+    const coinMatrix=o.accuracy_by_coin;
     const coinMode=$("ix-topic-group").value==="coin";
     const grouped=coinMode ? {labels:coinMatrix.labels,values:coinMatrix.labels.map((_,i)=>M.sum(coinMatrix.datasets.map(d=>d.data[i])))} : o.claim_types;
     $("ix-title-topics").textContent=coinMode ? "Scored claims by coin" : "Claims by type";
@@ -365,32 +364,16 @@ if (typeof document !== "undefined") (() => {
     drawCommunities();
     drawMatrix("verification",current.coverage_by_type);
     categorical("coverage",["Unscored","Scored"],[meta.not_scored_claims,meta.scored_claims],["#9baec7","#52e0aa"],"Claims");
-    $("ix-threshold-label").textContent=$("ix-threshold").value;
-    $("ix-from-label").textContent=state.from || data.meta.date_start || "—";
-    $("ix-to-label").textContent=state.to || data.meta.date_end || "—";
-    $("ix-status").textContent=rowMode ? `${number(selected.length)} of ${number(data.meta.total_claims)} claims selected. Sentiment remains a separate result set.` :
-      `${number(meta.total_claims)} claims in the saved summary. Coin selection: asset charts only. Subreddit selection: community ranking only. Other totals remain overall.`;
+    $("ix-status").textContent=`${number(meta.total_claims)} claims in the saved export. Sentiment is a separate result set.`;
+    $("ix-download").textContent=rowMode ? "Download claims CSV" : "Download summaries CSV";
     const metadata=[["Source",data.meta.source_file],["Generated",data.meta.generated_at],["Full period",`${data.meta.date_start || "Unknown"} → ${data.meta.date_end || "Unknown"}`],
-      ["Full dataset",`${number(data.meta.total_claims)} claims`],["Current scope",rowMode ? `${number(selected.length)} claims` : "Saved overall summary"],
+      ["Full dataset",`${number(data.meta.total_claims)} claims`],["View", "Complete saved dataset"],
       ["Missing dates",number(data.meta.missing_dates)],["Sentiment cohort",sentiment ? `${number(M.sum(sentiment.values))} saved results` : "Unavailable"],
       ["Verification score",data.meta.trust_formula || "(accurate + 0.5 × approximate) / scored × 100"]];
     $("ix-metadata").replaceChildren(...metadata.flatMap(([k,v])=>[el("dt",k),el("dd",v??"Unavailable")]));
     $("ix-download").disabled=false;
   }
   function schedule() {if(!pending){pending=true;requestAnimationFrame(update);}}
-  function resetDates() {
-    activeDates=dates.filter(d=>state.year==="all" || d.startsWith(state.year));
-    state.from=null;state.to=null;
-    $("ix-from").max=$("ix-to").max=String(Math.max(0,activeDates.length-1));
-    $("ix-from").value="0";$("ix-to").value=String(Math.max(0,activeDates.length-1));
-  }
-  function reset() {
-    Object.assign(state,{year:"all",coin:"all",sub:"all",kind:"all",from:null,to:null});
-    for(const id of ["ix-year","ix-coin","ix-sub"]) $(id).value="all";
-    $("ix-threshold").value="0";$("ix-topic-group").value="type";$("ix-rank").value="volume";
-    document.querySelectorAll("[data-kind]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.kind==="all")));
-    resetDates();schedule();
-  }
   function download() {
     let rows;
     if(rowMode) rows=[["date","coin","subreddit","claim_type","status","scored","verdict"],...selected.map(r=>[r.date,r.coin,r.subreddit,r.claim_type,r.status,r.scored,r.verdict])];
@@ -399,21 +382,20 @@ if (typeof document !== "undefined") (() => {
       for(const [key,label] of [["verdict_breakdown","Overall market verdict"],["claim_types","Overall claim types"],["checkable_share","Overall checkability"]])
         data.overview[key].labels.forEach((l,i)=>rows.push([label,l,"Claims",data.overview[key].values[i]]));
       current.status_counts.labels.forEach((l,i)=>rows.push(["Overall verification status",l,"Claims",current.status_counts.values[i]]));
-      const coin=M.selectMatrix(data.overview.accuracy_by_coin,state.coin);
-      coin.labels.forEach((l,i)=>coin.datasets.forEach(d=>rows.push(["Selected coin charts",l,d.label,d.data[i]])));
+      const coin=data.overview.accuracy_by_coin;
+      coin.labels.forEach((l,i)=>coin.datasets.forEach(d=>rows.push(["Accuracy by coin",l,d.label,d.data[i]])));
       for(const [matrix,scope] of [[data.overview.accuracy_by_type,"Overall accuracy by type"],[data.coverage_by_type,"Overall coverage by type"]])
         matrix.labels.forEach((l,i)=>matrix.datasets.forEach(d=>rows.push([scope,l,d.label,d.data[i]])));
       const sent=savedSentiment();if(sent) sent.labels.forEach((l,i)=>rows.push(["Separate sentiment cohort",l,"Results",sent.values[i]]));
-      communityRows().forEach(r=>["claims","scored_claims","verification_score"].forEach(k=>rows.push(["Selected community ranking",r.subreddit,k,r[k]])));
+      communityRows().forEach(r=>["claims","scored_claims","verification_score"].forEach(k=>rows.push(["Community ranking",r.subreddit,k,r[k]])));
     }
     const quote=value=>{let s=String(value??"");if(/^[=+@\-\t\r]/.test(s))s="'"+s;return '"'+s.replaceAll('"','""')+'"';};
     const url=URL.createObjectURL(new Blob([rows.map(r=>r.map(quote).join(",")).join("\r\n")],{type:"text/csv;charset=utf-8"}));
-    const a=document.createElement("a");a.href=url;a.download=rowMode ? "CryptoTruth_filtered_claims.csv" : "CryptoTruth_current_summaries.csv";a.click();
+    const a=document.createElement("a");a.href=url;a.download=rowMode ? "CryptoTruth_claims.csv" : "CryptoTruth_current_summaries.csv";a.click();
     setTimeout(()=>URL.revokeObjectURL(url),1000);
   }
   function setup() {
     rowMode=Array.isArray(data.claim_records);
-    dates=rowMode ? [...new Set(data.claim_records.map(r=>r.date).filter(Boolean))].sort() : [];
     for(const node of document.querySelectorAll("[data-card]")) {
       const key=node.dataset.card;
       cards.set(key,{type:node.querySelector("[data-chart-type]").dataset.chartType,chart:null,table:false});
@@ -429,28 +411,8 @@ if (typeof document !== "undefined") (() => {
         if(!card.table && card.chart) requestAnimationFrame(()=>card.chart.resize());
       });
     }
-    const coins=rowMode ? [...new Set(data.claim_records.map(r=>r.coin??"Unknown"))].sort() : data.overview.accuracy_by_coin.labels;
-    const subs=rowMode ? [...new Set(data.claim_records.map(r=>r.subreddit??"Unknown"))].sort() : data.subreddit_scores.map(r=>r.subreddit);
-    for(const [id,items] of [["ix-year",[...new Set(dates.map(d=>d.slice(0,4)))]],["ix-coin",coins],["ix-sub",subs]])
-      items.forEach(v=>{const opt=el("option",v);opt.value=v;$(id).append(opt);});
-    $("ix-controls").disabled=false;
-    for(const id of ["ix-year","ix-from","ix-to"]) $(id).disabled=!rowMode || !dates.length;
-    document.querySelectorAll("[data-kind]").forEach(b=>{b.disabled=!rowMode;b.addEventListener("click",()=>{
-      state.kind=b.dataset.kind;document.querySelectorAll("[data-kind]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));schedule();
-    });});
-    $("ix-filter-hint").textContent=rowMode ? "Filter verified claims" : "Explore saved breakdowns";
-    $("ix-scope").textContent=rowMode ? "Year, dates, coin, subreddit and coverage combine across claim charts. Sentiment uses its separate saved results. Undated claims remain included until a date filter is applied." :
-      "This export contains summaries. Coin filters apply only to asset charts; subreddit filters apply only to community rankings. Date and scored/unscored filters need claim records and are disabled.";
-    $("ix-year").addEventListener("change",()=>{state.year=$("ix-year").value;resetDates();schedule();});
-    for(const [id,key] of [["ix-coin","coin"],["ix-sub","sub"]]) $(id).addEventListener("change",()=>{state[key]=$(id).value;schedule();});
-    for(const id of ["ix-from","ix-to"]) $(id).addEventListener("input",()=>{
-      if(Number($("ix-from").value)>Number($("ix-to").value)) $(id==="ix-from"?"ix-to":"ix-from").value=$(id).value;
-      state.from=activeDates[Number($("ix-from").value)]??null;state.to=activeDates[Number($("ix-to").value)]??null;schedule();
-    });
-    $("ix-threshold").max=String(Math.max(1,...data.subreddit_scores.map(r=>r.scored_claims)));
-    $("ix-threshold").addEventListener("input",schedule);
     for(const id of ["ix-topic-group","ix-rank"]) $(id).addEventListener("change",schedule);
-    $("ix-reset").addEventListener("click",reset);$("ix-download").addEventListener("click",download);
+    $("ix-download").addEventListener("click",download);
     const events=[
       ["Hot · TOKEN2049 Singapore","7–8 October 2026","https://www.token2049.com/singapore/faqs"],
       ["EDCON Kuala Lumpur","17–18 October 2026","https://www.edcon.io/en/"],
@@ -460,7 +422,7 @@ if (typeof document !== "undefined") (() => {
       ["Hot · Solana Breakpoint","15–17 November 2026","https://solana.com/breakpoint"]];
     events.forEach(([label,date,url])=>{const b=el("button",label);b.type="button";b.dataset.hot=String(label.startsWith("Hot · "));b.title=`${date} · Open official event page`;
       b.setAttribute("aria-label",`${label}, ${date}, opens official page in a new tab`);b.addEventListener("click",()=>window.open(url,"_blank","noopener,noreferrer"));$("ix-events").append(b);});
-    resetDates();update();
+    update();
   }
   async function load() {
     const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),30000);
@@ -470,7 +432,7 @@ if (typeof document !== "undefined") (() => {
       data=M.validate(await response.json());setup();
     } catch(error) {
       $("ix-status").dataset.error="true";$("ix-status").textContent=error.name==="AbortError" ? "The dashboard request timed out. Reload to retry." : error.message;
-      $("ix-controls").disabled=true;$("ix-download").disabled=true;
+      $("ix-download").disabled=true;
       document.querySelectorAll(".ix-chart-wrap").forEach(w=>{w.querySelector("canvas").hidden=true;const p=w.querySelector(".ix-empty");p.hidden=false;p.textContent="Real dashboard data is unavailable. No replacement values are shown.";});
     } finally {clearTimeout(timer);}
   }
