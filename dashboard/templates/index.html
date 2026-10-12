@@ -959,61 +959,296 @@
       }
 
       /* ---- Claim checker (chatbot) ---- */
-      .ct-verify { display: grid; gap: 18px; }
-      .ct-verify textarea { width: 100%; resize: vertical; min-height: 84px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 14px; color: var(--text); font: inherit; font-size: 14px; line-height: 1.6; padding: 14px 16px; }
-      .ct-verify textarea::placeholder { color: var(--subtle); }
-      .ct-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; margin-top: 12px; }
-      .ct-examples { display: flex; flex-wrap: wrap; gap: 8px; }
-      .ct-ex { background: transparent; border: 1px solid var(--line); color: var(--muted); border-radius: 999px; padding: 6px 12px; font-size: 12px; cursor: pointer; }
-      .ct-ex:hover { color: var(--text); background: var(--surface-2); }
-      .ct-btn { background: var(--green); color: #06231a; border: 0; border-radius: 12px; padding: 11px 20px; font-weight: 700; font-size: 13px; cursor: pointer; }
-      .ct-btn:disabled { opacity: 0.6; cursor: wait; }
-      .ct-hidden-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-      .ct-result { border-top: 1px solid var(--line); padding-top: 18px; display: grid; gap: 14px; }
-      .ct-head { display: flex; align-items: center; gap: 16px; }
-      .ct-high { --c: var(--green); }
-      .ct-caution { --c: #f5c26b; }
-      .ct-low { --c: var(--red); }
-      .ct-unverified { --c: var(--neutral); }
-      .ct-score { width: 68px; height: 68px; flex: 0 0 auto; border-radius: 50%; display: grid; place-items: center; font-size: 24px; font-weight: 800; border: 3px solid var(--c); color: var(--c); }
-      .ct-label { font-size: 18px; font-weight: 700; }
-      .ct-tier { font-size: 12px; color: var(--c); margin-top: 2px; }
-      .ct-expl { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.7; max-width: 70ch; }
-      .ct-sent { display: grid; gap: 6px; }
-      .ct-sent-row { display: flex; align-items: center; gap: 12px; font-size: 12px; color: var(--muted); }
-      .ct-track { position: relative; flex: 1; height: 8px; border-radius: 99px; background: linear-gradient(90deg, var(--red), var(--neutral), var(--green)); }
-      .ct-marker { position: absolute; top: 50%; width: 16px; height: 16px; border-radius: 50%; background: var(--text); border: 3px solid var(--bg); transform: translate(-50%, -50%); }
-      .ct-tone { font-size: 12px; color: var(--subtle); }
-      .ct-foot { font-size: 12px; color: var(--subtle); }
-      .ct-note { margin: 0; font-size: 12px; color: #f5c26b; }
-      .ct-error { margin: 0; color: var(--red); font-size: 13px; }
-      .ct-loading { margin: 0; color: var(--muted); font-size: 13px; }
+      .ct-verify {
+        display: grid;
+        gap: 18px;
+      }
+      .ct-verify textarea {
+        width: 100%;
+        resize: vertical;
+        min-height: 84px;
+        background: var(--surface-2);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        color: var(--text);
+        font: inherit;
+        font-size: 14px;
+        line-height: 1.6;
+        padding: 14px 16px;
+      }
+      .ct-verify textarea::placeholder {
+        color: var(--subtle);
+      }
+      .ct-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 12px;
+      }
+      .ct-examples {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .ct-ex {
+        background: transparent;
+        border: 1px solid var(--line);
+        color: var(--muted);
+        border-radius: 999px;
+        padding: 6px 12px;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .ct-ex:hover {
+        color: var(--text);
+        background: var(--surface-2);
+      }
+      .ct-btn {
+        background: var(--green);
+        color: #06231a;
+        border: 0;
+        border-radius: 12px;
+        padding: 11px 20px;
+        font-weight: 700;
+        font-size: 13px;
+        cursor: pointer;
+      }
+      .ct-btn:disabled {
+        opacity: 0.6;
+        cursor: wait;
+      }
+      .ct-hidden-label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+      }
+      .ct-result {
+        border-top: 1px solid var(--line);
+        padding-top: 18px;
+        display: grid;
+        gap: 14px;
+      }
+      .ct-head {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .ct-high {
+        --c: var(--green);
+      }
+      .ct-caution {
+        --c: #f5c26b;
+      }
+      .ct-low {
+        --c: var(--red);
+      }
+      .ct-unverified {
+        --c: var(--neutral);
+      }
+      .ct-score {
+        width: 68px;
+        height: 68px;
+        flex: 0 0 auto;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-size: 24px;
+        font-weight: 800;
+        border: 3px solid var(--c);
+        color: var(--c);
+      }
+      .ct-label {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .ct-tier {
+        font-size: 12px;
+        color: var(--c);
+        margin-top: 2px;
+      }
+      .ct-expl {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.7;
+        max-width: 70ch;
+      }
+      .ct-sent {
+        display: grid;
+        gap: 6px;
+      }
+      .ct-sent-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .ct-track {
+        position: relative;
+        flex: 1;
+        height: 8px;
+        border-radius: 99px;
+        background: linear-gradient(
+          90deg,
+          var(--red),
+          var(--neutral),
+          var(--green)
+        );
+      }
+      .ct-marker {
+        position: absolute;
+        top: 50%;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--text);
+        border: 3px solid var(--bg);
+        transform: translate(-50%, -50%);
+      }
+      .ct-tone {
+        font-size: 12px;
+        color: var(--subtle);
+      }
+      .ct-foot {
+        font-size: 12px;
+        color: var(--subtle);
+      }
+      .ct-note {
+        margin: 0;
+        font-size: 12px;
+        color: #f5c26b;
+      }
+      .ct-error {
+        margin: 0;
+        color: var(--red);
+        font-size: 13px;
+      }
+      .ct-loading {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
 
       /* Styles for sections 04–09 */
-      .export-status { margin: 32px 0 8px; padding: 13px 16px; color: var(--muted); border: 1px solid var(--line); border-radius: 10px; font-size: 12px; line-height: 1.7; }
-      .export-status[data-state="error"] { color: #ffb2be; border-color: #714254; }
-      .export-kpis { margin-bottom: 17px; }
-      .export-single { grid-template-columns: minmax(0,1fr); }
-      .export-chart { height: 320px; position: relative; margin-top: 24px; }
-      .export-chart canvas { max-width: 100%; }
-      .export-empty { color: var(--muted); padding: 36px 12px; font-size: 13px; line-height: 1.7; }
-      .export-table { margin-top: 20px; color: var(--muted); font-size: 11px; }
-      .export-table summary { cursor: pointer; padding: 10px 0; color: #afc0d3; }
-      .export-table summary:hover { color: var(--green); }
-      .export-table summary:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
-      .export-table .table-wrap { overflow: auto; max-height: 330px; }
-      .export-table table { width: 100%; border-collapse: collapse; font-size: 11px; }
-      .export-table th, .export-table td { padding: 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
-      .export-table caption { text-align: left; padding: 8px 10px; color: var(--muted); }
-      .export-method { margin-top: 17px; }
-      .export-method dl { display: grid; grid-template-columns: minmax(100px,150px) 1fr; gap: 12px 16px; font-size: 12px; line-height: 1.7; }
-      .export-method dt { color: var(--subtle); }
-      .export-method dd { margin: 0; overflow-wrap: anywhere; }
-      .export-method ul { padding-left: 18px; color: var(--muted); font-size: 12px; line-height: 1.9; }
-      .export-method li + li { margin-top: 6px; }
-      @media (max-width: 650px) { .export-chart { height: 300px; } .export-method dl { grid-template-columns: 1fr; gap: 4px; } .export-method dd { margin-bottom: 12px; } }
+      .export-status {
+        margin: 32px 0 8px;
+        padding: 13px 16px;
+        color: var(--muted);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        font-size: 12px;
+        line-height: 1.7;
+      }
+      .export-status[data-state="error"] {
+        color: #ffb2be;
+        border-color: #714254;
+      }
+      .export-kpis {
+        margin-bottom: 17px;
+      }
+      .export-single {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .export-chart {
+        height: 320px;
+        position: relative;
+        margin-top: 24px;
+      }
+      .export-chart canvas {
+        max-width: 100%;
+      }
+      .export-empty {
+        color: var(--muted);
+        padding: 36px 12px;
+        font-size: 13px;
+        line-height: 1.7;
+      }
+      .export-table {
+        margin-top: 20px;
+        color: var(--muted);
+        font-size: 11px;
+      }
+      .export-table summary {
+        cursor: pointer;
+        padding: 10px 0;
+        color: #afc0d3;
+      }
+      .export-table summary:hover {
+        color: var(--green);
+      }
+      .export-table summary:focus-visible {
+        outline: 2px solid var(--green);
+        outline-offset: 4px;
+      }
+      .export-table .table-wrap {
+        overflow: auto;
+        max-height: 330px;
+      }
+      .export-table table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 11px;
+      }
+      .export-table th,
+      .export-table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid var(--line);
+        white-space: nowrap;
+      }
+      .export-table caption {
+        text-align: left;
+        padding: 8px 10px;
+        color: var(--muted);
+      }
+      .export-method {
+        margin-top: 17px;
+      }
+      .export-method dl {
+        display: grid;
+        grid-template-columns: minmax(100px, 150px) 1fr;
+        gap: 12px 16px;
+        font-size: 12px;
+        line-height: 1.7;
+      }
+      .export-method dt {
+        color: var(--subtle);
+      }
+      .export-method dd {
+        margin: 0;
+        overflow-wrap: anywhere;
+      }
+      .export-method ul {
+        padding-left: 18px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.9;
+      }
+      .export-method li + li {
+        margin-top: 6px;
+      }
+      @media (max-width: 650px) {
+        .export-chart {
+          height: 300px;
+        }
+        .export-method dl {
+          grid-template-columns: 1fr;
+          gap: 4px;
+        }
+        .export-method dd {
+          margin-bottom: 12px;
+        }
+      }
     </style>
-    <script defer src="{{ url_for('static', filename='dashboard_new.js') }}"></script>
+    <script
+      defer
+      src="{{ url_for('static', filename='dashboard_new.js') }}"
+    ></script>
   </head>
   <body>
     <!-- Original data binding: results_file1.json / results_file2.json via Flask/Jinja. POSITIVE = Supported, NEGATIVE = Refuted. -->
@@ -1100,7 +1335,8 @@
             ><svg class="icon"><use href="#i-arrow" /></svg>Asset accuracy</a
           >
           <a class="nav-link" href="#claims"
-            ><svg class="icon"><use href="#i-check" /></svg>Score &amp; sample</a
+            ><svg class="icon"><use href="#i-check" /></svg>Score &amp;
+            sample</a
           >
           <a class="nav-link" href="#scoring"
             ><svg class="icon"><use href="#i-shield" /></svg>Subreddit
@@ -1405,63 +1641,379 @@
             </article>
           </div>
         </section>
-<div id="dashboard-status" class="export-status" role="status" aria-live="polite">Loading market-verification snapshot…</div>
-<section id="subreddits" aria-labelledby="subreddits-title"><div class="section-header"><div><h2 id="subreddits-title"><span class="section-index">04 /</span>Market claim accuracy</h2><p>The existing market-verification verdicts, restricted to scored claims.</p></div><span class="chip">Market verification</span></div>
-<div class="kpi-grid export-kpis"><article class="kpi-card"><div class="kpi-label">Extracted claims</div><div class="kpi-value" id="export-total">—</div></article><article class="kpi-card"><div class="kpi-label">Scored claims</div><div class="kpi-value" id="export-scored">—</div></article><article class="kpi-card"><div class="kpi-label">Not scored</div><div class="kpi-value" id="export-unscored">—</div></article><article class="kpi-card"><div class="kpi-label">Scored share</div><div class="kpi-value" id="export-rate">—</div></article></div>
-<div class="cards-grid">
-<article class="panel export-panel"><div class="panel-head"><div><div class="panel-kicker">pie / JSON snapshot</div><h3>Verdict distribution</h3><p class="panel-sub">ACCURATE / APPROXIMATE / INACCURATE. Shares use scored claims as the denominator.</p></div></div>
-  <div class="export-chart"><canvas id="export-chart-verdict" role="img" aria-label="Verdict distribution; exact values in the data table below" aria-describedby="export-table-verdict"></canvas><p class="export-empty" hidden></p></div>
-  <details class="export-table"><summary>View exact data</summary><div class="table-wrap" id="export-table-verdict"></div></details></article>
-<article class="panel export-panel"><div class="panel-head"><div><div class="panel-kicker">pie / JSON snapshot</div><h3>Verification coverage</h3><p class="panel-sub">All extracted claims, including those the original pipeline could not score.</p></div></div>
-  <div class="export-chart"><canvas id="export-chart-checkable" role="img" aria-label="Verification coverage; exact values in the data table below" aria-describedby="export-table-checkable"></canvas><p class="export-empty" hidden></p></div>
-  <details class="export-table"><summary>View exact data</summary><div class="table-wrap" id="export-table-checkable"></div></details></article>
-</div>
-</section>
-<section id="topics" aria-labelledby="topics-title"><div class="section-header"><div><h2 id="topics-title"><span class="section-index">05 /</span>Claim types</h2><p>What the pipeline extracted, and how checkable claims were classified.</p></div><span class="chip">Market verification</span></div>
-<div class="cards-grid">
-<article class="panel export-panel"><div class="panel-head"><div><div class="panel-kicker">bar / JSON snapshot</div><h3>Claims by type</h3><p class="panel-sub">All claims, in the original ascending count order.</p></div></div>
-  <div class="export-chart"><canvas id="export-chart-types" role="img" aria-label="Claims by type; exact values in the data table below" aria-describedby="export-table-types"></canvas><p class="export-empty" hidden></p></div>
-  <details class="export-table"><summary>View exact data</summary><div class="table-wrap" id="export-table-types"></div></details></article>
-<article class="panel export-panel"><div class="panel-head"><div><div class="panel-kicker">bar / JSON snapshot</div><h3>Accuracy by claim type</h3><p class="panel-sub">Stacked counts of scored claims only.</p></div></div>
-  <div class="export-chart"><canvas id="export-chart-typeAccuracy" role="img" aria-label="Accuracy by claim type; exact values in the data table below" aria-describedby="export-table-typeAccuracy"></canvas><p class="export-empty" hidden></p></div>
-  <details class="export-table"><summary>View exact data</summary><div class="table-wrap" id="export-table-typeAccuracy"></div></details></article>
-</div>
-</section>
-<section id="divergence" aria-labelledby="divergence-title"><div class="section-header"><div><h2 id="divergence-title"><span class="section-index">06 /</span>Accuracy across assets</h2><p>Compare market-verification results across the assets identified by the pipeline.</p></div><span class="chip">Market verification</span></div>
-<div class="cards-grid export-single">
-<article class="panel export-panel"><div class="panel-head"><div><div class="panel-kicker">bar / JSON snapshot</div><h3>Accuracy by coin</h3><p class="panel-sub">Scored claims only. Generic crypto claims may be mapped to Bitcoin by the original verifier.</p></div></div>
-  <div class="export-chart"><canvas id="export-chart-coins" role="img" aria-label="Accuracy by coin; exact values in the data table below" aria-describedby="export-table-coins"></canvas><p class="export-empty" hidden></p></div>
-  <details class="export-table"><summary>View exact data</summary><div class="table-wrap" id="export-table-coins"></div></details></article>
-</div>
-</section>
-<section id="claims" aria-labelledby="claims-title"><div class="section-header"><div><h2 id="claims-title"><span class="section-index">07 /</span>Score & sample size</h2><p>One point per subreddit: compare the original trust score with the amount of scored evidence.</p></div><span class="chip">Market verification</span></div>
-<div class="cards-grid export-single">
-<article class="panel export-panel"><div class="panel-head"><div><div class="panel-kicker">scatter / JSON snapshot</div><h3>Subreddit evidence scatter</h3><p class="panel-sub">X: scored claims · Y: trust score (0–100). Hover or focus the data table for exact values.</p></div></div>
-  <div class="export-chart"><canvas id="export-chart-samples" role="img" aria-label="Subreddit evidence scatter; exact values in the data table below" aria-describedby="export-table-samples"></canvas><p class="export-empty" hidden></p></div>
-  <details class="export-table"><summary>View exact data</summary><div class="table-wrap" id="export-table-samples"></div></details></article>
-</div>
-</section>
-<section id="scoring" aria-labelledby="scoring-title"><div class="section-header"><div><h2 id="scoring-title"><span class="section-index">08 /</span>Subreddit & user scores</h2><p>Original summary scores and the original qualifying user selection.</p></div><span class="chip">Market verification</span></div>
-<div class="cards-grid">
-<article class="panel export-panel"><div class="panel-head"><div><div class="panel-kicker">bar / JSON snapshot</div><h3>Subreddit trust scores</h3><p class="panel-sub">Only subreddits with at least one scored claim. Bars retain the original ascending order.</p></div></div>
-  <div class="export-chart"><canvas id="export-chart-trust" role="img" aria-label="Subreddit trust scores; exact values in the data table below" aria-describedby="export-table-trust"></canvas><p class="export-empty" hidden></p></div>
-  <details class="export-table"><summary>View exact data</summary><div class="table-wrap" id="export-table-trust"></div></details></article>
-<article class="panel export-panel"><div class="panel-head"><div><div class="panel-kicker">bar / JSON snapshot</div><h3>User score range</h3><p class="panel-sub">Original lowest/highest 10, deduplicated; at least 3 scored claims per user.</p></div></div>
-  <div class="export-chart"><canvas id="export-chart-users" role="img" aria-label="User score range; exact values in the data table below" aria-describedby="export-table-users"></canvas><p class="export-empty" hidden></p></div>
-  <details class="export-table"><summary>View exact data</summary><div class="table-wrap" id="export-table-users"></div></details></article>
-</div>
-</section>
-<section id="data-notes" aria-labelledby="data-notes-title"><div class="section-header"><div><h2 id="data-notes-title"><span class="section-index">09 /</span>Data coverage & methodology</h2><p>Check what was scored, what was excluded, and which snapshot is on screen.</p></div><span class="chip">Market verification</span></div>
-<div class="cards-grid">
-<article class="panel export-panel"><div class="panel-head"><div><div class="panel-kicker">bar / JSON snapshot</div><h3>Checkability by claim type</h3><p class="panel-sub">Counts from the original scored/not-scored crosstab.</p></div></div>
-  <div class="export-chart"><canvas id="export-chart-coverage" role="img" aria-label="Checkability by claim type; exact values in the data table below" aria-describedby="export-table-coverage"></canvas><p class="export-empty" hidden></p></div>
-  <details class="export-table"><summary>View exact data</summary><div class="table-wrap" id="export-table-coverage"></div></details></article>
-<article class="panel export-panel"><div class="panel-head"><div><div class="panel-kicker">bar / JSON snapshot</div><h3>Pipeline status breakdown</h3><p class="panel-sub">Counts of the existing STATUS column, including unscored outcomes.</p></div></div>
-  <div class="export-chart"><canvas id="export-chart-statuses" role="img" aria-label="Pipeline status breakdown; exact values in the data table below" aria-describedby="export-table-statuses"></canvas><p class="export-empty" hidden></p></div>
-  <details class="export-table"><summary>View exact data</summary><div class="table-wrap" id="export-table-statuses"></div></details></article>
-</div>
-<article class="panel export-method"><h3>About this export</h3><dl id="export-metadata"></dl><ul id="export-notes"></ul></article>
-</section>
+        <div
+          id="dashboard-status"
+          class="export-status"
+          role="status"
+          aria-live="polite"
+        >
+          Loading market-verification snapshot…
+        </div>
+        <section id="subreddits" aria-labelledby="subreddits-title">
+          <div class="section-header">
+            <div>
+              <h2 id="subreddits-title">
+                <span class="section-index">04 /</span>Market claim accuracy
+              </h2>
+              <p>
+                The existing market-verification verdicts, restricted to scored
+                claims.
+              </p>
+            </div>
+            <span class="chip">Market verification</span>
+          </div>
+          <div class="kpi-grid export-kpis">
+            <article class="kpi-card">
+              <div class="kpi-label">Extracted claims</div>
+              <div class="kpi-value" id="export-total">—</div>
+            </article>
+            <article class="kpi-card">
+              <div class="kpi-label">Scored claims</div>
+              <div class="kpi-value" id="export-scored">—</div>
+            </article>
+            <article class="kpi-card">
+              <div class="kpi-label">Not scored</div>
+              <div class="kpi-value" id="export-unscored">—</div>
+            </article>
+            <article class="kpi-card">
+              <div class="kpi-label">Scored share</div>
+              <div class="kpi-value" id="export-rate">—</div>
+            </article>
+          </div>
+          <div class="cards-grid">
+            <article class="panel export-panel">
+              <div class="panel-head">
+                <div>
+                  <div class="panel-kicker">pie / JSON snapshot</div>
+                  <h3>Verdict distribution</h3>
+                  <p class="panel-sub">
+                    ACCURATE / APPROXIMATE / INACCURATE. Shares use scored
+                    claims as the denominator.
+                  </p>
+                </div>
+              </div>
+              <div class="export-chart">
+                <canvas
+                  id="export-chart-verdict"
+                  role="img"
+                  aria-label="Verdict distribution; exact values in the data table below"
+                  aria-describedby="export-table-verdict"
+                ></canvas>
+                <p class="export-empty" hidden></p>
+              </div>
+              <details class="export-table">
+                <summary>View exact data</summary>
+                <div class="table-wrap" id="export-table-verdict"></div>
+              </details>
+            </article>
+            <article class="panel export-panel">
+              <div class="panel-head">
+                <div>
+                  <div class="panel-kicker">pie / JSON snapshot</div>
+                  <h3>Verification coverage</h3>
+                  <p class="panel-sub">
+                    All extracted claims, including those the original pipeline
+                    could not score.
+                  </p>
+                </div>
+              </div>
+              <div class="export-chart">
+                <canvas
+                  id="export-chart-checkable"
+                  role="img"
+                  aria-label="Verification coverage; exact values in the data table below"
+                  aria-describedby="export-table-checkable"
+                ></canvas>
+                <p class="export-empty" hidden></p>
+              </div>
+              <details class="export-table">
+                <summary>View exact data</summary>
+                <div class="table-wrap" id="export-table-checkable"></div>
+              </details>
+            </article>
+          </div>
+        </section>
+        <section id="topics" aria-labelledby="topics-title">
+          <div class="section-header">
+            <div>
+              <h2 id="topics-title">
+                <span class="section-index">05 /</span>Claim types
+              </h2>
+              <p>
+                What the pipeline extracted, and how checkable claims were
+                classified.
+              </p>
+            </div>
+            <span class="chip">Market verification</span>
+          </div>
+          <div class="cards-grid">
+            <article class="panel export-panel">
+              <div class="panel-head">
+                <div>
+                  <div class="panel-kicker">bar / JSON snapshot</div>
+                  <h3>Claims by type</h3>
+                  <p class="panel-sub">
+                    All claims, in the original ascending count order.
+                  </p>
+                </div>
+              </div>
+              <div class="export-chart">
+                <canvas
+                  id="export-chart-types"
+                  role="img"
+                  aria-label="Claims by type; exact values in the data table below"
+                  aria-describedby="export-table-types"
+                ></canvas>
+                <p class="export-empty" hidden></p>
+              </div>
+              <details class="export-table">
+                <summary>View exact data</summary>
+                <div class="table-wrap" id="export-table-types"></div>
+              </details>
+            </article>
+            <article class="panel export-panel">
+              <div class="panel-head">
+                <div>
+                  <div class="panel-kicker">bar / JSON snapshot</div>
+                  <h3>Accuracy by claim type</h3>
+                  <p class="panel-sub">Stacked counts of scored claims only.</p>
+                </div>
+              </div>
+              <div class="export-chart">
+                <canvas
+                  id="export-chart-typeAccuracy"
+                  role="img"
+                  aria-label="Accuracy by claim type; exact values in the data table below"
+                  aria-describedby="export-table-typeAccuracy"
+                ></canvas>
+                <p class="export-empty" hidden></p>
+              </div>
+              <details class="export-table">
+                <summary>View exact data</summary>
+                <div class="table-wrap" id="export-table-typeAccuracy"></div>
+              </details>
+            </article>
+          </div>
+        </section>
+        <section id="divergence" aria-labelledby="divergence-title">
+          <div class="section-header">
+            <div>
+              <h2 id="divergence-title">
+                <span class="section-index">06 /</span>Accuracy across assets
+              </h2>
+              <p>
+                Compare market-verification results across the assets identified
+                by the pipeline.
+              </p>
+            </div>
+            <span class="chip">Market verification</span>
+          </div>
+          <div class="cards-grid export-single">
+            <article class="panel export-panel">
+              <div class="panel-head">
+                <div>
+                  <div class="panel-kicker">bar / JSON snapshot</div>
+                  <h3>Accuracy by coin</h3>
+                  <p class="panel-sub">
+                    Scored claims only. Generic crypto claims may be mapped to
+                    Bitcoin by the original verifier.
+                  </p>
+                </div>
+              </div>
+              <div class="export-chart">
+                <canvas
+                  id="export-chart-coins"
+                  role="img"
+                  aria-label="Accuracy by coin; exact values in the data table below"
+                  aria-describedby="export-table-coins"
+                ></canvas>
+                <p class="export-empty" hidden></p>
+              </div>
+              <details class="export-table">
+                <summary>View exact data</summary>
+                <div class="table-wrap" id="export-table-coins"></div>
+              </details>
+            </article>
+          </div>
+        </section>
+        <section id="claims" aria-labelledby="claims-title">
+          <div class="section-header">
+            <div>
+              <h2 id="claims-title">
+                <span class="section-index">07 /</span>Score & sample size
+              </h2>
+              <p>
+                One point per subreddit: compare the original trust score with
+                the amount of scored evidence.
+              </p>
+            </div>
+            <span class="chip">Market verification</span>
+          </div>
+          <div class="cards-grid export-single">
+            <article class="panel export-panel">
+              <div class="panel-head">
+                <div>
+                  <div class="panel-kicker">scatter / JSON snapshot</div>
+                  <h3>Subreddit evidence scatter</h3>
+                  <p class="panel-sub">
+                    X: scored claims · Y: trust score (0–100). Hover or focus
+                    the data table for exact values.
+                  </p>
+                </div>
+              </div>
+              <div class="export-chart">
+                <canvas
+                  id="export-chart-samples"
+                  role="img"
+                  aria-label="Subreddit evidence scatter; exact values in the data table below"
+                  aria-describedby="export-table-samples"
+                ></canvas>
+                <p class="export-empty" hidden></p>
+              </div>
+              <details class="export-table">
+                <summary>View exact data</summary>
+                <div class="table-wrap" id="export-table-samples"></div>
+              </details>
+            </article>
+          </div>
+        </section>
+        <section id="scoring" aria-labelledby="scoring-title">
+          <div class="section-header">
+            <div>
+              <h2 id="scoring-title">
+                <span class="section-index">08 /</span>Subreddit & user scores
+              </h2>
+              <p>
+                Original summary scores and the original qualifying user
+                selection.
+              </p>
+            </div>
+            <span class="chip">Market verification</span>
+          </div>
+          <div class="cards-grid">
+            <article class="panel export-panel">
+              <div class="panel-head">
+                <div>
+                  <div class="panel-kicker">bar / JSON snapshot</div>
+                  <h3>Subreddit trust scores</h3>
+                  <p class="panel-sub">
+                    Only subreddits with at least one scored claim. Bars retain
+                    the original ascending order.
+                  </p>
+                </div>
+              </div>
+              <div class="export-chart">
+                <canvas
+                  id="export-chart-trust"
+                  role="img"
+                  aria-label="Subreddit trust scores; exact values in the data table below"
+                  aria-describedby="export-table-trust"
+                ></canvas>
+                <p class="export-empty" hidden></p>
+              </div>
+              <details class="export-table">
+                <summary>View exact data</summary>
+                <div class="table-wrap" id="export-table-trust"></div>
+              </details>
+            </article>
+            <article class="panel export-panel">
+              <div class="panel-head">
+                <div>
+                  <div class="panel-kicker">bar / JSON snapshot</div>
+                  <h3>User score range</h3>
+                  <p class="panel-sub">
+                    Original lowest/highest 10, deduplicated; at least 3 scored
+                    claims per user.
+                  </p>
+                </div>
+              </div>
+              <div class="export-chart">
+                <canvas
+                  id="export-chart-users"
+                  role="img"
+                  aria-label="User score range; exact values in the data table below"
+                  aria-describedby="export-table-users"
+                ></canvas>
+                <p class="export-empty" hidden></p>
+              </div>
+              <details class="export-table">
+                <summary>View exact data</summary>
+                <div class="table-wrap" id="export-table-users"></div>
+              </details>
+            </article>
+          </div>
+        </section>
+        <section id="data-notes" aria-labelledby="data-notes-title">
+          <div class="section-header">
+            <div>
+              <h2 id="data-notes-title">
+                <span class="section-index">09 /</span>Data coverage &
+                methodology
+              </h2>
+              <p>
+                Check what was scored, what was excluded, and which snapshot is
+                on screen.
+              </p>
+            </div>
+            <span class="chip">Market verification</span>
+          </div>
+          <div class="cards-grid">
+            <article class="panel export-panel">
+              <div class="panel-head">
+                <div>
+                  <div class="panel-kicker">bar / JSON snapshot</div>
+                  <h3>Checkability by claim type</h3>
+                  <p class="panel-sub">
+                    Counts from the original scored/not-scored crosstab.
+                  </p>
+                </div>
+              </div>
+              <div class="export-chart">
+                <canvas
+                  id="export-chart-coverage"
+                  role="img"
+                  aria-label="Checkability by claim type; exact values in the data table below"
+                  aria-describedby="export-table-coverage"
+                ></canvas>
+                <p class="export-empty" hidden></p>
+              </div>
+              <details class="export-table">
+                <summary>View exact data</summary>
+                <div class="table-wrap" id="export-table-coverage"></div>
+              </details>
+            </article>
+            <article class="panel export-panel">
+              <div class="panel-head">
+                <div>
+                  <div class="panel-kicker">bar / JSON snapshot</div>
+                  <h3>Pipeline status breakdown</h3>
+                  <p class="panel-sub">
+                    Counts of the existing STATUS column, including unscored
+                    outcomes.
+                  </p>
+                </div>
+              </div>
+              <div class="export-chart">
+                <canvas
+                  id="export-chart-statuses"
+                  role="img"
+                  aria-label="Pipeline status breakdown; exact values in the data table below"
+                  aria-describedby="export-table-statuses"
+                ></canvas>
+                <p class="export-empty" hidden></p>
+              </div>
+              <details class="export-table">
+                <summary>View exact data</summary>
+                <div class="table-wrap" id="export-table-statuses"></div>
+              </details>
+            </article>
+          </div>
+          <article class="panel export-method">
+            <h3>About this export</h3>
+            <dl id="export-metadata"></dl>
+            <ul id="export-notes"></ul>
+          </article>
+        </section>
         <section id="verify" aria-labelledby="verify-title">
           <div class="section-header">
             <div>
@@ -1475,18 +2027,49 @@
           </div>
           <article class="panel ct-verify">
             <div>
-              <label for="ct-text" class="ct-hidden-label">Post or claim to check</label>
-              <textarea id="ct-text" maxlength="1000" placeholder="e.g. Price of ETH is up, trading at $2,634."></textarea>
+              <label for="ct-text" class="ct-hidden-label"
+                >Post or claim to check</label
+              >
+              <textarea
+                id="ct-text"
+                maxlength="1000"
+                placeholder="e.g. Price of ETH is up, trading at $2,634."
+              ></textarea>
               <div class="ct-actions">
                 <div class="ct-examples" id="ct-examples">
-                  <button type="button" class="ct-ex" data-text="Price of ETH is up, trading at $2,634.">Price claim</button>
-                  <button type="button" class="ct-ex" data-text="BTC just hit $500,000, easiest money ever!">Wild claim</button>
-                  <button type="button" class="ct-ex" data-text="Honestly I think this market is going to go crazy soon.">Opinion only</button>
+                  <button
+                    type="button"
+                    class="ct-ex"
+                    data-text="Price of ETH is up, trading at $2,634."
+                  >
+                    Price claim
+                  </button>
+                  <button
+                    type="button"
+                    class="ct-ex"
+                    data-text="BTC just hit $500,000, easiest money ever!"
+                  >
+                    Wild claim
+                  </button>
+                  <button
+                    type="button"
+                    class="ct-ex"
+                    data-text="Honestly I think this market is going to go crazy soon."
+                  >
+                    Opinion only
+                  </button>
                 </div>
-                <button type="button" class="ct-btn" id="ct-submit">Check claim</button>
+                <button type="button" class="ct-btn" id="ct-submit">
+                  Check claim
+                </button>
               </div>
             </div>
-            <div class="ct-result" id="ct-result" aria-live="polite" hidden></div>
+            <div
+              class="ct-result"
+              id="ct-result"
+              aria-live="polite"
+              hidden
+            ></div>
           </article>
         </section>
         <footer class="footer">
@@ -1631,15 +2214,40 @@
       // ---- Claim checker: calls Flask POST /api/verify ----
       (() => {
         const $ = (id) => document.getElementById(id);
-        const box = $("ct-text"), btn = $("ct-submit"), out = $("ct-result"), chip = $("ct-mode");
+        const box = $("ct-text"),
+          btn = $("ct-submit"),
+          out = $("ct-result"),
+          chip = $("ct-mode");
         if (!box || !btn || !out) return;
-        const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-        const money = (n) => "$" + new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 }).format(n);
-        const TIER = { high: "High trust", caution: "Use caution", low: "Low trust", unverified: "Can't be scored" };
+        const esc = (s) =>
+          String(s ?? "").replace(
+            /[&<>"']/g,
+            (c) =>
+              ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+              })[c]
+          );
+        const money = (n) =>
+          "$" +
+          new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 }).format(
+            n
+          );
+        const TIER = {
+          high: "High trust",
+          caution: "Use caution",
+          low: "Low trust",
+          unverified: "Can't be scored"
+        };
 
         function render(d) {
-          const t = d.trust || {}, s = d.sentiment || {};
-          chip.textContent = d.mode === "live" ? "Live pipeline" : "Demo mode (stub data)";
+          const t = d.trust || {},
+            s = d.sentiment || {};
+          chip.textContent =
+            d.mode === "live" ? "Live pipeline" : "Demo mode (stub data)";
           out.innerHTML = `
             <div class="ct-head ct-${esc(t.tier)}">
               <div class="ct-score">${t.score == null ? "–" : esc(t.score)}</div>
@@ -1658,28 +2266,45 @@
 
         async function check() {
           const text = box.value.trim();
-          if (!text) { box.focus(); return; }
-          btn.disabled = true; btn.textContent = "Checking…";
+          if (!text) {
+            box.focus();
+            return;
+          }
+          btn.disabled = true;
+          btn.textContent = "Checking…";
           out.hidden = false;
           out.innerHTML = '<p class="ct-loading">Checking claim…</p>';
           try {
-            const res = await fetch("/api/verify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text }) });
+            const res = await fetch("/api/verify", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ text })
+            });
             const data = await res.json().catch(() => ({}));
-            if (!res.ok) throw new Error(data.error || "Something went wrong. Please try again.");
+            if (!res.ok)
+              throw new Error(
+                data.error || "Something went wrong. Please try again."
+              );
             render(data);
           } catch (e) {
             out.innerHTML = `<p class="ct-error">${esc(e.message)}</p>`;
           } finally {
-            btn.disabled = false; btn.textContent = "Check claim";
+            btn.disabled = false;
+            btn.textContent = "Check claim";
           }
         }
 
         btn.addEventListener("click", check);
-        box.addEventListener("keydown", (e) => { if ((e.ctrlKey || e.metaKey) && e.key === "Enter") check(); });
-        document.querySelectorAll(".ct-ex").forEach((b) => b.addEventListener("click", () => { box.value = b.dataset.text; box.focus(); }));
+        box.addEventListener("keydown", (e) => {
+          if ((e.ctrlKey || e.metaKey) && e.key === "Enter") check();
+        });
+        document.querySelectorAll(".ct-ex").forEach((b) =>
+          b.addEventListener("click", () => {
+            box.value = b.dataset.text;
+            box.focus();
+          })
+        );
       })();
     </script>
   </body>
 </html>
-
-

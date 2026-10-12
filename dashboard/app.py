@@ -4,7 +4,7 @@ import sys
 import subprocess
 from pathlib import Path
 
-from flask import Flask, jsonify, render_template, request, send_file
+from flask import Flask, jsonify, render_template, request
 
 try:  # picks up COINGECKO key etc. from .env (searches upward from this file)
     from dotenv import load_dotenv
@@ -272,6 +272,7 @@ def api_dashboard_data():
     return response
 
 
+<<<<<<< HEAD
 @app.get("/api/dashboard-mock-data")
 def api_dashboard_mock_data():
     # This separate, read-only route never touches the real export or chatbot.
@@ -286,6 +287,8 @@ def api_dashboard_mock_data():
     return send_file(path, mimetype="application/json", conditional=True, max_age=0)
 
 
+=======
+>>>>>>> parent of 73989c4 (feat: declan - dashboard changes)
 @app.route("/api/verify", methods=["POST"])
 def api_verify():
     payload = request.get_json(silent=True) or {}

@@ -20,19 +20,20 @@
     amber: "#f5c76b",
     text: "#afc0d3",
     subtle: "#71869e",
-    grid: "rgba(173,195,218,.10)",
+    grid: "rgba(173,195,218,.10)"
   };
   const VERDICT_COLOR = {
     ACCURATE: COLOR.green,
     APPROXIMATE: COLOR.amber,
-    INACCURATE: COLOR.red,
+    INACCURATE: COLOR.red
   };
 
   const $ = (id) => document.getElementById(id);
   const isNum = (v) => typeof v === "number" && Number.isFinite(v);
   const fmt = (v) => (isNum(v) ? v.toLocaleString("en-US") : "—");
   const fmt1 = (v) => (isNum(v) ? v.toFixed(1) : "—");
-  const pct = (a, b) => (isNum(a) && isNum(b) && b > 0 ? `${((a / b) * 100).toFixed(1)}%` : "—");
+  const pct = (a, b) =>
+    isNum(a) && isNum(b) && b > 0 ? `${((a / b) * 100).toFixed(1)}%` : "—";
   const arr = (v) => (Array.isArray(v) ? v : []);
 
   // ---------- small DOM helpers (textContent only: usernames etc. are untrusted) ----------
@@ -74,7 +75,12 @@
       const tr = document.createElement("tr");
       row.forEach((cell) => {
         const td = document.createElement("td");
-        td.textContent = typeof cell === "number" ? fmt(cell) : cell == null ? "—" : String(cell);
+        td.textContent =
+          typeof cell === "number"
+            ? fmt(cell)
+            : cell == null
+              ? "—"
+              : String(cell);
         tr.appendChild(td);
       });
       tbody.appendChild(tr);
@@ -86,10 +92,13 @@
   function emptyState(canvasId, message) {
     const canvas = $(canvasId);
     if (!canvas) return;
-    const existing = typeof Chart !== "undefined" ? Chart.getChart(canvas) : null;
+    const existing =
+      typeof Chart !== "undefined" ? Chart.getChart(canvas) : null;
     if (existing) existing.destroy();
     canvas.hidden = true;
-    const note = canvas.parentElement && canvas.parentElement.querySelector(".export-empty");
+    const note =
+      canvas.parentElement &&
+      canvas.parentElement.querySelector(".export-empty");
     if (note) {
       note.hidden = false;
       note.textContent = message;
@@ -100,13 +109,18 @@
     const canvas = $(canvasId);
     if (!canvas) return;
     if (typeof Chart === "undefined") {
-      emptyState(canvasId, "Chart library could not be loaded. See the data table below.");
+      emptyState(
+        canvasId,
+        "Chart library could not be loaded. See the data table below."
+      );
       return;
     }
     const existing = Chart.getChart(canvas);
     if (existing) existing.destroy();
     canvas.hidden = false;
-    const note = canvas.parentElement && canvas.parentElement.querySelector(".export-empty");
+    const note =
+      canvas.parentElement &&
+      canvas.parentElement.querySelector(".export-empty");
     if (note) note.hidden = true;
     new Chart(canvas, config);
   }
@@ -117,29 +131,48 @@
     titleColor: "#f0f6fd",
     bodyColor: "#f0f6fd",
     padding: 11,
-    cornerRadius: 9,
+    cornerRadius: 9
   };
 
-  function axisPair({ horizontal = false, stacked = false, max = null, valueTitle = "" } = {}) {
+  function axisPair({
+    horizontal = false,
+    stacked = false,
+    max = null,
+    valueTitle = ""
+  } = {}) {
     const category = {
       stacked,
       border: { display: false },
       grid: { display: false },
-      ticks: { color: COLOR.text, font: { size: 11, weight: "600" } },
+      ticks: { color: COLOR.text, font: { size: 11, weight: "600" } }
     };
     const value = {
       stacked,
       beginAtZero: true,
       border: { display: false },
       grid: { color: COLOR.grid, drawTicks: false },
-      ticks: { color: COLOR.subtle, precision: 0, padding: 8, callback: (v) => fmt(v) },
-      title: valueTitle ? { display: true, text: valueTitle, color: COLOR.subtle } : { display: false },
+      ticks: {
+        color: COLOR.subtle,
+        precision: 0,
+        padding: 8,
+        callback: (v) => fmt(v)
+      },
+      title: valueTitle
+        ? { display: true, text: valueTitle, color: COLOR.subtle }
+        : { display: false }
     };
     if (max != null) value.max = max;
     return horizontal ? { x: value, y: category } : { x: category, y: value };
   }
 
-  function barOptions({ horizontal = false, stacked = false, legend = false, max = null, valueTitle = "", label } = {}) {
+  function barOptions({
+    horizontal = false,
+    stacked = false,
+    legend = false,
+    max = null,
+    valueTitle = "",
+    label
+  } = {}) {
     return {
       indexAxis: horizontal ? "y" : "x",
       responsive: true,
@@ -148,15 +181,18 @@
       interaction: { intersect: false, mode: "index" },
       plugins: {
         legend: legend
-          ? { position: "bottom", labels: { color: COLOR.text, boxWidth: 12, usePointStyle: true } }
+          ? {
+              position: "bottom",
+              labels: { color: COLOR.text, boxWidth: 12, usePointStyle: true }
+            }
           : { display: false },
         tooltip: {
           ...tooltipBase,
           displayColors: legend,
-          callbacks: label ? { label } : {},
-        },
+          callbacks: label ? { label } : {}
+        }
       },
-      scales: axisPair({ horizontal, stacked, max, valueTitle }),
+      scales: axisPair({ horizontal, stacked, max, valueTitle })
     };
   }
 
@@ -171,9 +207,9 @@
             data: values,
             backgroundColor: labels.map(colorFor),
             borderColor: "#111c2c",
-            borderWidth: 2,
-          },
-        ],
+            borderWidth: 2
+          }
+        ]
       },
       options: {
         responsive: true,
@@ -181,15 +217,19 @@
         cutout: "58%",
         animation: { duration: 500 },
         plugins: {
-          legend: { position: "bottom", labels: { color: COLOR.text, boxWidth: 12, usePointStyle: true } },
+          legend: {
+            position: "bottom",
+            labels: { color: COLOR.text, boxWidth: 12, usePointStyle: true }
+          },
           tooltip: {
             ...tooltipBase,
             callbacks: {
-              label: (c) => ` ${c.label}: ${fmt(c.parsed)} (${pct(c.parsed, total)})`,
-            },
-          },
-        },
-      },
+              label: (c) =>
+                ` ${c.label}: ${fmt(c.parsed)} (${pct(c.parsed, total)})`
+            }
+          }
+        }
+      }
     });
   }
 
@@ -199,13 +239,15 @@
       data: arr(d.data),
       backgroundColor: colorFor(d.label, i),
       borderRadius: 4,
-      maxBarThickness: 46,
+      maxBarThickness: 46
     }));
   }
 
   const SERIES_FALLBACK = [COLOR.neutral, COLOR.green, COLOR.blue, COLOR.amber];
-  const verdictColor = (label, i) => VERDICT_COLOR[label] || SERIES_FALLBACK[i % SERIES_FALLBACK.length];
-  const coverageColor = (label) => (label === "Scored" ? COLOR.green : COLOR.neutral);
+  const verdictColor = (label, i) =>
+    VERDICT_COLOR[label] || SERIES_FALLBACK[i % SERIES_FALLBACK.length];
+  const coverageColor = (label) =>
+    label === "Scored" ? COLOR.green : COLOR.neutral;
 
   function hasValues(values) {
     return arr(values).some((v) => isNum(v) && v > 0);
@@ -224,8 +266,15 @@
     const labels = arr(b.labels);
     const values = arr(b.values);
     const total = values.reduce((a, v) => a + (isNum(v) ? v : 0), 0);
-    if (!hasValues(values)) emptyState("export-chart-verdict", "No scored claims in this snapshot.");
-    else pieChart("export-chart-verdict", labels, values, (l) => VERDICT_COLOR[l] || COLOR.neutral);
+    if (!hasValues(values))
+      emptyState("export-chart-verdict", "No scored claims in this snapshot.");
+    else
+      pieChart(
+        "export-chart-verdict",
+        labels,
+        values,
+        (l) => VERDICT_COLOR[l] || COLOR.neutral
+      );
     renderTable(
       "export-table-verdict",
       "Verdict distribution (scored claims)",
@@ -239,7 +288,8 @@
     const labels = arr(b.labels);
     const values = arr(b.values);
     const total = values.reduce((a, v) => a + (isNum(v) ? v : 0), 0);
-    if (!hasValues(values)) emptyState("export-chart-checkable", "No claims in this snapshot.");
+    if (!hasValues(values))
+      emptyState("export-chart-checkable", "No claims in this snapshot.");
     else pieChart("export-chart-checkable", labels, values, coverageColor);
     renderTable(
       "export-table-checkable",
@@ -253,17 +303,27 @@
     const b = ov.claim_types || {};
     const labels = arr(b.labels);
     const values = arr(b.values);
-    if (!hasValues(values)) emptyState("export-chart-types", "No claim types in this snapshot.");
+    if (!hasValues(values))
+      emptyState("export-chart-types", "No claim types in this snapshot.");
     else {
       drawChart("export-chart-types", {
         type: "bar",
         data: {
           labels,
           datasets: [
-            { label: "Claims", data: values, backgroundColor: COLOR.blue, borderRadius: 6, maxBarThickness: 30 },
-          ],
+            {
+              label: "Claims",
+              data: values,
+              backgroundColor: COLOR.blue,
+              borderRadius: 6,
+              maxBarThickness: 30
+            }
+          ]
         },
-        options: barOptions({ horizontal: true, label: (c) => ` ${fmt(c.parsed.x)} claims` }),
+        options: barOptions({
+          horizontal: true,
+          label: (c) => ` ${fmt(c.parsed.x)} claims`
+        })
       });
     }
     const total = values.reduce((a, v) => a + (isNum(v) ? v : 0), 0);
@@ -287,8 +347,8 @@
         options: barOptions({
           stacked: true,
           legend: true,
-          label: (c) => ` ${c.dataset.label}: ${fmt(c.parsed.y)}`,
-        }),
+          label: (c) => ` ${c.dataset.label}: ${fmt(c.parsed.y)}`
+        })
       });
     }
     renderTable(
@@ -305,8 +365,14 @@
 
   function renderSamples(data) {
     const rows = arr(data.subreddit_scores);
-    const pts = rows.filter((r) => isNum(r.scored_claims) && r.scored_claims > 0 && isNum(r.verification_score));
-    if (!pts.length) emptyState("export-chart-samples", "No subreddit has any scored claims.");
+    const pts = rows.filter(
+      (r) =>
+        isNum(r.scored_claims) &&
+        r.scored_claims > 0 &&
+        isNum(r.verification_score)
+    );
+    if (!pts.length)
+      emptyState("export-chart-samples", "No subreddit has any scored claims.");
     else {
       drawChart("export-chart-samples", {
         type: "scatter",
@@ -314,13 +380,17 @@
           datasets: [
             {
               label: "Subreddit",
-              data: pts.map((r) => ({ x: r.scored_claims, y: r.verification_score, name: r.subreddit })),
+              data: pts.map((r) => ({
+                x: r.scored_claims,
+                y: r.verification_score,
+                name: r.subreddit
+              })),
               backgroundColor: COLOR.green,
               borderColor: "#0b3d30",
               pointRadius: 7,
-              pointHoverRadius: 9,
-            },
-          ],
+              pointHoverRadius: 9
+            }
+          ]
         },
         options: {
           responsive: true,
@@ -333,9 +403,9 @@
               displayColors: false,
               callbacks: {
                 label: (c) =>
-                  ` r/${c.raw.name}: ${fmt(c.raw.x)} scored claims, trust ${fmt1(c.raw.y)}`,
-              },
-            },
+                  ` r/${c.raw.name}: ${fmt(c.raw.x)} scored claims, trust ${fmt1(c.raw.y)}`
+              }
+            }
           },
           scales: {
             x: {
@@ -343,7 +413,11 @@
               grid: { color: COLOR.grid },
               border: { display: false },
               ticks: { color: COLOR.subtle, precision: 0 },
-              title: { display: true, text: "Scored claims", color: COLOR.subtle },
+              title: {
+                display: true,
+                text: "Scored claims",
+                color: COLOR.subtle
+              }
             },
             y: {
               min: 0,
@@ -351,16 +425,24 @@
               grid: { color: COLOR.grid },
               border: { display: false },
               ticks: { color: COLOR.subtle },
-              title: { display: true, text: "Trust score", color: COLOR.subtle },
-            },
-          },
-        },
+              title: { display: true, text: "Trust score", color: COLOR.subtle }
+            }
+          }
+        }
       });
     }
     renderTable(
       "export-table-samples",
       "Subreddit evidence (all subreddits; blank trust = no scored claims)",
-      ["Subreddit", "All claims", "Scored", "Accurate", "Approximate", "Inaccurate", "Trust score"],
+      [
+        "Subreddit",
+        "All claims",
+        "Scored",
+        "Accurate",
+        "Approximate",
+        "Inaccurate",
+        "Trust score"
+      ],
       rows.map((r) => [
         r.subreddit,
         r.claims,
@@ -368,14 +450,15 @@
         r.accurate,
         r.approximate,
         r.inaccurate,
-        isNum(r.verification_score) ? fmt1(r.verification_score) : "—",
+        isNum(r.verification_score) ? fmt1(r.verification_score) : "—"
       ])
     );
   }
 
   function renderTrust(ov) {
     const rows = arr(ov.trust_by_subreddit);
-    if (!rows.length) emptyState("export-chart-trust", "No subreddit has any scored claims.");
+    if (!rows.length)
+      emptyState("export-chart-trust", "No subreddit has any scored claims.");
     else {
       drawChart("export-chart-trust", {
         type: "bar",
@@ -386,18 +469,22 @@
               label: "Trust score",
               data: rows.map((r) => r.TRUST_SCORE),
               backgroundColor: rows.map((r) =>
-                r.TRUST_SCORE >= 60 ? COLOR.green : r.TRUST_SCORE >= 30 ? COLOR.amber : COLOR.red
+                r.TRUST_SCORE >= 60
+                  ? COLOR.green
+                  : r.TRUST_SCORE >= 30
+                    ? COLOR.amber
+                    : COLOR.red
               ),
               borderRadius: 6,
-              maxBarThickness: 30,
-            },
-          ],
+              maxBarThickness: 30
+            }
+          ]
         },
         options: {
           ...barOptions({
             horizontal: true,
             max: 100,
-            valueTitle: "Trust score (0–100)",
+            valueTitle: "Trust score (0–100)"
           }),
           plugins: {
             legend: { display: false },
@@ -409,17 +496,25 @@
                 afterLabel: (c) => {
                   const r = rows[c.dataIndex];
                   return ` ${fmt(r.SCORED_CLAIMS)} scored of ${fmt(r.TOTAL_CLAIMS)} claims`;
-                },
-              },
-            },
-          },
-        },
+                }
+              }
+            }
+          }
+        }
       });
     }
     renderTable(
       "export-table-trust",
       "Subreddit trust scores (at least one scored claim)",
-      ["Subreddit", "Scored", "Accurate", "Approximate", "Inaccurate", "Trust score", "All claims"],
+      [
+        "Subreddit",
+        "Scored",
+        "Accurate",
+        "Approximate",
+        "Inaccurate",
+        "Trust score",
+        "All claims"
+      ],
       rows.map((r) => [
         r.SUBREDDIT,
         r.SCORED_CLAIMS,
@@ -427,7 +522,7 @@
         r.APPROXIMATE,
         r.INACCURATE,
         fmt1(r.TRUST_SCORE),
-        r.TOTAL_CLAIMS,
+        r.TOTAL_CLAIMS
       ])
     );
   }
@@ -435,8 +530,16 @@
   function renderUsers(ov) {
     const rows = arr(ov.user_reliability);
     const userColor = (r) =>
-      r.TRUST_LABEL === "RELIABLE" ? COLOR.green : r.TRUST_LABEL === "SPREADER" ? COLOR.red : COLOR.neutral;
-    if (!rows.length) emptyState("export-chart-users", "No users with at least 3 scored claims.");
+      r.TRUST_LABEL === "RELIABLE"
+        ? COLOR.green
+        : r.TRUST_LABEL === "SPREADER"
+          ? COLOR.red
+          : COLOR.neutral;
+    if (!rows.length)
+      emptyState(
+        "export-chart-users",
+        "No users with at least 3 scored claims."
+      );
     else {
       drawChart("export-chart-users", {
         type: "bar",
@@ -448,33 +551,46 @@
               data: rows.map((r) => r.TRUST_SCORE),
               backgroundColor: rows.map(userColor),
               borderRadius: 6,
-              maxBarThickness: 30,
-            },
-          ],
+              maxBarThickness: 30
+            }
+          ]
         },
         options: {
-          ...barOptions({ horizontal: true, max: 100, valueTitle: "Trust score (0–100)" }),
+          ...barOptions({
+            horizontal: true,
+            max: 100,
+            valueTitle: "Trust score (0–100)"
+          }),
           plugins: {
             legend: { display: false },
             tooltip: {
               ...tooltipBase,
               displayColors: false,
               callbacks: {
-                label: (c) => ` Trust ${fmt1(c.parsed.x)} (${rows[c.dataIndex].TRUST_LABEL})`,
+                label: (c) =>
+                  ` Trust ${fmt1(c.parsed.x)} (${rows[c.dataIndex].TRUST_LABEL})`,
                 afterLabel: (c) => {
                   const r = rows[c.dataIndex];
                   return ` ${fmt(r.ACCURATE)} accurate / ${fmt(r.INACCURATE)} inaccurate of ${fmt(r.SCORED_CLAIMS)} scored`;
-                },
-              },
-            },
-          },
-        },
+                }
+              }
+            }
+          }
+        }
       });
     }
     renderTable(
       "export-table-users",
       "Lowest and highest scoring users (min. scored claims applies)",
-      ["User", "Label", "Scored", "Accurate", "Approximate", "Inaccurate", "Trust score"],
+      [
+        "User",
+        "Label",
+        "Scored",
+        "Accurate",
+        "Approximate",
+        "Inaccurate",
+        "Trust score"
+      ],
       rows.map((r) => [
         r.AUTHOR,
         r.TRUST_LABEL,
@@ -482,7 +598,7 @@
         r.ACCURATE,
         r.APPROXIMATE,
         r.INACCURATE,
-        fmt1(r.TRUST_SCORE),
+        fmt1(r.TRUST_SCORE)
       ])
     );
   }
@@ -491,17 +607,27 @@
     const b = data.status_counts || {};
     const labels = arr(b.labels);
     const values = arr(b.values);
-    if (!hasValues(values)) emptyState("export-chart-statuses", "No status data in this snapshot.");
+    if (!hasValues(values))
+      emptyState("export-chart-statuses", "No status data in this snapshot.");
     else {
       drawChart("export-chart-statuses", {
         type: "bar",
         data: {
           labels,
           datasets: [
-            { label: "Claims", data: values, backgroundColor: COLOR.blue, borderRadius: 6, maxBarThickness: 30 },
-          ],
+            {
+              label: "Claims",
+              data: values,
+              backgroundColor: COLOR.blue,
+              borderRadius: 6,
+              maxBarThickness: 30
+            }
+          ]
         },
-        options: barOptions({ horizontal: true, label: (c) => ` ${fmt(c.parsed.x)} claims` }),
+        options: barOptions({
+          horizontal: true,
+          label: (c) => ` ${fmt(c.parsed.x)} claims`
+        })
       });
     }
     renderTable(
@@ -520,13 +646,33 @@
         ["Generated", meta.generated_at],
         ["Source file", meta.source_file],
         ["Summary source", meta.summary_source],
-        ["Date range", meta.date_start && meta.date_end ? `${meta.date_start} → ${meta.date_end}` : null],
-        ["Total claims", isNum(meta.total_claims) ? fmt(meta.total_claims) : null],
-        ["Scored claims", isNum(meta.scored_claims) ? fmt(meta.scored_claims) : null],
-        ["Not scored", isNum(meta.not_scored_claims) ? fmt(meta.not_scored_claims) : null],
-        ["Missing dates", isNum(meta.missing_dates) ? fmt(meta.missing_dates) : null],
-        ["Min. claims per user", isNum(meta.min_claims_user) ? fmt(meta.min_claims_user) : null],
-        ["Trust formula", meta.trust_formula],
+        [
+          "Date range",
+          meta.date_start && meta.date_end
+            ? `${meta.date_start} → ${meta.date_end}`
+            : null
+        ],
+        [
+          "Total claims",
+          isNum(meta.total_claims) ? fmt(meta.total_claims) : null
+        ],
+        [
+          "Scored claims",
+          isNum(meta.scored_claims) ? fmt(meta.scored_claims) : null
+        ],
+        [
+          "Not scored",
+          isNum(meta.not_scored_claims) ? fmt(meta.not_scored_claims) : null
+        ],
+        [
+          "Missing dates",
+          isNum(meta.missing_dates) ? fmt(meta.missing_dates) : null
+        ],
+        [
+          "Min. claims per user",
+          isNum(meta.min_claims_user) ? fmt(meta.min_claims_user) : null
+        ],
+        ["Trust formula", meta.trust_formula]
       ];
       items.forEach(([k, v]) => {
         if (v == null || v === "") return;
@@ -594,10 +740,15 @@
     renderStatuses(data);
     renderMeta(meta);
 
-    const range = meta.date_start && meta.date_end ? `${meta.date_start} to ${meta.date_end}` : "date range unavailable";
+    const range =
+      meta.date_start && meta.date_end
+        ? `${meta.date_start} to ${meta.date_end}`
+        : "date range unavailable";
     setStatus(
       `Snapshot loaded: ${fmt(meta.scored_claims)} scored of ${fmt(meta.total_claims)} claims · ${range}` +
-        (meta.generated_at ? ` · generated ${meta.generated_at.slice(0, 10)}` : ""),
+        (meta.generated_at
+          ? ` · generated ${meta.generated_at.slice(0, 10)}`
+          : ""),
       null
     );
   }
@@ -605,7 +756,10 @@
   async function load() {
     setStatus("Loading market-verification snapshot…", null);
     try {
-      const res = await fetch(ENDPOINT, { cache: "no-store", headers: { Accept: "application/json" } });
+      const res = await fetch(ENDPOINT, {
+        cache: "no-store",
+        headers: { Accept: "application/json" }
+      });
       let data = null;
       try {
         data = await res.json();
@@ -622,7 +776,10 @@
       render(data);
     } catch (err) {
       console.error("[CryptoTruth] Could not load dashboard data:", err);
-      setStatus(`Could not load the market-verification snapshot. ${err.message}`, "error");
+      setStatus(
+        `Could not load the market-verification snapshot. ${err.message}`,
+        "error"
+      );
       [
         "verdict",
         "checkable",
@@ -633,11 +790,12 @@
         "trust",
         "users",
         "coverage",
-        "statuses",
+        "statuses"
       ].forEach((k) => emptyState(`export-chart-${k}`, "Data unavailable."));
     }
   }
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", load);
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", load);
   else load();
 })();
