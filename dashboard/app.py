@@ -4,7 +4,7 @@ import sys
 import subprocess
 from pathlib import Path
 
-from flask import Flask, jsonify, render_template, request, send_file
+from flask import Flask, jsonify, render_template, request
 
 try:  # picks up COINGECKO key etc. from .env (searches upward from this file)
     from dotenv import load_dotenv
@@ -256,15 +256,12 @@ def index():
 
 @app.get("/api/dashboard-data")
 def api_dashboard_data():
-    payload = load_json("dashboard_data_new.json")
-    if (
-        not isinstance(payload, dict)
-        or payload.get("schema_version") != 2
-        or not isinstance(payload.get("overview"), dict)
-    ):
-        response = jsonify(
-            error="Dashboard export is missing, invalid, or outdated. Generate dashboard_data_new.json with overview_charts_new.py."
-        )
+    payload = load_json("dashboard_data.json")
+    if (not isinstance(payload, dict)
+            or not isinstance(payload.get("_meta"), dict)
+            or payload["_meta"].get("schema_version") != 1
+            or not isinstance(payload.get("records"), list)):
+        response = jsonify(error="Dashboard export is missing or invalid. Generate dashboard_data.json with _meta and records.")
         response.status_code = 503
     else:
         response = jsonify(payload)
@@ -272,18 +269,14 @@ def api_dashboard_data():
     return response
 
 
-@app.get("/api/dashboard-mock-data")
-def api_dashboard_mock_data():
-    # This separate, read-only route never touches the real export or chatbot.
-    path = Path(PROTOTYPE_DIR) / "dashboard_mock_data.json"
-    if not path.is_file():
-        return (
-            jsonify(
-                error="Sample JSON is missing. Run python scripts/generate_dashboard_mock.py."
-            ),
-            503,
-        )
-    return send_file(path, mimetype="application/json", conditional=True, max_age=0)
+@app.get("/api/dashboard-overview")
+def api_dashboard_overview():
+    payload = load_json("dashboard_data_new.json")
+    if not isinstance(payload, dict) or payload.get("schema_version") != 2:
+        return jsonify(error="Overview export is unavailable."), 503
+    response = jsonify(payload)
+    response.headers["Cache-Control"] = "no-store"
+    return response
 
 
 @app.route("/api/verify", methods=["POST"])

@@ -1,4 +1,4 @@
-/* CryptoTruth sample explorer. All analytical values come from fetched JSON.
+/* CryptoTruth data explorer. All analytical values come from fetched JSON.
    No browser randomness, no chatbot code, no writes to real result files. */
 (() => {
   "use strict";
@@ -56,7 +56,7 @@
     host,
     headers,
     rows,
-    caption = "Exact values for the selected sample"
+    caption = "Exact values for the selected records"
   ) {
     const t = document.createElement("table");
     t.append(el("caption", caption));
@@ -735,12 +735,14 @@
   function tableMetadata(rows, posts, comments) {
     const m = data._meta,
       pairs = [
-        ["Source", "dashboard_mock_data.json"],
-        ["Data status", m.label + " · entirely synthetic"],
+        ["Source", "dashboard_data.json"],
+        ["Data status", "Project-generated analysis export"],
         ["Full period", `${m.date_start} → ${m.date_end}`],
         ["Full dataset", `${number(m.row_count)} records`],
         ["Selected", `${number(posts)} posts / ${number(comments)} comments`],
-        ["Seed", String(m.seed)],
+        ["Export generated", m.generated_at || m.exported_at || "Not recorded"],
+      ["Sentiment model", m.sentiment_model || "Not recorded in export metadata"],
+      ["Verification model", m.verification_model || "Not recorded in export metadata"],
         ["Engagement", m.engagement_definition],
         ["Claim unit", m.claim_definition]
       ];
@@ -753,11 +755,6 @@
       pending = true;
       requestAnimationFrame(update);
     }
-  }
-  function clearEvent() {
-    document
-      .querySelectorAll("#ix-events button")
-      .forEach((b) => b.setAttribute("aria-pressed", "false"));
   }
   function resetDates() {
     activeDates = dates.filter(
@@ -792,7 +789,7 @@
         b.setAttribute("aria-pressed", String(b.dataset.kind === "all"))
       );
     resetDates();
-    clearEvent();
+
     schedule();
   }
   function setup() {
@@ -839,7 +836,7 @@
     $("ix-year").addEventListener("change", () => {
       state.year = $("ix-year").value;
       resetDates();
-      clearEvent();
+
       schedule();
     });
     for (const [id, key] of [
@@ -865,7 +862,7 @@
             $("ix-from").value = String(state.from);
           }
         }
-        clearEvent();
+
         schedule();
       });
     $("ix-threshold").addEventListener("input", () => {
@@ -884,29 +881,6 @@
     $("ix-reset").addEventListener("click", reset);
     $("ix-topic-group").addEventListener("change", schedule);
     $("ix-rank").addEventListener("change", schedule);
-    data.events.forEach((event) => {
-      const b = el("button", event.label);
-      b.type = "button";
-      b.setAttribute("aria-pressed", "false");
-      b.addEventListener("click", () => {
-        state.year = "all";
-        $("ix-year").value = "all";
-        resetDates();
-        state.from = Math.max(
-          0,
-          dates.findIndex((d) => d >= event.start)
-        );
-        const end = dates.findIndex((d) => d > event.end);
-        state.to =
-          end === -1 ? dates.length - 1 : Math.max(state.from, end - 1);
-        $("ix-from").value = String(state.from);
-        $("ix-to").value = String(state.to);
-        clearEvent();
-        b.setAttribute("aria-pressed", "true");
-        schedule();
-      });
-      $("ix-events").append(b);
-    });
     $("ix-download").addEventListener("click", () => {
       const keys = [
         "id",
@@ -933,7 +907,7 @@
         ),
         a = document.createElement("a");
       a.href = url;
-      a.download = "CryptoTruth_SAMPLE_filtered.csv";
+      a.download = "CryptoTruth_filtered.csv";
       a.click();
       setTimeout(() => URL.revokeObjectURL(url), 1000);
     });
@@ -944,13 +918,12 @@
   function validate(d) {
     if (
       !d ||
-      d._meta?.is_mock !== true ||
+      !d._meta ||
       d._meta.schema_version !== 1 ||
       !Array.isArray(d.records) ||
-      !Array.isArray(d.events) ||
       !d.records.length
     )
-      throw Error("Invalid or unlabelled sample JSON.");
+      throw Error("Invalid dashboard JSON.");
     const m = d._meta;
     if (
       !["coins", "subreddits", "topics"].every((k) => Array.isArray(m[k])) ||
@@ -959,7 +932,7 @@
       m.sentiment_cutoff > 1 ||
       m.row_count !== d.records.length
     )
-      throw Error("Invalid sample metadata.");
+      throw Error("Invalid dashboard metadata.");
     const ids = new Set();
     for (const r of d.records) {
       if (
@@ -978,7 +951,7 @@
         ) ||
         r.engagement !== r.upvotes + r.reply_count
       )
-        throw Error("Invalid sample record.");
+        throw Error("Invalid dashboard record.");
       ids.add(r.id);
     }
     return d;
@@ -987,26 +960,26 @@
     const abort = new AbortController(),
       timer = setTimeout(() => abort.abort(), 30000);
     try {
-      const response = await fetch("/api/dashboard-mock-data", {
+      const response = await fetch("/api/dashboard-data", {
         cache: "no-cache",
         signal: abort.signal,
         headers: { Accept: "application/json" }
       });
       if (!response.ok)
-        throw Error(`Sample JSON unavailable (HTTP ${response.status}).`);
+        throw Error(`Dashboard JSON unavailable (HTTP ${response.status}).`);
       data = validate(await response.json());
       dates = [...new Set(data.records.map((r) => r.date))].sort();
       setup();
     } catch (error) {
       $("ix-status").dataset.error = "true";
       $("ix-status").textContent =
-        `${error.name === "AbortError" ? "Sample data request timed out." : error.message} Check dashboard_mock_data.json and reload. The claim checker is independent.`;
+        `${error.name === "AbortError" ? "Dashboard data request timed out." : error.message} Check dashboard_data.json and reload. The claim checker is independent.`;
       document.querySelectorAll(".ix-chart-wrap").forEach((w) => {
         w.querySelector("canvas").hidden = true;
         const p = w.querySelector(".ix-empty");
         p.hidden = false;
         p.textContent =
-          "Sample data unavailable. No substitute values are shown.";
+          "Dashboard data unavailable. No substitute values are shown.";
       });
     } finally {
       clearTimeout(timer);
